@@ -13,6 +13,9 @@ gem 'rails', '~> 5.1.2'
 gem 'sass-rails', '~> 5.0'
 gem 'turbolinks', '~> 5'
 gem 'uglifier', '>= 1.3.0'
+gem 'bootstrap', '~> 4.0.0.alpha6'
+gem 'hamlit'
+gem 'hamlit-rails'
 
 group :development, :test do
   gem 'diff-lcs', '>= 1.3'

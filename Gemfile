@@ -18,6 +18,7 @@ gem 'hamlit'
 gem 'hamlit-rails'
 
 group :development, :test do
+
   gem 'diff-lcs', '>= 1.3'
   gem 'rspec-rails', '~> 3.6'
   gem 'simplecov', require: false

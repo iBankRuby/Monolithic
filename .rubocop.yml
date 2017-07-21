@@ -1,0 +1,8 @@
+AllCops:
+  Include:
+    - Rakefile
+    - config.ru
+    - lib/**/*.rake
+  Exclude:
+    - db/schema.rb
+    - db/migrate/*.rb

@@ -13,21 +13,22 @@ gem 'rails', '~> 5.1.2'
 gem 'sass-rails', '~> 5.0'
 gem 'turbolinks', '~> 5'
 gem 'uglifier', '>= 1.3.0'
+gem 'bootstrap', '~> 4.0.0.alpha6'
+gem 'hamlit'
+gem 'hamlit-rails'
 
 group :development, :test do
-<<<<<<< Updated upstream
+
+  gem 'diff-lcs', '>= 1.3'
   gem 'rspec-rails', '~> 3.6'
   gem 'simplecov', require: false
-=======
-gem 'rspec-rails', '~> 3.6'
-gem 'simplecov', :require => false
->>>>>>> Stashed changes
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
   gem 'byebug', platforms: %i[mri mingw x64_mingw]
   # Adds support for Capybara system testing and selenium driver
   gem 'better_errors'
   gem 'capybara', '~> 2.13'
   gem 'selenium-webdriver'
+  gem 'reek'
 end
 
 group :development do

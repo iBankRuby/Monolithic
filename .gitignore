@@ -22,5 +22,6 @@
 
 .byebug_history
 
-#*.yml
+database.yml
+
 *.env

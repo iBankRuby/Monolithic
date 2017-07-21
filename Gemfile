@@ -15,6 +15,7 @@ gem 'turbolinks', '~> 5'
 gem 'uglifier', '>= 1.3.0'
 
 group :development, :test do
+  gem 'diff-lcs', '>= 1.3'
   gem 'rspec-rails', '~> 3.6'
   gem 'simplecov', require: false
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console

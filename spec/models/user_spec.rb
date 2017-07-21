@@ -1,6 +1,6 @@
-require 'spec_helper'
+require 'rails_helper'
 
-describe "user valid?" do
+describe User, type: :model do
   context "User" do
     it "user exists" do
       a = User.new

@@ -1,0 +1,47 @@
+{
+  "RSpec": {
+    "coverage": {
+      "/home/alex/Desktop/iBank/app/helpers/application_helper.rb": [
+        1,
+        null
+      ],
+      "/home/alex/Desktop/iBank/app/models/user.rb": [
+        1,
+        null
+      ],
+      "/home/alex/Desktop/iBank/app/models/application_record.rb": [
+        1,
+        1,
+        null
+      ],
+      "/home/alex/Desktop/iBank/app/jobs/application_job.rb": [
+        0,
+        0
+      ],
+      "/home/alex/Desktop/iBank/app/channels/application_cable/channel.rb": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "/home/alex/Desktop/iBank/app/channels/application_cable/connection.rb": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "/home/alex/Desktop/iBank/app/mailers/application_mailer.rb": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "/home/alex/Desktop/iBank/app/controllers/application_controller.rb": [
+        0,
+        0,
+        0
+      ]
+    },
+    "timestamp": 1500641090
+  }
+}

@@ -25,3 +25,4 @@
 database.yml
 
 *.env
+.idea

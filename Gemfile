@@ -7,6 +7,7 @@ end
 
 gem 'bootstrap', '~> 4.0.0.alpha6'
 gem 'dotenv'
+gem 'devise'
 gem 'hamlit'
 gem 'hamlit-rails'
 gem 'jbuilder', '~> 2.5'

@@ -2,20 +2,20 @@ class AccountsController < ApplicationController
   before_action :set_account, only: [:show, :destroy]
 
   def index
-    @accounts = Account.all     
+    @accounts = Account.all
   end
 
   def new
     @account = Account.new
   end
-  
-  def create
-    @account = Account.new()
-    @account.account_number = Forgery('credit_card').number
 
-    if @account.save
-    #  format.html { redirect_to @account, notice: 'Account was successfully created.' }
-    end
+  def create
+    @user = User.find(current_user.id)
+    @account = Account.create(iban: Forgery('credit_card').number)
+    @account.roles.create(user: @user, role: 'owner')
+#    if @account.save
+#    #  format.html { redirect_to @account, notice: 'Account was successfully created.' }
+#    end
 
     respond_to do |format|
       if @account.save
@@ -49,7 +49,7 @@ class AccountsController < ApplicationController
     @account = Account.find(params[:id])
   end
 
-  
+
   #def account_params
   #  params.fetch(:account).permit(:user_id)
   #end

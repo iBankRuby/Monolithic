@@ -23,7 +23,7 @@
 %div
 %h3 Transactions
 %div
-	%form{:name=>"add_transaction", :id=>"add_transaction", :action=>"", :method=>"post"}
+	%form{:action=>"/transactions", :method=>"post"}
 		%label{:for => "body"} Account iban:
 		%input{:type=>"text", :name=>"account_number", :value=>""}
 		%label{:for => "body"} Amount:

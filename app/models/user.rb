@@ -1,5 +1,5 @@
 class User < ApplicationRecord
-
+  has_many :transactions
   has_many :roles
   has_many :accounts, :through => :roles
 

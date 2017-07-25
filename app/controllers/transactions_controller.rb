@@ -4,7 +4,8 @@ class TransactionsController < ApplicationController
   # GET /transactions
   # GET /transactions.json
   def index
-    @transactions = Transaction.all
+    @user = User.find(current_user.id)
+    @transactions = @user.transactions
   end
 
   # GET /transactions/1
@@ -14,7 +15,9 @@ class TransactionsController < ApplicationController
 
   # GET /transactions/new
   def new
-    @transaction = Transaction.new
+    @user = User.find(current_user.id)
+    @account = Account.find(params[:id])
+    @transaction = Transaction.new(iban: params[:iban], summ: params[:amount])
   end
 
   # GET /transactions/1/edit
@@ -24,7 +27,9 @@ class TransactionsController < ApplicationController
   # POST /transactions
   # POST /transactions.json
   def create
-    @transaction = Transaction.new(transaction_params)
+    @user = User.find(current_user.id)
+    @account = Account.find(params[:id])
+    @transaction = Transaction.new(iban: params[:iban], summ: params[:amount], status_from: true, status_to: false )
 
     respond_to do |format|
       if @transaction.save

@@ -13,20 +13,21 @@
       %a.navbar-brand{:href => "#"} iBank beta
       #navbarNav.collapse.navbar-collapse
       %ul.navbar-nav
-        %li.nav-item.active
-        %a.nav-link{:href => "#"}
-          Home
-          %span.sr-only (current)
         %li.nav-item
-        %a.nav-link{:href => "#"} Account
+          %a.nav-link{:href => "#"}
+            Home
+            %span.sr-only (current)
         %li.nav-item
-        %a.nav-link.disabled{:href => "#"} Transactions
+          %a.nav-link{:href => "#"} Account
+        %li.nav-item
+          %a.nav-link.disabled{:href => "#"} Transactions
+        %li.nav-item
         - if user_signed_in?
           %li.nav-item
-            = link_to('Logout', destroy_user_session_path, method: :delete)
+            = link_to('Logout', destroy_user_session_path, method: :delete, :class => "nav-link")
         - else
           %li.nav-item
-            = link_to('Login', new_user_session_path)
+            = link_to('Login', new_user_session_path, :class => "nav-link")
   .container
     %p.notice= notice
     %p.alert= alert

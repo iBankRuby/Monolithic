@@ -20,10 +20,10 @@ class AccountsController < ApplicationController
     respond_to do |format|
       if @account.save
         format.html { redirect_to @account, notice: 'Account was successfully created.' }
-        format.json { render :show, status: :created, location: @profile }
+        format.json { render :show, status: :created, location: @user }
       else
         format.html { render :new }
-        format.json { render json: @profile.errors, status: :unprocessable_entity }
+        format.json { render json: @user.errors, status: :unprocessable_entity }
       end
     end
 
@@ -36,10 +36,10 @@ class AccountsController < ApplicationController
   def destroy
     @account.destroy
     #respond_to do |format|
-    #  format.html { redirect_to account_url, notice: 'Profile was successfully destroyed.' }
+    #  format.html { redirect_to account_url, notice: 'User was successfully destroyed.' }
     #  format.json { head :no_content }
     #end
-    redirect_to :profiles
+    redirect_to :users
   end
 
 

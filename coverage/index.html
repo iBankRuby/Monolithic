@@ -1,40 +1,40 @@
 <!DOCTYPE html>
 <html xmlns='http://www.w3.org/1999/xhtml'>
   <head>
-    <title>Code coverage for Ibank</title>
+    <title>Code coverage for Api</title>
     <meta http-equiv="content-type" content="text/html; charset=utf-8" />
-    <script src='./assets/0.10.0/application.js' type='text/javascript'></script>    
-    <link href='./assets/0.10.0/application.css' media='screen, projection, print' rel='stylesheet' type='text/css'>
-    <link rel="shortcut icon" type="image/png" href="./assets/0.10.0/favicon_red.png" />
-    <link rel="icon" type="image/png" href="./assets/0.10.0/favicon.png" />
+    <script src='./assets/0.10.1/application.js' type='text/javascript'></script>    
+    <link href='./assets/0.10.1/application.css' media='screen, projection, print' rel='stylesheet' type='text/css'>
+    <link rel="shortcut icon" type="image/png" href="./assets/0.10.1/favicon_red.png" />
+    <link rel="icon" type="image/png" href="./assets/0.10.1/favicon.png" />
   </head>
   
   <body>
     <div id="loading">
-      <img src="./assets/0.10.0/loading.gif" alt="loading"/>
+      <img src="./assets/0.10.1/loading.gif" alt="loading"/>
     </div>
     <div id="wrapper" style="display:none;">
-      <div class="timestamp">Generated <abbr class="timeago" title="2017-07-21T15:44:50+03:00">2017-07-21T15:44:50+03:00</abbr></div>
+      <div class="timestamp">Generated <abbr class="timeago" title="2017-07-25T15:35:52+03:00">2017-07-25T15:35:52+03:00</abbr></div>
       <ul class="group_tabs"></ul>
 
       <div id="content">
         <div class="file_list_container" id="AllFiles">
   <h2>
     <span class="group_name">All Files</span>
-    (<span class="covered_percent"><span class="red">19.05%</span></span>
+    (<span class="covered_percent"><span class="red">49.02%</span></span>
      covered at
      <span class="covered_strength">
        <span class="red">
-         0.19
+         0.49
        </span>
     </span> hits/line)
   </h2>
   <a name="AllFiles"></a>
   <div>
-    <b>8</b> files in total.
-    <b>21</b> relevant lines. 
-    <span class="green"><b>4</b> lines covered</span> and
-    <span class="red"><b>17</b> lines missed </span>
+    <b>17</b> files in total.
+    <b>102</b> relevant lines. 
+    <span class="green"><b>50</b> lines covered</span> and
+    <span class="red"><b>52</b> lines missed </span>
   </div>
   <table class="file_list">
     <thead>
@@ -51,7 +51,7 @@
     <tbody>
       
       <tr>
-        <td class="strong"><a href="#9ca59f5217a4675e876a7cb636a7a72c00b644a1" class="src_link" title="app/channels/application_cable/channel.rb">app/channels/application_cable/channel.rb</a></td>
+        <td class="strong"><a href="#ca31dff5b1694413e09f51eb94dce56c3b4b3203" class="src_link" title="app/channels/application_cable/channel.rb">app/channels/application_cable/channel.rb</a></td>
         <td class="red strong">0.0 %</td>
         <td>4</td>
         <td>4</td>
@@ -61,7 +61,7 @@
       </tr>
       
       <tr>
-        <td class="strong"><a href="#7bd7cbf14ec439cf07e9bcbda62159a378c5bb7c" class="src_link" title="app/channels/application_cable/connection.rb">app/channels/application_cable/connection.rb</a></td>
+        <td class="strong"><a href="#cc9f745eb190b2d5d7a2b6b1d48c573642effdb8" class="src_link" title="app/channels/application_cable/connection.rb">app/channels/application_cable/connection.rb</a></td>
         <td class="red strong">0.0 %</td>
         <td>4</td>
         <td>4</td>
@@ -71,17 +71,47 @@
       </tr>
       
       <tr>
-        <td class="strong"><a href="#6c4d754ae878acd02e92d69ff1095fc527a9b452" class="src_link" title="app/controllers/application_controller.rb">app/controllers/application_controller.rb</a></td>
-        <td class="red strong">0.0 %</td>
-        <td>3</td>
-        <td>3</td>
-        <td>0</td>
-        <td>3</td>
-        <td>0.0</td>
+        <td class="strong"><a href="#b1163968e9e17a264cd31571271e7e92e0d23b81" class="src_link" title="app/controllers/accounts_controller.rb">app/controllers/accounts_controller.rb</a></td>
+        <td class="red strong">34.62 %</td>
+        <td>56</td>
+        <td>26</td>
+        <td>9</td>
+        <td>17</td>
+        <td>0.3</td>
       </tr>
       
       <tr>
-        <td class="strong"><a href="#3589bbe6c6c3b2318d1b2f56f4f085d5ee9c2760" class="src_link" title="app/helpers/application_helper.rb">app/helpers/application_helper.rb</a></td>
+        <td class="strong"><a href="#d03d9d60150cfb7e35b2bc9d3e0ced0c62e449e1" class="src_link" title="app/controllers/application_controller.rb">app/controllers/application_controller.rb</a></td>
+        <td class="green strong">100.0 %</td>
+        <td>4</td>
+        <td>3</td>
+        <td>3</td>
+        <td>0</td>
+        <td>1.0</td>
+      </tr>
+      
+      <tr>
+        <td class="strong"><a href="#b26c1c2d14edfd0c6928ebc10a5b9bdcdf0ea3be" class="src_link" title="app/controllers/panel_controller.rb">app/controllers/panel_controller.rb</a></td>
+        <td class="green strong">100.0 %</td>
+        <td>7</td>
+        <td>4</td>
+        <td>4</td>
+        <td>0</td>
+        <td>1.0</td>
+      </tr>
+      
+      <tr>
+        <td class="strong"><a href="#b813a05817fab1fd18e932031d4aa97f2c82f868" class="src_link" title="app/controllers/transactions_controller.rb">app/controllers/transactions_controller.rb</a></td>
+        <td class="red strong">36.36 %</td>
+        <td>73</td>
+        <td>33</td>
+        <td>12</td>
+        <td>21</td>
+        <td>0.4</td>
+      </tr>
+      
+      <tr>
+        <td class="strong"><a href="#e155b20fa112984d06f6b19445e76250b1917c21" class="src_link" title="app/helpers/accounts_helper.rb">app/helpers/accounts_helper.rb</a></td>
         <td class="green strong">100.0 %</td>
         <td>2</td>
         <td>1</td>
@@ -91,7 +121,37 @@
       </tr>
       
       <tr>
-        <td class="strong"><a href="#acacc606419e04f5fde77ae6fb52f052633a9cde" class="src_link" title="app/jobs/application_job.rb">app/jobs/application_job.rb</a></td>
+        <td class="strong"><a href="#f43a65c1bc48dfdfd3f6272adc4e7765468cf502" class="src_link" title="app/helpers/application_helper.rb">app/helpers/application_helper.rb</a></td>
+        <td class="green strong">100.0 %</td>
+        <td>2</td>
+        <td>1</td>
+        <td>1</td>
+        <td>0</td>
+        <td>1.0</td>
+      </tr>
+      
+      <tr>
+        <td class="strong"><a href="#69bf5c677d38ed23437dce194267ed30df00aaea" class="src_link" title="app/helpers/panel_helper.rb">app/helpers/panel_helper.rb</a></td>
+        <td class="green strong">100.0 %</td>
+        <td>2</td>
+        <td>1</td>
+        <td>1</td>
+        <td>0</td>
+        <td>1.0</td>
+      </tr>
+      
+      <tr>
+        <td class="strong"><a href="#77ced280fc7700d6b1ad0c4f8d3121c0799122a9" class="src_link" title="app/helpers/transactions_helper.rb">app/helpers/transactions_helper.rb</a></td>
+        <td class="green strong">100.0 %</td>
+        <td>2</td>
+        <td>1</td>
+        <td>1</td>
+        <td>0</td>
+        <td>1.0</td>
+      </tr>
+      
+      <tr>
+        <td class="strong"><a href="#3302730e2f03392a2de038d9c5ba466ee247416f" class="src_link" title="app/jobs/application_job.rb">app/jobs/application_job.rb</a></td>
         <td class="red strong">0.0 %</td>
         <td>2</td>
         <td>2</td>
@@ -101,7 +161,7 @@
       </tr>
       
       <tr>
-        <td class="strong"><a href="#1cb4a2f0a2ba04325c9768f001d0dee9c83b1ea7" class="src_link" title="app/mailers/application_mailer.rb">app/mailers/application_mailer.rb</a></td>
+        <td class="strong"><a href="#dadfcb550f3b7075f4000113756555843a08dfd8" class="src_link" title="app/mailers/application_mailer.rb">app/mailers/application_mailer.rb</a></td>
         <td class="red strong">0.0 %</td>
         <td>4</td>
         <td>4</td>
@@ -111,7 +171,17 @@
       </tr>
       
       <tr>
-        <td class="strong"><a href="#a20d47a2e1771b3f988d205b3d9a016409debd64" class="src_link" title="app/models/application_record.rb">app/models/application_record.rb</a></td>
+        <td class="strong"><a href="#fdddbe84cb649edde4cd9f211a5055ebe331ec7d" class="src_link" title="app/models/account.rb">app/models/account.rb</a></td>
+        <td class="green strong">100.0 %</td>
+        <td>4</td>
+        <td>3</td>
+        <td>3</td>
+        <td>0</td>
+        <td>1.0</td>
+      </tr>
+      
+      <tr>
+        <td class="strong"><a href="#fa8e7a094ac50aef990ccee81d2c30b9695b75a8" class="src_link" title="app/models/application_record.rb">app/models/application_record.rb</a></td>
         <td class="green strong">100.0 %</td>
         <td>3</td>
         <td>2</td>
@@ -121,11 +191,31 @@
       </tr>
       
       <tr>
-        <td class="strong"><a href="#ab87d04b79a05c950a9351096def8f5e51e7df39" class="src_link" title="app/models/user.rb">app/models/user.rb</a></td>
+        <td class="strong"><a href="#2d40694c6a89aaf5cd0b7894828690aa62c79253" class="src_link" title="app/models/role.rb">app/models/role.rb</a></td>
         <td class="green strong">100.0 %</td>
-        <td>2</td>
-        <td>1</td>
-        <td>1</td>
+        <td>4</td>
+        <td>3</td>
+        <td>3</td>
+        <td>0</td>
+        <td>1.0</td>
+      </tr>
+      
+      <tr>
+        <td class="strong"><a href="#506cbe4124a05e370a3fd47786dec687c33717ed" class="src_link" title="app/models/transaction.rb">app/models/transaction.rb</a></td>
+        <td class="green strong">100.0 %</td>
+        <td>6</td>
+        <td>5</td>
+        <td>5</td>
+        <td>0</td>
+        <td>1.0</td>
+      </tr>
+      
+      <tr>
+        <td class="strong"><a href="#5a1c67bc52f22a7d6ab68ffedda0744adc440c8d" class="src_link" title="app/models/user.rb">app/models/user.rb</a></td>
+        <td class="green strong">100.0 %</td>
+        <td>13</td>
+        <td>5</td>
+        <td>5</td>
         <td>0</td>
         <td>1.0</td>
       </tr>
@@ -139,20 +229,20 @@
           <div class="file_list_container" id="Controllers">
   <h2>
     <span class="group_name">Controllers</span>
-    (<span class="covered_percent"><span class="red">0.0%</span></span>
+    (<span class="covered_percent"><span class="red">42.42%</span></span>
      covered at
      <span class="covered_strength">
        <span class="red">
-         0.0
+         0.42
        </span>
     </span> hits/line)
   </h2>
   <a name="Controllers"></a>
   <div>
-    <b>1</b> files in total.
-    <b>3</b> relevant lines. 
-    <span class="green"><b>0</b> lines covered</span> and
-    <span class="red"><b>3</b> lines missed </span>
+    <b>4</b> files in total.
+    <b>66</b> relevant lines. 
+    <span class="green"><b>28</b> lines covered</span> and
+    <span class="red"><b>38</b> lines missed </span>
   </div>
   <table class="file_list">
     <thead>
@@ -169,13 +259,43 @@
     <tbody>
       
       <tr>
-        <td class="strong"><a href="#6c4d754ae878acd02e92d69ff1095fc527a9b452" class="src_link" title="app/controllers/application_controller.rb">app/controllers/application_controller.rb</a></td>
-        <td class="red strong">0.0 %</td>
+        <td class="strong"><a href="#b1163968e9e17a264cd31571271e7e92e0d23b81" class="src_link" title="app/controllers/accounts_controller.rb">app/controllers/accounts_controller.rb</a></td>
+        <td class="red strong">34.62 %</td>
+        <td>56</td>
+        <td>26</td>
+        <td>9</td>
+        <td>17</td>
+        <td>0.3</td>
+      </tr>
+      
+      <tr>
+        <td class="strong"><a href="#d03d9d60150cfb7e35b2bc9d3e0ced0c62e449e1" class="src_link" title="app/controllers/application_controller.rb">app/controllers/application_controller.rb</a></td>
+        <td class="green strong">100.0 %</td>
+        <td>4</td>
         <td>3</td>
         <td>3</td>
         <td>0</td>
-        <td>3</td>
-        <td>0.0</td>
+        <td>1.0</td>
+      </tr>
+      
+      <tr>
+        <td class="strong"><a href="#b26c1c2d14edfd0c6928ebc10a5b9bdcdf0ea3be" class="src_link" title="app/controllers/panel_controller.rb">app/controllers/panel_controller.rb</a></td>
+        <td class="green strong">100.0 %</td>
+        <td>7</td>
+        <td>4</td>
+        <td>4</td>
+        <td>0</td>
+        <td>1.0</td>
+      </tr>
+      
+      <tr>
+        <td class="strong"><a href="#b813a05817fab1fd18e932031d4aa97f2c82f868" class="src_link" title="app/controllers/transactions_controller.rb">app/controllers/transactions_controller.rb</a></td>
+        <td class="red strong">36.36 %</td>
+        <td>73</td>
+        <td>33</td>
+        <td>12</td>
+        <td>21</td>
+        <td>0.4</td>
       </tr>
       
     </tbody>
@@ -196,9 +316,9 @@
   </h2>
   <a name="Models"></a>
   <div>
-    <b>2</b> files in total.
-    <b>3</b> relevant lines. 
-    <span class="green"><b>3</b> lines covered</span> and
+    <b>5</b> files in total.
+    <b>18</b> relevant lines. 
+    <span class="green"><b>18</b> lines covered</span> and
     <span class="red"><b>0</b> lines missed </span>
   </div>
   <table class="file_list">
@@ -216,7 +336,17 @@
     <tbody>
       
       <tr>
-        <td class="strong"><a href="#a20d47a2e1771b3f988d205b3d9a016409debd64" class="src_link" title="app/models/application_record.rb">app/models/application_record.rb</a></td>
+        <td class="strong"><a href="#fdddbe84cb649edde4cd9f211a5055ebe331ec7d" class="src_link" title="app/models/account.rb">app/models/account.rb</a></td>
+        <td class="green strong">100.0 %</td>
+        <td>4</td>
+        <td>3</td>
+        <td>3</td>
+        <td>0</td>
+        <td>1.0</td>
+      </tr>
+      
+      <tr>
+        <td class="strong"><a href="#fa8e7a094ac50aef990ccee81d2c30b9695b75a8" class="src_link" title="app/models/application_record.rb">app/models/application_record.rb</a></td>
         <td class="green strong">100.0 %</td>
         <td>3</td>
         <td>2</td>
@@ -226,11 +356,31 @@
       </tr>
       
       <tr>
-        <td class="strong"><a href="#ab87d04b79a05c950a9351096def8f5e51e7df39" class="src_link" title="app/models/user.rb">app/models/user.rb</a></td>
+        <td class="strong"><a href="#2d40694c6a89aaf5cd0b7894828690aa62c79253" class="src_link" title="app/models/role.rb">app/models/role.rb</a></td>
         <td class="green strong">100.0 %</td>
-        <td>2</td>
-        <td>1</td>
-        <td>1</td>
+        <td>4</td>
+        <td>3</td>
+        <td>3</td>
+        <td>0</td>
+        <td>1.0</td>
+      </tr>
+      
+      <tr>
+        <td class="strong"><a href="#506cbe4124a05e370a3fd47786dec687c33717ed" class="src_link" title="app/models/transaction.rb">app/models/transaction.rb</a></td>
+        <td class="green strong">100.0 %</td>
+        <td>6</td>
+        <td>5</td>
+        <td>5</td>
+        <td>0</td>
+        <td>1.0</td>
+      </tr>
+      
+      <tr>
+        <td class="strong"><a href="#5a1c67bc52f22a7d6ab68ffedda0744adc440c8d" class="src_link" title="app/models/user.rb">app/models/user.rb</a></td>
+        <td class="green strong">100.0 %</td>
+        <td>13</td>
+        <td>5</td>
+        <td>5</td>
         <td>0</td>
         <td>1.0</td>
       </tr>
@@ -273,7 +423,7 @@
     <tbody>
       
       <tr>
-        <td class="strong"><a href="#1cb4a2f0a2ba04325c9768f001d0dee9c83b1ea7" class="src_link" title="app/mailers/application_mailer.rb">app/mailers/application_mailer.rb</a></td>
+        <td class="strong"><a href="#dadfcb550f3b7075f4000113756555843a08dfd8" class="src_link" title="app/mailers/application_mailer.rb">app/mailers/application_mailer.rb</a></td>
         <td class="red strong">0.0 %</td>
         <td>4</td>
         <td>4</td>
@@ -300,9 +450,9 @@
   </h2>
   <a name="Helpers"></a>
   <div>
-    <b>1</b> files in total.
-    <b>1</b> relevant lines. 
-    <span class="green"><b>1</b> lines covered</span> and
+    <b>4</b> files in total.
+    <b>4</b> relevant lines. 
+    <span class="green"><b>4</b> lines covered</span> and
     <span class="red"><b>0</b> lines missed </span>
   </div>
   <table class="file_list">
@@ -320,7 +470,37 @@
     <tbody>
       
       <tr>
-        <td class="strong"><a href="#3589bbe6c6c3b2318d1b2f56f4f085d5ee9c2760" class="src_link" title="app/helpers/application_helper.rb">app/helpers/application_helper.rb</a></td>
+        <td class="strong"><a href="#e155b20fa112984d06f6b19445e76250b1917c21" class="src_link" title="app/helpers/accounts_helper.rb">app/helpers/accounts_helper.rb</a></td>
+        <td class="green strong">100.0 %</td>
+        <td>2</td>
+        <td>1</td>
+        <td>1</td>
+        <td>0</td>
+        <td>1.0</td>
+      </tr>
+      
+      <tr>
+        <td class="strong"><a href="#f43a65c1bc48dfdfd3f6272adc4e7765468cf502" class="src_link" title="app/helpers/application_helper.rb">app/helpers/application_helper.rb</a></td>
+        <td class="green strong">100.0 %</td>
+        <td>2</td>
+        <td>1</td>
+        <td>1</td>
+        <td>0</td>
+        <td>1.0</td>
+      </tr>
+      
+      <tr>
+        <td class="strong"><a href="#69bf5c677d38ed23437dce194267ed30df00aaea" class="src_link" title="app/helpers/panel_helper.rb">app/helpers/panel_helper.rb</a></td>
+        <td class="green strong">100.0 %</td>
+        <td>2</td>
+        <td>1</td>
+        <td>1</td>
+        <td>0</td>
+        <td>1.0</td>
+      </tr>
+      
+      <tr>
+        <td class="strong"><a href="#77ced280fc7700d6b1ad0c4f8d3121c0799122a9" class="src_link" title="app/helpers/transactions_helper.rb">app/helpers/transactions_helper.rb</a></td>
         <td class="green strong">100.0 %</td>
         <td>2</td>
         <td>1</td>
@@ -367,7 +547,7 @@
     <tbody>
       
       <tr>
-        <td class="strong"><a href="#acacc606419e04f5fde77ae6fb52f052633a9cde" class="src_link" title="app/jobs/application_job.rb">app/jobs/application_job.rb</a></td>
+        <td class="strong"><a href="#3302730e2f03392a2de038d9c5ba466ee247416f" class="src_link" title="app/jobs/application_job.rb">app/jobs/application_job.rb</a></td>
         <td class="red strong">0.0 %</td>
         <td>2</td>
         <td>2</td>
@@ -451,7 +631,7 @@
     <tbody>
       
       <tr>
-        <td class="strong"><a href="#9ca59f5217a4675e876a7cb636a7a72c00b644a1" class="src_link" title="app/channels/application_cable/channel.rb">app/channels/application_cable/channel.rb</a></td>
+        <td class="strong"><a href="#ca31dff5b1694413e09f51eb94dce56c3b4b3203" class="src_link" title="app/channels/application_cable/channel.rb">app/channels/application_cable/channel.rb</a></td>
         <td class="red strong">0.0 %</td>
         <td>4</td>
         <td>4</td>
@@ -461,7 +641,7 @@
       </tr>
       
       <tr>
-        <td class="strong"><a href="#7bd7cbf14ec439cf07e9bcbda62159a378c5bb7c" class="src_link" title="app/channels/application_cable/connection.rb">app/channels/application_cable/connection.rb</a></td>
+        <td class="strong"><a href="#cc9f745eb190b2d5d7a2b6b1d48c573642effdb8" class="src_link" title="app/channels/application_cable/connection.rb">app/channels/application_cable/connection.rb</a></td>
         <td class="red strong">0.0 %</td>
         <td>4</td>
         <td>4</td>
@@ -479,13 +659,13 @@
     
       <div id="footer">
         Generated by <a href="http://github.com/colszowka/simplecov">simplecov</a> v0.14.1 
-        and simplecov-html v0.10.0<br/>
+        and simplecov-html v0.10.1<br/>
         using RSpec
       </div>
     
       <div class="source_files">
       
-        <div class="source_table" id="9ca59f5217a4675e876a7cb636a7a72c00b644a1">
+        <div class="source_table" id="ca31dff5b1694413e09f51eb94dce56c3b4b3203">
   <div class="header">
     <h3>app/channels/application_cable/channel.rb</h3>
     <h4><span class="red">0.0 %</span> covered</h4>
@@ -526,8 +706,9 @@
     </ol>
   </pre>
 </div>
+
       
-        <div class="source_table" id="7bd7cbf14ec439cf07e9bcbda62159a378c5bb7c">
+        <div class="source_table" id="cc9f745eb190b2d5d7a2b6b1d48c573642effdb8">
   <div class="header">
     <h3>app/channels/application_cable/connection.rb</h3>
     <h4><span class="red">0.0 %</span> covered</h4>
@@ -568,34 +749,353 @@
     </ol>
   </pre>
 </div>
+
       
-        <div class="source_table" id="6c4d754ae878acd02e92d69ff1095fc527a9b452">
+        <div class="source_table" id="b1163968e9e17a264cd31571271e7e92e0d23b81">
   <div class="header">
-    <h3>app/controllers/application_controller.rb</h3>
-    <h4><span class="red">0.0 %</span> covered</h4>
+    <h3>app/controllers/accounts_controller.rb</h3>
+    <h4><span class="red">34.62 %</span> covered</h4>
     <div>
-      <b>3</b> relevant lines. 
-      <span class="green"><b>0</b> lines covered</span> and
-      <span class="red"><b>3</b> lines missed.</span>
+      <b>26</b> relevant lines. 
+      <span class="green"><b>9</b> lines covered</span> and
+      <span class="red"><b>17</b> lines missed.</span>
     </div>
   </div>
   
   <pre>
     <ol>
       
-        <li class="missed" data-hits="0" data-linenumber="1">
+        <li class="covered" data-hits="1" data-linenumber="1">
+          <span class="hits">1</span>
           
-          
-          <code class="ruby">class ApplicationController &lt; ActionController::Base</code>
+          <code class="ruby">class AccountsController &lt; ApplicationController</code>
         </li>
       
-        <li class="missed" data-hits="0" data-linenumber="2">
+        <li class="covered" data-hits="1" data-linenumber="2">
+          <span class="hits">1</span>
           
-          
-          <code class="ruby">  protect_from_forgery with: :exception</code>
+          <code class="ruby">  before_action :set_account, only: %i[show destroy]</code>
         </li>
       
-        <li class="missed" data-hits="0" data-linenumber="3">
+        <li class="never" data-hits="" data-linenumber="3">
+          
+          
+          <code class="ruby"></code>
+        </li>
+      
+        <li class="covered" data-hits="1" data-linenumber="4">
+          <span class="hits">1</span>
+          
+          <code class="ruby">  def index</code>
+        </li>
+      
+        <li class="never" data-hits="" data-linenumber="5">
+          
+          
+          <code class="ruby">    # puts Account</code>
+        </li>
+      
+        <li class="missed" data-hits="0" data-linenumber="6">
+          
+          
+          <code class="ruby">    @user = User.find(current_user.id)</code>
+        </li>
+      
+        <li class="missed" data-hits="0" data-linenumber="7">
+          
+          
+          <code class="ruby">    @accounts = @user.accounts</code>
+        </li>
+      
+        <li class="missed" data-hits="0" data-linenumber="8">
+          
+          
+          <code class="ruby">    p @accounts</code>
+        </li>
+      
+        <li class="never" data-hits="" data-linenumber="9">
+          
+          
+          <code class="ruby">    # @accounts = User.accounts.find(current_user.id)</code>
+        </li>
+      
+        <li class="never" data-hits="" data-linenumber="10">
+          
+          
+          <code class="ruby">  end</code>
+        </li>
+      
+        <li class="never" data-hits="" data-linenumber="11">
+          
+          
+          <code class="ruby"></code>
+        </li>
+      
+        <li class="covered" data-hits="1" data-linenumber="12">
+          <span class="hits">1</span>
+          
+          <code class="ruby">  def new</code>
+        </li>
+      
+        <li class="missed" data-hits="0" data-linenumber="13">
+          
+          
+          <code class="ruby">    @account = Account.new</code>
+        </li>
+      
+        <li class="never" data-hits="" data-linenumber="14">
+          
+          
+          <code class="ruby">  end</code>
+        </li>
+      
+        <li class="never" data-hits="" data-linenumber="15">
+          
+          
+          <code class="ruby"></code>
+        </li>
+      
+        <li class="covered" data-hits="1" data-linenumber="16">
+          <span class="hits">1</span>
+          
+          <code class="ruby">  def create</code>
+        </li>
+      
+        <li class="missed" data-hits="0" data-linenumber="17">
+          
+          
+          <code class="ruby">    @user = User.find(current_user.id)</code>
+        </li>
+      
+        <li class="missed" data-hits="0" data-linenumber="18">
+          
+          
+          <code class="ruby">    @account = Account.create(iban: Forgery(&#39;credit_card&#39;).number)</code>
+        </li>
+      
+        <li class="missed" data-hits="0" data-linenumber="19">
+          
+          
+          <code class="ruby">    @account.roles.create(user: @user, role: &#39;owner&#39;)</code>
+        </li>
+      
+        <li class="never" data-hits="" data-linenumber="20">
+          
+          
+          <code class="ruby">    #    if @account.save</code>
+        </li>
+      
+        <li class="never" data-hits="" data-linenumber="21">
+          
+          
+          <code class="ruby">    #    #  format.html { redirect_to @account, notice: &#39;Account was successfully created.&#39; }</code>
+        </li>
+      
+        <li class="never" data-hits="" data-linenumber="22">
+          
+          
+          <code class="ruby">    #    end</code>
+        </li>
+      
+        <li class="never" data-hits="" data-linenumber="23">
+          
+          
+          <code class="ruby"></code>
+        </li>
+      
+        <li class="missed" data-hits="0" data-linenumber="24">
+          
+          
+          <code class="ruby">    respond_to do |format|</code>
+        </li>
+      
+        <li class="missed" data-hits="0" data-linenumber="25">
+          
+          
+          <code class="ruby">      if @account.save</code>
+        </li>
+      
+        <li class="missed" data-hits="0" data-linenumber="26">
+          
+          
+          <code class="ruby">        format.html { redirect_to @account, notice: &#39;Account was successfully created.&#39; }</code>
+        </li>
+      
+        <li class="missed" data-hits="0" data-linenumber="27">
+          
+          
+          <code class="ruby">        format.json { render :show, status: :created, location: @user }</code>
+        </li>
+      
+        <li class="never" data-hits="" data-linenumber="28">
+          
+          
+          <code class="ruby">      else</code>
+        </li>
+      
+        <li class="missed" data-hits="0" data-linenumber="29">
+          
+          
+          <code class="ruby">        format.html { render :new }</code>
+        </li>
+      
+        <li class="missed" data-hits="0" data-linenumber="30">
+          
+          
+          <code class="ruby">        format.json { render json: @user.errors, status: :unprocessable_entity }</code>
+        </li>
+      
+        <li class="never" data-hits="" data-linenumber="31">
+          
+          
+          <code class="ruby">      end</code>
+        </li>
+      
+        <li class="never" data-hits="" data-linenumber="32">
+          
+          
+          <code class="ruby">    end</code>
+        </li>
+      
+        <li class="never" data-hits="" data-linenumber="33">
+          
+          
+          <code class="ruby">  end</code>
+        </li>
+      
+        <li class="never" data-hits="" data-linenumber="34">
+          
+          
+          <code class="ruby"></code>
+        </li>
+      
+        <li class="covered" data-hits="1" data-linenumber="35">
+          <span class="hits">1</span>
+          
+          <code class="ruby">  def show; end</code>
+        </li>
+      
+        <li class="never" data-hits="" data-linenumber="36">
+          
+          
+          <code class="ruby"></code>
+        </li>
+      
+        <li class="covered" data-hits="1" data-linenumber="37">
+          <span class="hits">1</span>
+          
+          <code class="ruby">  def destroy</code>
+        </li>
+      
+        <li class="missed" data-hits="0" data-linenumber="38">
+          
+          
+          <code class="ruby">    @account.destroy</code>
+        </li>
+      
+        <li class="never" data-hits="" data-linenumber="39">
+          
+          
+          <code class="ruby">    # respond_to do |format|</code>
+        </li>
+      
+        <li class="never" data-hits="" data-linenumber="40">
+          
+          
+          <code class="ruby">    #  format.html { redirect_to account_url, notice: &#39;User was successfully destroyed.&#39; }</code>
+        </li>
+      
+        <li class="never" data-hits="" data-linenumber="41">
+          
+          
+          <code class="ruby">    #  format.json { head :no_content }</code>
+        </li>
+      
+        <li class="never" data-hits="" data-linenumber="42">
+          
+          
+          <code class="ruby">    # end</code>
+        </li>
+      
+        <li class="missed" data-hits="0" data-linenumber="43">
+          
+          
+          <code class="ruby">    redirect_to :users</code>
+        </li>
+      
+        <li class="never" data-hits="" data-linenumber="44">
+          
+          
+          <code class="ruby">  end</code>
+        </li>
+      
+        <li class="never" data-hits="" data-linenumber="45">
+          
+          
+          <code class="ruby"></code>
+        </li>
+      
+        <li class="covered" data-hits="1" data-linenumber="46">
+          <span class="hits">1</span>
+          
+          <code class="ruby">  private</code>
+        </li>
+      
+        <li class="never" data-hits="" data-linenumber="47">
+          
+          
+          <code class="ruby"></code>
+        </li>
+      
+        <li class="covered" data-hits="1" data-linenumber="48">
+          <span class="hits">1</span>
+          
+          <code class="ruby">  def set_account</code>
+        </li>
+      
+        <li class="missed" data-hits="0" data-linenumber="49">
+          
+          
+          <code class="ruby">    @account = Account.find(params[:id])</code>
+        </li>
+      
+        <li class="missed" data-hits="0" data-linenumber="50">
+          
+          
+          <code class="ruby">    @account.balance ||= 1000</code>
+        </li>
+      
+        <li class="never" data-hits="" data-linenumber="51">
+          
+          
+          <code class="ruby">  end</code>
+        </li>
+      
+        <li class="never" data-hits="" data-linenumber="52">
+          
+          
+          <code class="ruby"></code>
+        </li>
+      
+        <li class="never" data-hits="" data-linenumber="53">
+          
+          
+          <code class="ruby">  # def account_params</code>
+        </li>
+      
+        <li class="never" data-hits="" data-linenumber="54">
+          
+          
+          <code class="ruby">  #  params.fetch(:account).permit(:user_id)</code>
+        </li>
+      
+        <li class="never" data-hits="" data-linenumber="55">
+          
+          
+          <code class="ruby">  # end</code>
+        </li>
+      
+        <li class="never" data-hits="" data-linenumber="56">
           
           
           <code class="ruby">end</code>
@@ -604,8 +1104,601 @@
     </ol>
   </pre>
 </div>
+
       
-        <div class="source_table" id="3589bbe6c6c3b2318d1b2f56f4f085d5ee9c2760">
+        <div class="source_table" id="d03d9d60150cfb7e35b2bc9d3e0ced0c62e449e1">
+  <div class="header">
+    <h3>app/controllers/application_controller.rb</h3>
+    <h4><span class="green">100.0 %</span> covered</h4>
+    <div>
+      <b>3</b> relevant lines. 
+      <span class="green"><b>3</b> lines covered</span> and
+      <span class="red"><b>0</b> lines missed.</span>
+    </div>
+  </div>
+  
+  <pre>
+    <ol>
+      
+        <li class="covered" data-hits="1" data-linenumber="1">
+          <span class="hits">1</span>
+          
+          <code class="ruby">class ApplicationController &lt; ActionController::Base</code>
+        </li>
+      
+        <li class="covered" data-hits="1" data-linenumber="2">
+          <span class="hits">1</span>
+          
+          <code class="ruby">  protect_from_forgery with: :exception</code>
+        </li>
+      
+        <li class="covered" data-hits="1" data-linenumber="3">
+          <span class="hits">1</span>
+          
+          <code class="ruby">  before_action :authenticate_user!</code>
+        </li>
+      
+        <li class="never" data-hits="" data-linenumber="4">
+          
+          
+          <code class="ruby">end</code>
+        </li>
+      
+    </ol>
+  </pre>
+</div>
+
+      
+        <div class="source_table" id="b26c1c2d14edfd0c6928ebc10a5b9bdcdf0ea3be">
+  <div class="header">
+    <h3>app/controllers/panel_controller.rb</h3>
+    <h4><span class="green">100.0 %</span> covered</h4>
+    <div>
+      <b>4</b> relevant lines. 
+      <span class="green"><b>4</b> lines covered</span> and
+      <span class="red"><b>0</b> lines missed.</span>
+    </div>
+  </div>
+  
+  <pre>
+    <ol>
+      
+        <li class="covered" data-hits="1" data-linenumber="1">
+          <span class="hits">1</span>
+          
+          <code class="ruby">class PanelController &lt; ApplicationController</code>
+        </li>
+      
+        <li class="covered" data-hits="1" data-linenumber="2">
+          <span class="hits">1</span>
+          
+          <code class="ruby">  before_action :authenticate_user!</code>
+        </li>
+      
+        <li class="never" data-hits="" data-linenumber="3">
+          
+          
+          <code class="ruby"></code>
+        </li>
+      
+        <li class="covered" data-hits="1" data-linenumber="4">
+          <span class="hits">1</span>
+          
+          <code class="ruby">  protected</code>
+        </li>
+      
+        <li class="never" data-hits="" data-linenumber="5">
+          
+          
+          <code class="ruby"></code>
+        </li>
+      
+        <li class="covered" data-hits="1" data-linenumber="6">
+          <span class="hits">1</span>
+          
+          <code class="ruby">  def show; end</code>
+        </li>
+      
+        <li class="never" data-hits="" data-linenumber="7">
+          
+          
+          <code class="ruby">end</code>
+        </li>
+      
+    </ol>
+  </pre>
+</div>
+
+      
+        <div class="source_table" id="b813a05817fab1fd18e932031d4aa97f2c82f868">
+  <div class="header">
+    <h3>app/controllers/transactions_controller.rb</h3>
+    <h4><span class="red">36.36 %</span> covered</h4>
+    <div>
+      <b>33</b> relevant lines. 
+      <span class="green"><b>12</b> lines covered</span> and
+      <span class="red"><b>21</b> lines missed.</span>
+    </div>
+  </div>
+  
+  <pre>
+    <ol>
+      
+        <li class="covered" data-hits="1" data-linenumber="1">
+          <span class="hits">1</span>
+          
+          <code class="ruby">class TransactionsController &lt; ApplicationController</code>
+        </li>
+      
+        <li class="covered" data-hits="1" data-linenumber="2">
+          <span class="hits">1</span>
+          
+          <code class="ruby">  before_action :set_transaction, only: %i[show edit update destroy]</code>
+        </li>
+      
+        <li class="never" data-hits="" data-linenumber="3">
+          
+          
+          <code class="ruby"></code>
+        </li>
+      
+        <li class="never" data-hits="" data-linenumber="4">
+          
+          
+          <code class="ruby">  # GET /transactions</code>
+        </li>
+      
+        <li class="never" data-hits="" data-linenumber="5">
+          
+          
+          <code class="ruby">  # GET /transactions.json</code>
+        </li>
+      
+        <li class="covered" data-hits="1" data-linenumber="6">
+          <span class="hits">1</span>
+          
+          <code class="ruby">  def index</code>
+        </li>
+      
+        <li class="missed" data-hits="0" data-linenumber="7">
+          
+          
+          <code class="ruby">    @transactions = Transaction.all</code>
+        </li>
+      
+        <li class="never" data-hits="" data-linenumber="8">
+          
+          
+          <code class="ruby">  end</code>
+        </li>
+      
+        <li class="never" data-hits="" data-linenumber="9">
+          
+          
+          <code class="ruby"></code>
+        </li>
+      
+        <li class="never" data-hits="" data-linenumber="10">
+          
+          
+          <code class="ruby">  # GET /transactions/1</code>
+        </li>
+      
+        <li class="never" data-hits="" data-linenumber="11">
+          
+          
+          <code class="ruby">  # GET /transactions/1.json</code>
+        </li>
+      
+        <li class="covered" data-hits="1" data-linenumber="12">
+          <span class="hits">1</span>
+          
+          <code class="ruby">  def show; end</code>
+        </li>
+      
+        <li class="never" data-hits="" data-linenumber="13">
+          
+          
+          <code class="ruby"></code>
+        </li>
+      
+        <li class="never" data-hits="" data-linenumber="14">
+          
+          
+          <code class="ruby">  # GET /transactions/new</code>
+        </li>
+      
+        <li class="covered" data-hits="1" data-linenumber="15">
+          <span class="hits">1</span>
+          
+          <code class="ruby">  def new</code>
+        </li>
+      
+        <li class="missed" data-hits="0" data-linenumber="16">
+          
+          
+          <code class="ruby">    @transaction = Transaction.new</code>
+        </li>
+      
+        <li class="never" data-hits="" data-linenumber="17">
+          
+          
+          <code class="ruby">  end</code>
+        </li>
+      
+        <li class="never" data-hits="" data-linenumber="18">
+          
+          
+          <code class="ruby"></code>
+        </li>
+      
+        <li class="never" data-hits="" data-linenumber="19">
+          
+          
+          <code class="ruby">  # GET /transactions/1/edit</code>
+        </li>
+      
+        <li class="covered" data-hits="1" data-linenumber="20">
+          <span class="hits">1</span>
+          
+          <code class="ruby">  def edit; end</code>
+        </li>
+      
+        <li class="never" data-hits="" data-linenumber="21">
+          
+          
+          <code class="ruby"></code>
+        </li>
+      
+        <li class="never" data-hits="" data-linenumber="22">
+          
+          
+          <code class="ruby">  # POST /transactions</code>
+        </li>
+      
+        <li class="never" data-hits="" data-linenumber="23">
+          
+          
+          <code class="ruby">  # POST /transactions.json</code>
+        </li>
+      
+        <li class="covered" data-hits="1" data-linenumber="24">
+          <span class="hits">1</span>
+          
+          <code class="ruby">  def create</code>
+        </li>
+      
+        <li class="missed" data-hits="0" data-linenumber="25">
+          
+          
+          <code class="ruby">    @transaction = Transaction.new(transaction_params)</code>
+        </li>
+      
+        <li class="never" data-hits="" data-linenumber="26">
+          
+          
+          <code class="ruby"></code>
+        </li>
+      
+        <li class="missed" data-hits="0" data-linenumber="27">
+          
+          
+          <code class="ruby">    respond_to do |format|</code>
+        </li>
+      
+        <li class="missed" data-hits="0" data-linenumber="28">
+          
+          
+          <code class="ruby">      if @transaction.save</code>
+        </li>
+      
+        <li class="missed" data-hits="0" data-linenumber="29">
+          
+          
+          <code class="ruby">        format.html { redirect_to @transaction, notice: &#39;Transaction was successfully created.&#39; }</code>
+        </li>
+      
+        <li class="missed" data-hits="0" data-linenumber="30">
+          
+          
+          <code class="ruby">        format.json { render :show, status: :created, location: @transaction }</code>
+        </li>
+      
+        <li class="never" data-hits="" data-linenumber="31">
+          
+          
+          <code class="ruby">      else</code>
+        </li>
+      
+        <li class="missed" data-hits="0" data-linenumber="32">
+          
+          
+          <code class="ruby">        format.html { render :new }</code>
+        </li>
+      
+        <li class="missed" data-hits="0" data-linenumber="33">
+          
+          
+          <code class="ruby">        format.json { render json: @transaction.errors, status: :unprocessable_entity }</code>
+        </li>
+      
+        <li class="never" data-hits="" data-linenumber="34">
+          
+          
+          <code class="ruby">      end</code>
+        </li>
+      
+        <li class="never" data-hits="" data-linenumber="35">
+          
+          
+          <code class="ruby">    end</code>
+        </li>
+      
+        <li class="never" data-hits="" data-linenumber="36">
+          
+          
+          <code class="ruby">  end</code>
+        </li>
+      
+        <li class="never" data-hits="" data-linenumber="37">
+          
+          
+          <code class="ruby"></code>
+        </li>
+      
+        <li class="never" data-hits="" data-linenumber="38">
+          
+          
+          <code class="ruby">  # PATCH/PUT /transactions/1</code>
+        </li>
+      
+        <li class="never" data-hits="" data-linenumber="39">
+          
+          
+          <code class="ruby">  # PATCH/PUT /transactions/1.json</code>
+        </li>
+      
+        <li class="covered" data-hits="1" data-linenumber="40">
+          <span class="hits">1</span>
+          
+          <code class="ruby">  def update</code>
+        </li>
+      
+        <li class="missed" data-hits="0" data-linenumber="41">
+          
+          
+          <code class="ruby">    respond_to do |format|</code>
+        </li>
+      
+        <li class="missed" data-hits="0" data-linenumber="42">
+          
+          
+          <code class="ruby">      if @transaction.update(transaction_params)</code>
+        </li>
+      
+        <li class="missed" data-hits="0" data-linenumber="43">
+          
+          
+          <code class="ruby">        format.html { redirect_to @transaction, notice: &#39;Transaction was successfully updated.&#39; }</code>
+        </li>
+      
+        <li class="missed" data-hits="0" data-linenumber="44">
+          
+          
+          <code class="ruby">        format.json { render :show, status: :ok, location: @transaction }</code>
+        </li>
+      
+        <li class="never" data-hits="" data-linenumber="45">
+          
+          
+          <code class="ruby">      else</code>
+        </li>
+      
+        <li class="missed" data-hits="0" data-linenumber="46">
+          
+          
+          <code class="ruby">        format.html { render :edit }</code>
+        </li>
+      
+        <li class="missed" data-hits="0" data-linenumber="47">
+          
+          
+          <code class="ruby">        format.json { render json: @transaction.errors, status: :unprocessable_entity }</code>
+        </li>
+      
+        <li class="never" data-hits="" data-linenumber="48">
+          
+          
+          <code class="ruby">      end</code>
+        </li>
+      
+        <li class="never" data-hits="" data-linenumber="49">
+          
+          
+          <code class="ruby">    end</code>
+        </li>
+      
+        <li class="never" data-hits="" data-linenumber="50">
+          
+          
+          <code class="ruby">  end</code>
+        </li>
+      
+        <li class="never" data-hits="" data-linenumber="51">
+          
+          
+          <code class="ruby"></code>
+        </li>
+      
+        <li class="never" data-hits="" data-linenumber="52">
+          
+          
+          <code class="ruby">  # DELETE /transactions/1</code>
+        </li>
+      
+        <li class="never" data-hits="" data-linenumber="53">
+          
+          
+          <code class="ruby">  # DELETE /transactions/1.json</code>
+        </li>
+      
+        <li class="covered" data-hits="1" data-linenumber="54">
+          <span class="hits">1</span>
+          
+          <code class="ruby">  def destroy</code>
+        </li>
+      
+        <li class="missed" data-hits="0" data-linenumber="55">
+          
+          
+          <code class="ruby">    @transaction.destroy</code>
+        </li>
+      
+        <li class="missed" data-hits="0" data-linenumber="56">
+          
+          
+          <code class="ruby">    respond_to do |format|</code>
+        </li>
+      
+        <li class="missed" data-hits="0" data-linenumber="57">
+          
+          
+          <code class="ruby">      format.html { redirect_to transactions_url, notice: &#39;Transaction was successfully destroyed.&#39; }</code>
+        </li>
+      
+        <li class="missed" data-hits="0" data-linenumber="58">
+          
+          
+          <code class="ruby">      format.json { head :no_content }</code>
+        </li>
+      
+        <li class="never" data-hits="" data-linenumber="59">
+          
+          
+          <code class="ruby">    end</code>
+        </li>
+      
+        <li class="never" data-hits="" data-linenumber="60">
+          
+          
+          <code class="ruby">  end</code>
+        </li>
+      
+        <li class="never" data-hits="" data-linenumber="61">
+          
+          
+          <code class="ruby"></code>
+        </li>
+      
+        <li class="covered" data-hits="1" data-linenumber="62">
+          <span class="hits">1</span>
+          
+          <code class="ruby">  private</code>
+        </li>
+      
+        <li class="never" data-hits="" data-linenumber="63">
+          
+          
+          <code class="ruby"></code>
+        </li>
+      
+        <li class="never" data-hits="" data-linenumber="64">
+          
+          
+          <code class="ruby">  # Use callbacks to share common setup or constraints between actions.</code>
+        </li>
+      
+        <li class="covered" data-hits="1" data-linenumber="65">
+          <span class="hits">1</span>
+          
+          <code class="ruby">  def set_transaction</code>
+        </li>
+      
+        <li class="missed" data-hits="0" data-linenumber="66">
+          
+          
+          <code class="ruby">    @transaction = Transaction.find(params[:id])</code>
+        </li>
+      
+        <li class="never" data-hits="" data-linenumber="67">
+          
+          
+          <code class="ruby">  end</code>
+        </li>
+      
+        <li class="never" data-hits="" data-linenumber="68">
+          
+          
+          <code class="ruby"></code>
+        </li>
+      
+        <li class="never" data-hits="" data-linenumber="69">
+          
+          
+          <code class="ruby">  # Never trust parameters from the scary internet, only allow the white list through.</code>
+        </li>
+      
+        <li class="covered" data-hits="1" data-linenumber="70">
+          <span class="hits">1</span>
+          
+          <code class="ruby">  def transaction_params</code>
+        </li>
+      
+        <li class="missed" data-hits="0" data-linenumber="71">
+          
+          
+          <code class="ruby">    params.fetch(:transaction, {})</code>
+        </li>
+      
+        <li class="never" data-hits="" data-linenumber="72">
+          
+          
+          <code class="ruby">  end</code>
+        </li>
+      
+        <li class="never" data-hits="" data-linenumber="73">
+          
+          
+          <code class="ruby">end</code>
+        </li>
+      
+    </ol>
+  </pre>
+</div>
+
+      
+        <div class="source_table" id="e155b20fa112984d06f6b19445e76250b1917c21">
+  <div class="header">
+    <h3>app/helpers/accounts_helper.rb</h3>
+    <h4><span class="green">100.0 %</span> covered</h4>
+    <div>
+      <b>1</b> relevant lines. 
+      <span class="green"><b>1</b> lines covered</span> and
+      <span class="red"><b>0</b> lines missed.</span>
+    </div>
+  </div>
+  
+  <pre>
+    <ol>
+      
+        <li class="covered" data-hits="1" data-linenumber="1">
+          <span class="hits">1</span>
+          
+          <code class="ruby">module AccountsHelper</code>
+        </li>
+      
+        <li class="never" data-hits="" data-linenumber="2">
+          
+          
+          <code class="ruby">end</code>
+        </li>
+      
+    </ol>
+  </pre>
+</div>
+
+      
+        <div class="source_table" id="f43a65c1bc48dfdfd3f6272adc4e7765468cf502">
   <div class="header">
     <h3>app/helpers/application_helper.rb</h3>
     <h4><span class="green">100.0 %</span> covered</h4>
@@ -634,8 +1727,71 @@
     </ol>
   </pre>
 </div>
+
       
-        <div class="source_table" id="acacc606419e04f5fde77ae6fb52f052633a9cde">
+        <div class="source_table" id="69bf5c677d38ed23437dce194267ed30df00aaea">
+  <div class="header">
+    <h3>app/helpers/panel_helper.rb</h3>
+    <h4><span class="green">100.0 %</span> covered</h4>
+    <div>
+      <b>1</b> relevant lines. 
+      <span class="green"><b>1</b> lines covered</span> and
+      <span class="red"><b>0</b> lines missed.</span>
+    </div>
+  </div>
+  
+  <pre>
+    <ol>
+      
+        <li class="covered" data-hits="1" data-linenumber="1">
+          <span class="hits">1</span>
+          
+          <code class="ruby">module PanelHelper</code>
+        </li>
+      
+        <li class="never" data-hits="" data-linenumber="2">
+          
+          
+          <code class="ruby">end</code>
+        </li>
+      
+    </ol>
+  </pre>
+</div>
+
+      
+        <div class="source_table" id="77ced280fc7700d6b1ad0c4f8d3121c0799122a9">
+  <div class="header">
+    <h3>app/helpers/transactions_helper.rb</h3>
+    <h4><span class="green">100.0 %</span> covered</h4>
+    <div>
+      <b>1</b> relevant lines. 
+      <span class="green"><b>1</b> lines covered</span> and
+      <span class="red"><b>0</b> lines missed.</span>
+    </div>
+  </div>
+  
+  <pre>
+    <ol>
+      
+        <li class="covered" data-hits="1" data-linenumber="1">
+          <span class="hits">1</span>
+          
+          <code class="ruby">module TransactionsHelper</code>
+        </li>
+      
+        <li class="never" data-hits="" data-linenumber="2">
+          
+          
+          <code class="ruby">end</code>
+        </li>
+      
+    </ol>
+  </pre>
+</div>
+
+      
+        <div class="source_table" id="3302730e2f03392a2de038d9c5ba466ee247416f">
   <div class="header">
     <h3>app/jobs/application_job.rb</h3>
     <h4><span class="red">0.0 %</span> covered</h4>
@@ -664,8 +1820,9 @@
     </ol>
   </pre>
 </div>
+
       
-        <div class="source_table" id="1cb4a2f0a2ba04325c9768f001d0dee9c83b1ea7">
+        <div class="source_table" id="dadfcb550f3b7075f4000113756555843a08dfd8">
   <div class="header">
     <h3>app/mailers/application_mailer.rb</h3>
     <h4><span class="red">0.0 %</span> covered</h4>
@@ -706,8 +1863,52 @@
     </ol>
   </pre>
 </div>
+
       
-        <div class="source_table" id="a20d47a2e1771b3f988d205b3d9a016409debd64">
+        <div class="source_table" id="fdddbe84cb649edde4cd9f211a5055ebe331ec7d">
+  <div class="header">
+    <h3>app/models/account.rb</h3>
+    <h4><span class="green">100.0 %</span> covered</h4>
+    <div>
+      <b>3</b> relevant lines. 
+      <span class="green"><b>3</b> lines covered</span> and
+      <span class="red"><b>0</b> lines missed.</span>
+    </div>
+  </div>
+  
+  <pre>
+    <ol>
+      
+        <li class="covered" data-hits="1" data-linenumber="1">
+          <span class="hits">1</span>
+          
+          <code class="ruby">class Account &lt; ApplicationRecord</code>
+        </li>
+      
+        <li class="covered" data-hits="1" data-linenumber="2">
+          <span class="hits">1</span>
+          
+          <code class="ruby">  has_many :roles</code>
+        </li>
+      
+        <li class="covered" data-hits="1" data-linenumber="3">
+          <span class="hits">1</span>
+          
+          <code class="ruby">  has_many :users, through: :roles</code>
+        </li>
+      
+        <li class="never" data-hits="" data-linenumber="4">
+          
+          
+          <code class="ruby">end</code>
+        </li>
+      
+    </ol>
+  </pre>
+</div>
+
+      
+        <div class="source_table" id="fa8e7a094ac50aef990ccee81d2c30b9695b75a8">
   <div class="header">
     <h3>app/models/application_record.rb</h3>
     <h4><span class="green">100.0 %</span> covered</h4>
@@ -742,14 +1943,113 @@
     </ol>
   </pre>
 </div>
+
       
-        <div class="source_table" id="ab87d04b79a05c950a9351096def8f5e51e7df39">
+        <div class="source_table" id="2d40694c6a89aaf5cd0b7894828690aa62c79253">
+  <div class="header">
+    <h3>app/models/role.rb</h3>
+    <h4><span class="green">100.0 %</span> covered</h4>
+    <div>
+      <b>3</b> relevant lines. 
+      <span class="green"><b>3</b> lines covered</span> and
+      <span class="red"><b>0</b> lines missed.</span>
+    </div>
+  </div>
+  
+  <pre>
+    <ol>
+      
+        <li class="covered" data-hits="1" data-linenumber="1">
+          <span class="hits">1</span>
+          
+          <code class="ruby">class Role &lt; ApplicationRecord</code>
+        </li>
+      
+        <li class="covered" data-hits="1" data-linenumber="2">
+          <span class="hits">1</span>
+          
+          <code class="ruby">  belongs_to :user</code>
+        </li>
+      
+        <li class="covered" data-hits="1" data-linenumber="3">
+          <span class="hits">1</span>
+          
+          <code class="ruby">  belongs_to :account</code>
+        </li>
+      
+        <li class="never" data-hits="" data-linenumber="4">
+          
+          
+          <code class="ruby">end</code>
+        </li>
+      
+    </ol>
+  </pre>
+</div>
+
+      
+        <div class="source_table" id="506cbe4124a05e370a3fd47786dec687c33717ed">
+  <div class="header">
+    <h3>app/models/transaction.rb</h3>
+    <h4><span class="green">100.0 %</span> covered</h4>
+    <div>
+      <b>5</b> relevant lines. 
+      <span class="green"><b>5</b> lines covered</span> and
+      <span class="red"><b>0</b> lines missed.</span>
+    </div>
+  </div>
+  
+  <pre>
+    <ol>
+      
+        <li class="covered" data-hits="1" data-linenumber="1">
+          <span class="hits">1</span>
+          
+          <code class="ruby">class Transaction &lt; ApplicationRecord</code>
+        </li>
+      
+        <li class="covered" data-hits="1" data-linenumber="2">
+          <span class="hits">1</span>
+          
+          <code class="ruby">  belongs_to :user</code>
+        </li>
+      
+        <li class="covered" data-hits="1" data-linenumber="3">
+          <span class="hits">1</span>
+          
+          <code class="ruby">  belongs_to :account</code>
+        </li>
+      
+        <li class="covered" data-hits="1" data-linenumber="4">
+          <span class="hits">1</span>
+          
+          <code class="ruby">  validates :remote_account_id, :summ, presence: true</code>
+        </li>
+      
+        <li class="covered" data-hits="1" data-linenumber="5">
+          <span class="hits">1</span>
+          
+          <code class="ruby">  validates :summ, numericality: { greater_than_or_equal_to: 0.01 }</code>
+        </li>
+      
+        <li class="never" data-hits="" data-linenumber="6">
+          
+          
+          <code class="ruby">end</code>
+        </li>
+      
+    </ol>
+  </pre>
+</div>
+
+      
+        <div class="source_table" id="5a1c67bc52f22a7d6ab68ffedda0744adc440c8d">
   <div class="header">
     <h3>app/models/user.rb</h3>
     <h4><span class="green">100.0 %</span> covered</h4>
     <div>
-      <b>1</b> relevant lines. 
-      <span class="green"><b>1</b> lines covered</span> and
+      <b>5</b> relevant lines. 
+      <span class="green"><b>5</b> lines covered</span> and
       <span class="red"><b>0</b> lines missed.</span>
     </div>
   </div>
@@ -766,12 +2066,79 @@
         <li class="never" data-hits="" data-linenumber="2">
           
           
+          <code class="ruby">  # Include default devise modules. Others available are:</code>
+        </li>
+      
+        <li class="never" data-hits="" data-linenumber="3">
+          
+          
+          <code class="ruby">  # :confirmable, :lockable, :timeoutable and :omniauthable</code>
+        </li>
+      
+        <li class="covered" data-hits="1" data-linenumber="4">
+          <span class="hits">1</span>
+          
+          <code class="ruby">  devise :database_authenticatable, :registerable,</code>
+        </li>
+      
+        <li class="never" data-hits="" data-linenumber="5">
+          
+          
+          <code class="ruby">         :recoverable, :rememberable, :trackable, :validatable</code>
+        </li>
+      
+        <li class="never" data-hits="" data-linenumber="6">
+          
+          
+          <code class="ruby">  # Include default devise modules. Others available are:</code>
+        </li>
+      
+        <li class="never" data-hits="" data-linenumber="7">
+          
+          
+          <code class="ruby">  # :confirmable, :lockable, :timeoutable and :omniauthable</code>
+        </li>
+      
+        <li class="covered" data-hits="1" data-linenumber="8">
+          <span class="hits">1</span>
+          
+          <code class="ruby">  devise :database_authenticatable, :registerable,</code>
+        </li>
+      
+        <li class="never" data-hits="" data-linenumber="9">
+          
+          
+          <code class="ruby">         :recoverable, :rememberable, :trackable, :validatable, :confirmable</code>
+        </li>
+      
+        <li class="never" data-hits="" data-linenumber="10">
+          
+          
+          <code class="ruby"></code>
+        </li>
+      
+        <li class="covered" data-hits="1" data-linenumber="11">
+          <span class="hits">1</span>
+          
+          <code class="ruby">  has_many :roles</code>
+        </li>
+      
+        <li class="covered" data-hits="1" data-linenumber="12">
+          <span class="hits">1</span>
+          
+          <code class="ruby">  has_many :accounts, through: :roles</code>
+        </li>
+      
+        <li class="never" data-hits="" data-linenumber="13">
+          
+          
           <code class="ruby">end</code>
         </li>
       
     </ol>
   </pre>
 </div>
+
       
       </div>
     </div>

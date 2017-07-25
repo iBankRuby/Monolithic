@@ -1,8 +1,30 @@
 %p#notice= notice
 %h1 #{@account.iban}
 
-%div
-  %input{:type=>"button", :name=>"account", :value=>"Add Users", :onclick=>"window.location = 'profiles/new';"}
+/%div
+/  %input{:type=>"button", :name=>"account", :value=>"Add Users", :onclick=>"window.location = 'profiles/new';"}
 = link_to 'Edit', edit_account_path(@account)
 \|
 = link_to 'Back', profiles_path
+%br
+%br
+%br
+
+%div
+	%form{:name=>"add_users", :id=>"add_users", :action=>"", :method=>"post"}
+		%label{:for => "body"} Add Users:
+		%input{:type=>"email", :name=>"email_user", :value=>""}
+		%input{:type => "submit", :value => "Send", :class => "button"}
+%br
+%br
+%br
+
+%div
+%h3 Transactions
+%div
+	%form{:name=>"add_transaction", :id=>"add_transaction", :action=>"", :method=>"post"}
+		%label{:for => "body"} Account iban:
+		%input{:type=>"text", :name=>"account_number", :value=>""}
+		%label{:for => "body"} Amount:
+		%input{:type=>"number", :name=>"amount", :value=>""}
+		%input{:type => "submit", :value => "Send", :class => "button"}

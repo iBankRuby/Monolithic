@@ -1,12 +1,34 @@
 !!!
 %html
   %head
-    %meta{:content => "text/html; charset=UTF-8", "http-equiv" => "Content-Type"}/
-    %title IBank
-    = csrf_meta_tags
-    = stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload'
-    = javascript_include_tag 'application', 'data-turbolinks-track': 'reload'
-  %body.container
+  %meta{:content => "text/html; charset=UTF-8", "http-equiv" => "Content-Type"}/
+  %title IBank
+  = csrf_meta_tags
+  = stylesheet_link_tag  'application', media: 'all', 'data-turbolinks-track': 'reload'
+  = javascript_include_tag 'application', 'data-turbolinks-track': 'reload'
+  %body
+  %header.navbar-light.navbar-toggleable-md.bd-navbar
+    %nav.container-fluid.navbar.navbar-toggleable-md.navbar-light.bg-faded
+      %button.navbar-toggler.navbar-toggler-right{"aria-controls" => "navbarNav", "aria-expanded" => "false", "aria-label" => "Toggle navigation", "data-target" => "#navbarNav", "data-toggle" => "collapse", :type => "button"}
+      %a.navbar-brand{:href => "#"} iBank beta
+      #navbarNav.collapse.navbar-collapse
+      %ul.navbar-nav
+        %li.nav-item.active
+        %a.nav-link{:href => "#"}
+          Home
+          %span.sr-only (current)
+        %li.nav-item
+        %a.nav-link{:href => "#"} Account
+        %li.nav-item
+        %a.nav-link.disabled{:href => "#"} Transactions
+        - if user_signed_in?
+          %li.nav-item
+            = link_to('Logout', destroy_user_session_path, method: :delete)
+        - else
+          %li.nav-item
+            = link_to('Login', new_user_session_path)
+  .container
     %p.notice= notice
     %p.alert= alert
+  .container
     = yield

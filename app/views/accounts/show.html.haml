@@ -2,11 +2,9 @@
 %h1 #{@account.iban}
 %p Balance: #{@account.balance}
 
-/%div
-/  %input{:type=>"button", :name=>"account", :value=>"Add Users", :onclick=>"window.location = 'profiles/new';"}
 = link_to 'Edit', edit_account_path(@account)
 \|
-= link_to 'Back', profiles_path
+= link_to 'Back', users_path
 %br
 %br
 %br

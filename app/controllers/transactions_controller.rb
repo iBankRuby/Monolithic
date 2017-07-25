@@ -28,8 +28,9 @@ class TransactionsController < ApplicationController
   # POST /transactions.json
   def create
     @user = User.find(current_user.id)
+    p params.inspect
     @account = Account.find(params[:id])
-    @transaction = Transaction.new(iban: params[:iban], summ: params[:amount], status_from: true, status_to: false )
+    @transaction = Transaction.create(iban: params[:iban], summ: params[:amount], status_from: true, status_to: false )
 
     respond_to do |format|
       if @transaction.save

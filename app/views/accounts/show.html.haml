@@ -18,14 +18,13 @@
 		%input{:type => "submit", :value => "Send", :class => "button"}
 %br
 %br
-%br
-
 %div
 %h3 Transactions
 %div
-	%form{:action=>"/transactions", :method=>"post"}
-		%label{:for => "body"} Account iban:
-		%input{:type=>"text", :name=>"account_number", :value=>""}
-		%label{:for => "body"} Amount:
-		%input{:type=>"number", :name=>"amount", :value=>""}
-		%input{:type => "submit", :value => "Send", :class => "button"}
+	= form_tag '/transactions' do
+		= label_tag :title, 'Account Iban'
+		= text_field_tag :account
+		= label_tag :title, 'Amount'
+		= text_field_tag :summ
+		= hidden_field_tag :id, @account_id
+		= submit_tag 'Send'

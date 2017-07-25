@@ -34,7 +34,7 @@ class AccountsController < ApplicationController
   end
 
   def show
-
+    @account_id = params[:id]
   end
 
   def destroy

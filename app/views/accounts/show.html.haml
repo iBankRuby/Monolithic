@@ -1,5 +1,6 @@
 %p#notice= notice
 %h1 #{@account.iban}
+%p Balance: #{@account.balance}
 
 = link_to 'Edit', edit_account_path(@account)
 \|

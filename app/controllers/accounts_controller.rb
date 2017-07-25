@@ -1,5 +1,5 @@
 class AccountsController < ApplicationController
-  before_action :set_account, only: [:show, :destroy]
+  before_action :set_account, only: %i[show destroy]
 
   def index
     @accounts = Account.all
@@ -13,9 +13,9 @@ class AccountsController < ApplicationController
     @user = User.find(current_user.id)
     @account = Account.create(iban: Forgery('credit_card').number)
     @account.roles.create(user: @user, role: 'owner')
-#    if @account.save
-#    #  format.html { redirect_to @account, notice: 'Account was successfully created.' }
-#    end
+    #    if @account.save
+    #    #  format.html { redirect_to @account, notice: 'Account was successfully created.' }
+    #    end
 
     respond_to do |format|
       if @account.save
@@ -26,22 +26,18 @@ class AccountsController < ApplicationController
         format.json { render json: @user.errors, status: :unprocessable_entity }
       end
     end
-
   end
 
-  def show
-
-  end
+  def show; end
 
   def destroy
     @account.destroy
-    #respond_to do |format|
+    # respond_to do |format|
     #  format.html { redirect_to account_url, notice: 'User was successfully destroyed.' }
     #  format.json { head :no_content }
-    #end
+    # end
     redirect_to :users
   end
-
 
   private
 
@@ -49,8 +45,7 @@ class AccountsController < ApplicationController
     @account = Account.find(params[:id])
   end
 
-
-  #def account_params
+  # def account_params
   #  params.fetch(:account).permit(:user_id)
-  #end
+  # end
 end

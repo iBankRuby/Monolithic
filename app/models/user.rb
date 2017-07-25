@@ -9,5 +9,5 @@ class User < ApplicationRecord
          :recoverable, :rememberable, :trackable, :validatable, :confirmable
 
   has_many :roles
-  has_many :accounts, :through => :roles
+  has_many :accounts, through: :roles
 end

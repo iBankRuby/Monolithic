@@ -14,13 +14,13 @@
       #navbarNav.collapse.navbar-collapse
       %ul.navbar-nav
         %li.nav-item.active
-        %a.nav-link{:href => "#"}
-          Home
+        %a.nav-link{:href => "profiles"}
+          Profile
           %span.sr-only (current)
         %li.nav-item
-        %a.nav-link{:href => "#"} Account
+        %a.nav-link{:href => "accounts"} Account
         %li.nav-item
-        %a.nav-link.disabled{:href => "#"} Transactions
+        %a.nav-link{:href => "transactions"} Transactions
         - if user_signed_in?
           %li.nav-item
             = link_to('Logout', destroy_user_session_path, method: :delete)

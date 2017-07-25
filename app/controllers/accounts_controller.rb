@@ -2,7 +2,11 @@ class AccountsController < ApplicationController
   before_action :set_account, only: [:show, :destroy]
 
   def index
-    @accounts = Account.all
+    # puts Account
+    @user = User.find(current_user.id)
+    @accounts = @user.accounts
+    p @accounts
+    # @accounts = User.accounts.find(current_user.id)
   end
 
   def new
@@ -47,6 +51,7 @@ class AccountsController < ApplicationController
 
   def set_account
     @account = Account.find(params[:id])
+    @account.balance ||= 1000
   end
 
 

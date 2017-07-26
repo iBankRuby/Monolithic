@@ -32,7 +32,11 @@ class AccountsController < ApplicationController
     end
   end
 
-  def show; end
+  def show
+    @account = Account.find(params[:id])
+    @my_transactions = Transaction.find_by(user_id: current_user.id, account_id: params[:id])
+    @income = Transaction.find_by(remote_account_id: @account.iban.to_s, status_to: false )
+  end
 
   def destroy
     @account.destroy

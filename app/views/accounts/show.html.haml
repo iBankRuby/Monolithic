@@ -11,13 +11,13 @@
 		%label{:for => "body"} Add Users:
 		%input{:type=>"email", :name=>"email_user", :value=>""}
 		%input{:type => "submit", :value => "Send", :class => "button"}
-
+    
 %div
 %h3 Transactions
 %div
-	%form{:name=>"add_transaction", :id=>"add_transaction", :action=>"", :method=>"post"}
-		%label{:for => "body"} Account iban:
-		%input{:type=>"text", :name=>"account_number", :value=>""}
-		%label{:for => "body"} Amount:
-		%input{:type=>"number", :name=>"amount", :value=>""}
-		%input{:type => "submit", :value => "Send", :class => "button"}
+	= form_tag account_transactions_path(@account), method: :post do
+		= label_tag :title, 'Account Iban'
+		= text_field_tag :account
+		= label_tag :title, 'Amount'
+		= text_field_tag :summ
+		= submit_tag 'Send'

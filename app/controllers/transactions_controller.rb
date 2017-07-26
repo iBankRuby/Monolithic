@@ -10,10 +10,15 @@ class TransactionsController < ApplicationController
 
   # GET /transactions/1
   # GET /transactions/1.json
-  def show; end
+  def show; 
+    @account = Account.find(params[:id])
+    @my_transactions = Transaction.where(user_id: current_user.id, account_id: params[:id])
+  end
 
   # GET /transactions/new
-  def new; end
+  def new
+    @transaction = Transaction.new
+  end
 
   # GET /transactions/1/edit
   def edit; end

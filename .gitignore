@@ -26,3 +26,4 @@ database.yml
 
 *.env
 .idea
+.env.test

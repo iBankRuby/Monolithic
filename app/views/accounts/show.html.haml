@@ -21,10 +21,9 @@
 %div
 %h3 Transactions
 %div
-	= form_tag '/transactions' do
+	= form_tag account_transactions_path(@account), method: :post do
 		= label_tag :title, 'Account Iban'
 		= text_field_tag :account
 		= label_tag :title, 'Amount'
 		= text_field_tag :summ
-		= hidden_field_tag :id, @account_id
 		= submit_tag 'Send'

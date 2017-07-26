@@ -28,10 +28,10 @@ class TransactionsController < ApplicationController
   # POST /transactions.json
   def create
     @user = User.find(current_user.id)
-    p params.inspect
-    @account = Account.find(params[:id])
-    @transaction = Transaction.create(iban: params[:iban], summ: params[:amount], status_from: true, status_to: false )
-
+    @account = Account.find(params[:account_id])
+    @transaction = Transaction.create(remote_account_id: params[:account], summ: params[:summ], status_from: true, status_to: false )
+    @user.transactions << @transaction
+    @account.transactions << @transaction
     respond_to do |format|
       if @transaction.save
         format.html { redirect_to @transaction, notice: 'Transaction was successfully created.' }

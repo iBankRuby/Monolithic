@@ -1,9 +1,11 @@
 class AccountsController < ApplicationController
   before_action :set_account, only: %i[show destroy]
+  before_action :set_current_user, only: %i[index create]
+
+  attr_reader :accounts, :user
 
   def index
-    @user = User.find(current_user.id)              # list of accounts of user
-    @accounts = @user.accounts
+    @accounts = user.accounts
   end
 
   def new
@@ -11,8 +13,7 @@ class AccountsController < ApplicationController
   end
 
   def create
-    @user = User.find(current_user.id)
-    @account = Account.create(iban: Forgery('credit_card').number, balance: 1000)
+    @account = Account.create(iban: Faker::Number.number(16), balance: 1000)
     @account.roles.create(user: @user, role: 'owner')
     respond_to do |format|
       if @account.save
@@ -32,10 +33,6 @@ class AccountsController < ApplicationController
 
   def destroy
     @account.destroy
-    # respond_to do |format|
-    #  format.html { redirect_to account_url, notice: 'User was successfully destroyed.' }
-    #  format.json { head :no_content }
-    # end
     redirect_to :users
   end
 
@@ -45,7 +42,7 @@ class AccountsController < ApplicationController
     @account = Account.find(params[:id])
   end
 
-  # def account_params
-  #  params.fetch(:account).permit(:user_id)
-  # end
+  def set_current_user
+    @user = User.find(current_user.id)
+  end
 end

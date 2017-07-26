@@ -5,17 +5,13 @@
 = link_to 'Edit', edit_account_path(@account)
 \|
 = link_to 'Back', accounts_path
-%br
-%br
-%br
 
 %div
 	%form{:name=>"add_users", :id=>"add_users", :action=>"", :method=>"post"}
 		%label{:for => "body"} Add Users:
 		%input{:type=>"email", :name=>"email_user", :value=>""}
 		%input{:type => "submit", :value => "Send", :class => "button"}
-%br
-%br
+    
 %div
 %h3 Transactions
 %div

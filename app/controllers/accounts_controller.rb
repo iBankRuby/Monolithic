@@ -2,40 +2,30 @@ class AccountsController < ApplicationController
   before_action :set_account, only: %i[show destroy]
 
   def index
-    # puts Account
-    @user = User.find(current_user.id)
+    @user = User.find(current_user.id)              # list of accounts of user
     @accounts = @user.accounts
-    p @accounts
-    # @accounts = User.accounts.find(current_user.id)
   end
 
-  def new
-    @account = Account.new
-  end
+  def new; end
 
   def create
     @user = User.find(current_user.id)
-    @account = Account.create(iban: Forgery('credit_card').number)
+    @account = Account.create(iban: Forgery('credit_card').number, balance: 1000)
     @account.roles.create(user: @user, role: 'owner')
-    #    if @account.save
-    #    #  format.html { redirect_to @account, notice: 'Account was successfully created.' }
-    #    end
-
     respond_to do |format|
       if @account.save
         format.html { redirect_to @account, notice: 'Account was successfully created.' }
-        format.json { render :show, status: :created, location: @user }
       else
         format.html { render :new }
-        format.json { render json: @user.errors, status: :unprocessable_entity }
       end
     end
   end
 
   def show
     @account = Account.find(params[:id])
-    @my_transactions = Transaction.find_by(user_id: current_user.id, account_id: params[:id])
-    @income = Transaction.find_by(remote_account_id: @account.iban.to_s, status_to: false )
+    @my_transactions = Transaction.where(user_id: current_user.id, account_id: params[:id])
+    @income = Transaction.where(remote_account_id: @account.iban.to_s, status_to: false )
+    @income.to_a
   end
 
   def destroy
@@ -51,7 +41,6 @@ class AccountsController < ApplicationController
 
   def set_account
     @account = Account.find(params[:id])
-    @account.balance ||= 1000
   end
 
   # def account_params

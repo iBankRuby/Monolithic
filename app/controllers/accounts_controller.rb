@@ -1,12 +1,11 @@
 class AccountsController < ApplicationController
   before_action :set_account, only: %i[show destroy]
+  before_action :set_current_user, only: %i[index create]
+
+  attr_reader :accounts, :user
 
   def index
-    # puts Account
-    @user = User.find(current_user.id)
-    @accounts = @user.accounts
-    p @accounts
-    # @accounts = User.accounts.find(current_user.id)
+    @accounts = user.accounts
   end
 
   def new
@@ -14,20 +13,17 @@ class AccountsController < ApplicationController
   end
 
   def create
-    @user = User.find(current_user.id)
-    @account = Account.create(iban: Forgery('credit_card').number)
-    @account.roles.create(user: @user, role: 'owner')
-    #    if @account.save
-    #    #  format.html { redirect_to @account, notice: 'Account was successfully created.' }
-    #    end
+    @account = Account.new(iban: Faker::Number.number(16), balance: 1000)
 
     respond_to do |format|
       if @account.save
+        @account.roles.create(user: user, role: 'owner')
+
         format.html { redirect_to @account, notice: 'Account was successfully created.' }
-        format.json { render :show, status: :created, location: @user }
+        format.json { render :show, status: :created, location: user }
       else
         format.html { render :new }
-        format.json { render json: @user.errors, status: :unprocessable_entity }
+        format.json { render json: user.errors, status: :unprocessable_entity }
       end
     end
   end
@@ -36,10 +32,6 @@ class AccountsController < ApplicationController
 
   def destroy
     @account.destroy
-    # respond_to do |format|
-    #  format.html { redirect_to account_url, notice: 'User was successfully destroyed.' }
-    #  format.json { head :no_content }
-    # end
     redirect_to :users
   end
 
@@ -47,10 +39,9 @@ class AccountsController < ApplicationController
 
   def set_account
     @account = Account.find(params[:id])
-    @account.balance ||= 1000
   end
 
-  # def account_params
-  #  params.fetch(:account).permit(:user_id)
-  # end
+  def set_current_user
+    @user = User.find(current_user.id)
+  end
 end

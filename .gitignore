@@ -21,8 +21,9 @@
 /yarn-error.log
 
 .byebug_history
-
 database.yml
 
 *.env
 .idea
+.env.test
+coverage

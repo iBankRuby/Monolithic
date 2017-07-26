@@ -1,14 +1,14 @@
 require 'rails_helper'
 
-RSpec.describe "transactions/index", type: :view do
+RSpec.describe 'transactions/index', type: :view do
   before(:each) do
     assign(:transactions, [
-      Transaction.create!(),
-      Transaction.create!()
-    ])
+             Transaction.create!,
+             Transaction.create!
+           ])
   end
 
-  it "renders a list of transactions" do
+  it 'renders a list of transactions' do
     render
   end
 end

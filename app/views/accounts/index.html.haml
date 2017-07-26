@@ -5,7 +5,6 @@
     %tr
       %th Iban
       %th Balance
-      %th Users
       %th Date created
       %th Actions
 
@@ -14,8 +13,6 @@
       %tr
         %td.iban #{account.iban}
         %td.balance #{account.balance}
-        %td.users 
-          %span.small #{account.users}
         %td.date #{account.created_at}
         %td.actions
           = link_to 'Show', account, :class => 'btn btn-sm btn-info'

@@ -6,7 +6,9 @@ class AccountsController < ApplicationController
     @accounts = @user.accounts
   end
 
-  def new; end
+  def new
+    @account = Account.new
+  end
 
   def create
     @user = User.find(current_user.id)

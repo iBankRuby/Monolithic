@@ -37,8 +37,8 @@ ActiveRecord::Schema.define(version: 20170724140629) do
     t.bigint "account_id"
     t.string "remote_account_id"
     t.float "summ"
-    t.boolean "status_from"
-    t.boolean "status_to"
+    t.boolean "status_from", default: true
+    t.boolean "status_to", default: false
     t.datetime "checkout_from"
     t.datetime "checkout_to"
     t.datetime "created_at", null: false

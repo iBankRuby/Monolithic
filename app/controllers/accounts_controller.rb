@@ -15,6 +15,7 @@ class AccountsController < ApplicationController
   def create
     @account = Account.create(iban: Forgery('credit_card').number, balance: 1000)
     @account.roles.create(user: @user, role: 'owner')
+
     respond_to do |format|
       if @account.save
         format.html { redirect_to @account, notice: 'Account was successfully created.' }
@@ -25,15 +26,17 @@ class AccountsController < ApplicationController
   end
 
   def show
-    @account = Account.find(params[:id])
-    @my_transactions = Transaction.where(user_id: current_user.id, account_id: params[:id])
-    @income = Transaction.where(remote_account_id: @account.iban.to_s, status_to: false )
+    @my_transactions = Transaction.find_by(user_id: current_user.id,
+                                           account_id: params[:id])
+
+    @income = Transaction.find_by(remote_account_id: @account.iban.to_s,
+                                  status_to: false)
     @income.to_a
   end
 
   def destroy
     @account.destroy
-    redirect_to :users
+    redirect_to accounts_url
   end
 
   private

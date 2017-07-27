@@ -13,7 +13,7 @@
       %tr
         %td.iban #{account.iban}
         %td.balance #{account.balance}
-        %td.date #{account.created_at}
+        %td.date #{account.created_at.to_formatted_s(:short)}
         %td.actions
           = link_to 'Show', account, :class => 'btn btn-sm btn-info'
           = link_to 'Edit', edit_account_path(account), :class => 'btn btn-sm btn-warning'

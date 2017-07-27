@@ -2,18 +2,11 @@
 %h1 #{@account.iban}
 %p Balance: #{@account.balance}
 
-= link_to 'Edit', edit_account_path(@account)
-\|
+/= link_to 'Edit', edit_account_path(@account)
+/\|
 = link_to 'Back', accounts_path
 %br
 %br
-%br
-%div
-	%form{:name=>"add_users", :id=>"add_users", :action=>"", :method=>"post"}
-		%label{:for => "body"} Add Users:
-		%input{:type=>"email", :name=>"email_user", :value=>""}
-		%input{:type => "submit", :value => "Send", :class => "button"}
-
 %div
 %h3 Outgoing transactions
 -if @my_transactions
@@ -44,8 +37,7 @@
 			%tr
 				%td= t.summ
 				%td= t.account_id
-				%td= t.created_at
-%br
+				%td= t.created_at.to_formatted_s(:short)
 %br
 %br
 %div

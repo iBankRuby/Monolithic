@@ -17,11 +17,8 @@
 database.yml
 
 *.env
-<<<<<<< HEAD
 .idea
 .env.test
 coverage
-=======
 .idea/
-/coverage/
->>>>>>> 2c51d6bbf4597bdb178b08099ddf78dd00829c17
+/coverage/*

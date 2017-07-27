@@ -10,11 +10,11 @@ describe TransactionCreator do
     let(:account_from) { create(:account, balance: 1000) }
 
     let!(:transaction_params) do
-      #rewrite to account_from, account_to and ibans
+      # rewrite to account_from, account_to and ibans
       {
-          :account_id => account_from.id,
-          :account    => account_to.iban,
-          :summ => 100.0
+        account_id: account_from.id,
+        account: account_to.iban,
+        summ: 100.0
       }
     end
 

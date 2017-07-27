@@ -25,6 +25,7 @@ class TransactionCreator
   end
 
   private
+
   # implementation
 
   def create_transaction_object
@@ -32,22 +33,19 @@ class TransactionCreator
                        summ: summ,
                        status_from: true,
                        status_to: false,
-                       user_id: user,
-                       account_id: account_from
-    )
+                       user: user,
+                       account: account_from)
   end
 
   def update_account_from
     account_from.balance -= summ
-    account_from.save
+    account_from.save!
   end
-
 
   def update_account_to
     account_to.balance += summ
-    account_to.save
+    account_to.save!
   end
-
 
   # def user
   #   @user ||= User.find(current_user.id)
@@ -62,6 +60,6 @@ class TransactionCreator
   end
 
   def summ
-    params[:summ]
+    params[:summ].to_f
   end
 end

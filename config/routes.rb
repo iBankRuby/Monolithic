@@ -1,7 +1,7 @@
 Rails.application.routes.draw do
 
   resources :accounts, except: %i[edit update] do
-    resources :transactions
+    resources :transactions, only: %i[create]
   end
 
   #resources :transactions, only: [:index]

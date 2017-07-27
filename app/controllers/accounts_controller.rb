@@ -17,11 +17,8 @@ class AccountsController < ApplicationController
     @account.roles.create(user: @user, role: 'owner')
 
     respond_to do |format|
-      if @account.save
-        format.html { redirect_to @account, notice: 'Account was successfully created.' }
-      else
-        format.html { render :new }
-      end
+      @account.save!
+      format.html { redirect_to @account, notice: 'Account was successfully created.' }
     end
   end
 

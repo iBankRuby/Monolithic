@@ -5,7 +5,7 @@ Rails.application.routes.draw do
   end
   # resources :users, only: [:show] do
 
-  resources :transactions, only: [:index]
+  #resources :transactions, only: [:index]
 
   devise_for :users
 

@@ -11,9 +11,9 @@
     - @transactions.each do |transaction|
       %tr
         %td= link_to 'Show', account_transactions
-        %td= link_to 'Edit', edit_account_transaction(transaction)
+        %td= link_to 'Edit', edit_account_transaction(@transaction)
         %td= link_to 'Destroy', account_transaction, :method => :delete, :data => { :confirm => 'Are you sure?' }
 
 %br
 
-= link_to 'New Transaction', accounts_path
+= link_to 'New Transaction', accounts_paths

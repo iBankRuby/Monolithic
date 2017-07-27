@@ -1,8 +1,11 @@
 Rails.application.routes.draw do
+
   resources :accounts do
     resources :transactions
   end
   # resources :users, only: [:show] do
+
+  #resources :transactions, only: [:index]
 
   devise_for :users
 

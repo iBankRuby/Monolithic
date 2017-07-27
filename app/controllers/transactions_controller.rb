@@ -6,8 +6,6 @@ class TransactionsController < ApplicationController
     @transactions = @user.transactions
   end
 
-  def show; end
-
   def new; end
 
   def edit; end

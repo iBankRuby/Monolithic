@@ -26,9 +26,6 @@ group :development do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
   gem 'byebug', platforms: %i[mri mingw x64_mingw]
   gem 'forgery'
-  # Adds support for Capybara system testing and selenium driver
-  gem 'selenium-webdriver'
-  gem 'factory_girl'
   gem 'faker'
   gem 'listen', '>= 3.0.5', '< 3.2'
   gem 'pry'

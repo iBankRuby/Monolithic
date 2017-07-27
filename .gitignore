@@ -17,8 +17,6 @@
 database.yml
 
 *.env
-.idea
 .env.test
-coverage
 .idea/
 /coverage/*

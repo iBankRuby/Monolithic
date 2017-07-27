@@ -13,7 +13,7 @@ class AccountsController < ApplicationController
   end
 
   def create
-    @account = Account.create(iban: Faker::Number.number(16), balance: 1000)
+    @account = Account.create(iban: Forgery('credit_card').number, balance: 1000)
     @account.roles.create(user: @user, role: 'owner')
     respond_to do |format|
       if @account.save

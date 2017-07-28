@@ -6,8 +6,7 @@ class TransactionCreator
   #   transaction_creator.account
   # end
 
-  attr_accessor :params, :user
-  attr_accessor :account
+  attr_reader :params, :user, :account
 
   def initialize(params, user)
     @params = params

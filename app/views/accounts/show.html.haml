@@ -9,7 +9,7 @@
 %br
 %div
 %h3 Outgoing transactions
--if @my_transactions
+-if @transactions
 	%table
 		%thead
 			%tr
@@ -18,7 +18,7 @@
 				%th Status:
 				%th Created:
 		%tbody
-		- @my_transactions.each do |t|
+		- @transactions.each do |t|
 			%tr
 				%td= t.remote_account_id
 				%td= t.summ

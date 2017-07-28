@@ -5,4 +5,4 @@ script:
   - bundle exec rspec --color --format documentation --require spec_helper --require rails_helper
 
 rvm:
-  - 2.4.0
+  - 2.4.1

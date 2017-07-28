@@ -4,7 +4,7 @@ require 'devise'
 # For more information: https://github.com/plataformatec/devise/wiki/How-To:-Stub-authentication-in-controller-specs
 module ControllerHelpers
   def sign_in(user = double('user'))
-    if user
+    if user.nil?
       allow_receive_authenticate
       allow_receive_current_user
     else

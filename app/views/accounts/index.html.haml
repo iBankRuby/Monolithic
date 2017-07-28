@@ -1,0 +1,22 @@
+%h1 Accounts list
+
+%table.table-responsive
+  %thead
+    %tr
+      %th Iban
+      %th Balance
+      %th Date created
+      %th Actions
+
+  %tbody
+    - @accounts.each do |account|
+      %tr
+        %td.iban #{account.iban}
+        %td.balance #{account.balance}
+        %td.date #{account.created_at.to_formatted_s(:short)}
+        %td.actions
+          = link_to 'Show', account, :class => 'btn btn-sm btn-info'
+          -#= link_to 'Edit', edit_account_path(account), :class => 'btn btn-sm btn-warning'
+          = link_to 'Destroy', account, :method => :delete, :data => { :confirm => 'Are you sure?' }, :class => 'btn btn-sm btn-danger'
+
+= link_to 'New Account', new_account_path, :class => 'btn btn-primary'

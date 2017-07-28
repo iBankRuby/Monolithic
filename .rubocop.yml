@@ -1,0 +1,16 @@
+AllCops:
+  Include:
+    - Rakefile
+    - config.ru
+    - lib/**/*.rake
+  Exclude:
+    - db/schema.rb
+    - db/migrate/*.rb
+    - spec/*
+    - config/**/*
+    - Gemfile
+    - spec/**/*
+Metrics/LineLength:
+  Max: 120
+Documentation:
+    Enabled: false

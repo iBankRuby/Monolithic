@@ -3,8 +3,6 @@ Rails.application.routes.draw do
     resources :transactions, only: %i[create]
   end
 
-  # resources :transactions, only: [:index]
-
   devise_for :users
   root to: 'accounts#index'
 end

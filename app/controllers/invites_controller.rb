@@ -15,6 +15,12 @@ class InvitesController < ApplicationController
     @invite.delete
   end
 
+  def update
+    @invite = Invite.find_by(id: params[:id])
+    @invite.update(status: true)
+    redirect_to :accounts
+  end
+
   private
 
   def set_invite

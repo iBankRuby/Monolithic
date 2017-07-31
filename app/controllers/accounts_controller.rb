@@ -14,14 +14,15 @@ class AccountsController < ApplicationController
 
   def create
     account = Account.create!(iban: Forgery('credit_card').number, balance: 1000)
-    account.roles.create(user: user, role: 'owner')
+    account.roles.create(user: current_user, role: 'owner')
     redirect_to account, notice: 'Account was successfully created.'
   end
 
   def show
     @transactions = Transaction.where(user_id: current_user.id, account_id: params[:id])
     @income = Transaction.where(remote_account_id: account.iban.to_s, status_to: false)
-  end
+    @roles = Role.where(account_id: params[:id])
+    end
 
   def destroy
     account.destroy

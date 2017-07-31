@@ -1,0 +1,7 @@
+%ul
+  -@invites.each do |invite|
+    %li
+      User name:
+      =User.find(invite.user_to_id).name
+      Invited at:
+      =invite.created_at

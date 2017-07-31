@@ -23,11 +23,13 @@ ActiveRecord::Schema.define(version: 20170731072708) do
   end
 
   create_table "invites", force: :cascade do |t|
+    t.bigint "account_id"
     t.integer "user_from_id", null: false
     t.integer "user_to_id", null: false
     t.boolean "status"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.index ["account_id"], name: "index_invites_on_account_id"
   end
 
   create_table "roles", force: :cascade do |t|

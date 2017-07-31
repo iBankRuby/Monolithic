@@ -22,14 +22,17 @@
 = link_to 'New Account', new_account_path, :class => 'btn btn-primary'
 %div
 %h3 Invitations
-%table
-  %thead
-    %tr
-      %th From user_id:
-      %th Acception:
-  %tbody
-  - @invites.each do |invite|
-    %tr
-      %td= invite.user_from_id
-      %td= link_to 'Submit', { :controller => :invites, :action => :update, :id => invite.id }, :method => :patch, :class => 'btn btn-sm btn-danger'
+-if @invites
+  %table
+    %thead
+      %tr
+        %th From user_id:
+        %th iban:
+        %th Acception:
+    %tbody
+    - @invites.each do |invite|
+      %tr
+        %td= invite.user_from_id
+        %td= invite.account.iban
+        %td= link_to 'Submit',account_invite_path(invite.account_id, invite.id), :method => :patch, :class => 'btn btn-sm btn-danger'
 

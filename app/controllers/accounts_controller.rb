@@ -6,6 +6,7 @@ class AccountsController < ApplicationController
 
   def index
     @accounts = user.accounts
+    @invites = Invite.where(user_to_id: current_user.id, status: nil)
   end
 
   def new
@@ -22,7 +23,7 @@ class AccountsController < ApplicationController
     @transactions = Transaction.where(user_id: current_user.id, account_id: params[:id])
     @income = Transaction.where(remote_account_id: account.iban.to_s, status_to: false)
     @roles = Role.where(account_id: params[:id])
-    @invites = Invite.where(user_to_id: current_user.id, status: nil)
+
   end
 
   def destroy

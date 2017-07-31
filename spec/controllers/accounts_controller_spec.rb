@@ -1,9 +1,12 @@
 require 'rails_helper'
 
 RSpec.describe AccountsController, type: :controller do
+  let! :user do
+    create :user
+  end
+
   before do
-    @user = FactoryGirl.create :user
-    sign_in @user
+    sign_in user
   end
 
   describe 'GET index' do
@@ -47,18 +50,18 @@ RSpec.describe AccountsController, type: :controller do
   end
 
   describe 'POST create' do
-    before :each do
-      @account = FactoryGirl.create :account
+    let :account do
+      create :account
     end
 
     it 'redirect to account' do
-      post :create, params: { account: @account }
+      post :create, params: { account: account }
       expect(response).to redirect_to Account.last
     end
 
     it 'creates a new account' do
-      post :create, params: { account: @account }
-      expect(Account.exists?(@account.id)).to be_truthy
+      post :create, params: { account: account }
+      expect(Account.exists?(account.id)).to be_truthy
     end
   end
 

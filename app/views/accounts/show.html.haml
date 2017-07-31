@@ -4,7 +4,20 @@
 
 /= link_to 'Edit', edit_account_path(@account)
 /\|
-= link_to 'Back', accounts_path
+= link_to 'Back', hccounts_path
+%br
+%br
+%div
+  %h3 Invitations
+    %thead
+      %tr
+        %th From user_id:
+        %th Acception
+    %tbody
+      @invites.each do |t|
+      %tr
+        %td= t.userid_from
+        %td= t.status
 %br
 %br
 %div

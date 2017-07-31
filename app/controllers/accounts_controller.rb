@@ -21,6 +21,7 @@ class AccountsController < ApplicationController
   def show
     @transactions = Transaction.where(user_id: current_user.id, account_id: params[:id])
     @income = Transaction.where(remote_account_id: account.iban.to_s, status_to: false)
+    @invites = Invites.where(user_to: current_user.id, status: nil)
   end
 
   def destroy

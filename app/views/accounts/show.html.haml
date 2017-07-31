@@ -7,18 +7,6 @@
 = link_to 'Back', accounts_path
 %br
 %br
-%div
-%h3 Invitations
-%table
-	%thead
-		%tr
-			%th From user_id:
-			%th Acception:
-	%tbody
-	- @invites.each do |invite|
-		%tr
-			%td= invite.user_from_id
-			%td= link_to 'Submit', { :controller => :invites, :action => :update, :id => invite.id }, :method => :patch, :class => 'btn btn-sm btn-danger'
 %br
 %br
 %div

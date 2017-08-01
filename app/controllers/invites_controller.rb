@@ -19,7 +19,7 @@ class InvitesController < ApplicationController
   end
 
   def destroy
-    invite.delete && redirect_to(account_invites_url)
+    invite.delete && redirect_to(:accounts)
   end
 
   def update

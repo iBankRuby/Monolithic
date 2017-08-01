@@ -20,3 +20,4 @@ database.yml
 .env.test
 .idea/
 /coverage/*
+/doc

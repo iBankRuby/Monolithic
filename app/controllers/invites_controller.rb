@@ -10,7 +10,7 @@ class InvitesController < ApplicationController
   end
 
   def create
-    @invite = Invite.new(user_from_id: current_user_id, user_to_id: user_to)
+    @invite = Invite.new(user_from_id: current_user_id, user_to_id: user_to, account_id: params[:id])
     if invite.valid?
       invite.save && redirect_to(:invites, notice: 'Invite have made.')
     else
@@ -25,6 +25,7 @@ class InvitesController < ApplicationController
   def update
     @invite = Invite.find_by(id: params[:id])
     @invite.update(status: true)
+    @role = Role.create(user: current_user, account_id: @invite.account_id, role: 'co-user')
     redirect_to :accounts
   end
 
@@ -41,7 +42,7 @@ class InvitesController < ApplicationController
   def set_user_to_id
     @user_to = User.find_by(email: invite_params[:email]).id
   rescue NoMethodError
-    redirect_to :invites, notice: 'Field should\'t be blank'
+    redirect_to account_invites_url, notice: 'Field should\'t be blank'
   end
 
   def set_current_user_id

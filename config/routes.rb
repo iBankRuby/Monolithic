@@ -1,8 +1,8 @@
 Rails.application.routes.draw do
-  resources :invites, only: %i[index create destroy update]
 
   resources :accounts, except: %i[edit update] do
     resources :transactions, only: %i[create]
+    resources :invites, only: %i[index create destroy update]
   end
 
   devise_for :users

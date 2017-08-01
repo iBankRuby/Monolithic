@@ -37,6 +37,7 @@ group :development do
   gem 'simplecov', require: false
   gem 'spring'
   gem 'spring-watcher-listen', '~> 2.0.0'
+  gem 'railroady'
 end
 
 group :test do

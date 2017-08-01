@@ -1,0 +1,11 @@
+IrresponsibleModule:
+  enabled: false
+
+TooManyInstanceVariables:
+  max_instance_variables: 5
+
+NilCheck:
+  enabled: false
+
+exclude_paths:
+  - db/migrate

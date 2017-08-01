@@ -5,4 +5,6 @@ class ProfileController < ApplicationController
 	  @user = current_user
 	  @accounts = user.accounts
 	end
+	def show
+  end
 end

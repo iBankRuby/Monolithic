@@ -1,3 +1,6 @@
-%h1 Hello
-%h1 #{@user.email}
+.row
+	.col-md-2	
+		%h1 #{gravatar_for @user}
+	.col-md-4	
+		%h1 #{@user.email}
 

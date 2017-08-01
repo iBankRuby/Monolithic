@@ -7,3 +7,10 @@ AllCops:
     - db/schema.rb
     - db/migrate/*.rb
     - spec/*
+    - config/**/*
+    - Gemfile
+    - spec/**/*
+Metrics/LineLength:
+  Max: 120
+Documentation:
+    Enabled: false

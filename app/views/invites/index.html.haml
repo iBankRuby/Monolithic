@@ -1,0 +1,12 @@
+=form_for :invite do |f|
+  =f.text_field :email, placeholder: 'Enter email'
+  =f.submit 'Make invite'
+
+%ul
+  -@invites.each do |invite|
+    %li
+      User name:
+      =User.find(invite.user_to_id).name
+      Invited at:
+      =invite.created_at
+      =link_to 'Delete invite', invite, method: :delete, data: { confirm: 'Are you sure?' }

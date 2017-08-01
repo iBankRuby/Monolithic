@@ -1,8 +1,10 @@
 Rails.application.routes.draw do
+  resources :invites, only: %i[index create destroy]
 
-  resources :accounts do
-    resources :transactions
+  resources :accounts, except: %i[edit update] do
+    resources :transactions, only: %i[create]
   end
+
   devise_for :users
 
   resources :profile

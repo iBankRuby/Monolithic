@@ -1,5 +1,5 @@
 class InvitesController < ApplicationController
-  before_action :set_invite, only: :destroy
+  before_action :set_invite, only: %i[destroy update]
   before_action :set_user_to_id, only: :create
   before_action :set_current_user_id, only: %i[index create]
 
@@ -12,9 +12,9 @@ class InvitesController < ApplicationController
   def create
     @invite = Invite.new(user_from_id: current_user_id, user_to_id: user_to, account_id: params[:account_id])
     if invite.valid?
-      invite.save && redirect_to(:account_invites, notice: 'Invite have made.')
+      invite.save && redirect_to(account_invites_url, notice: 'Invite have made.')
     else
-      redirect_to :account_invites, notice: 'Invite haven\'t been made'
+      redirect_to account_invites_url, notice: 'Invite haven\'t been made'
     end
   end
 
@@ -24,7 +24,6 @@ class InvitesController < ApplicationController
   end
 
   def update
-    invite = Invite.find_by(id: params[:id])
     invite.update(status: true)
     @role = Role.create(user: current_user, account_id: invite.account_id, role: 'co-user')
     redirect_to :accounts

@@ -25,6 +25,7 @@ RSpec.describe InvitesController, type: :controller do
     context 'with valid params' do
       it 'creates a new invite' do
         post :create, params: { account_id: account.id, invite: { email: 'user@mail.com' } }
+
         invite = Invite.find_by(user_to_id: another_user.id)
         expect(Invite.exists?(invite.id)).to be_truthy
       end
@@ -76,6 +77,7 @@ RSpec.describe InvitesController, type: :controller do
     it 'removes an invitation' do
       invite = Invite.create(user_from_id: user.id, user_to_id: another_user.id, account_id: account.id)
       delete :destroy, params: { account_id: account.id, id: invite.id }
+      expect(Invite.exists?(invite.id)).to be_falsey
     end
   end
 end

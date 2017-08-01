@@ -10,11 +10,11 @@ class InvitesController < ApplicationController
   end
 
   def create
-    @invite = Invite.new(user_from_id: current_user_id, user_to_id: user_to, account_id: params[:id])
+    @invite = Invite.new(user_from_id: current_user_id, user_to_id: user_to, account_id: params[:account_id])
     if invite.valid?
-      invite.save && redirect_to(:invites, notice: 'Invite have made.')
+      invite.save && redirect_to(:account_invites, notice: 'Invite have made.')
     else
-      redirect_to :invites, notice: 'Invite haven\'t been made'
+      redirect_to :account_invites, notice: 'Invite haven\'t been made'
     end
   end
 

@@ -1,5 +1,6 @@
 require 'rails_helper'
 require 'pry'
+require 'timecop'
 
 RSpec.describe InvitesController, type: :controller do
   let!(:user) { create :user }
@@ -33,13 +34,25 @@ RSpec.describe InvitesController, type: :controller do
         post :create, params: { account_id: account.id, invite: { email: 'user@mail.com' } }
         expect(response).to redirect_to account_invites_url
       end
+
+      it 'allows make same invite if old expired' do
+        Timecop.freeze(Date.today - 10) do
+          Invite.create(user_from_id: user.id, user_to_id: another_user.id, account_id: account.id)
+        end
+
+        Invite.new(user_from_id: user.id, user_to_id: another_user.id, account_id: account.id).save
+        # post :create, params: { account_id: account.id, invite: { email: 'user@mail.com' } }
+
+        binding.pry
+        expect(Invite.where(user_to_id: another_user.id).count).to eq(2)
+      end
     end
 
     context 'with invalid params' do
-      # it 'does not create invite without email' do
-      #   post :create, params: { account_id: account.id, invite: { email: '' } }
-      #   expect(Invite.exists? ).to
-      # end
+      it 'does not create invite without email' do
+        post :create, params: { account_id: account.id, invite: { email: '' } }
+        expect(Invite.count).to eq(0)
+      end
 
       it 'does not create invite to same user' do
         post :create, params: { account_id: account.id, invite: { email: 'me@example.com' } }

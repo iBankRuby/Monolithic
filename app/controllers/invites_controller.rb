@@ -19,8 +19,7 @@ class InvitesController < ApplicationController
   end
 
   def destroy
-    # delete for now, need store rejected invites somewhere with status false??
-    invite.delete && redirect_to(:accounts)
+    invite.delete && redirect_to(account_invites_url)
   end
 
   def update

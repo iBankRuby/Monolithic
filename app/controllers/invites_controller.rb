@@ -10,22 +10,23 @@ class InvitesController < ApplicationController
   end
 
   def create
-    @invite = Invite.new(user_from_id: current_user_id, user_to_id: user_to, account_id: params[:id])
+    @invite = Invite.new(user_from_id: current_user_id, user_to_id: user_to, account_id: params[:account_id])
     if invite.valid?
-      invite.save && redirect_to(:invites, notice: 'Invite have made.')
+      invite.save && redirect_to(:account_invites, notice: 'Invite have made.')
     else
-      redirect_to :invites, notice: 'Invite haven\'t been made'
+      redirect_to :account_invites, notice: 'Invite haven\'t been made'
     end
   end
 
   def destroy
-    invite.delete && redirect_to(:invites)
+    # delete for now, need store rejected invites somewhere with status false??
+    invite.delete && redirect_to(:accounts)
   end
 
   def update
-    @invite = Invite.find_by(id: params[:id])
-    @invite.update(status: true)
-    @role = Role.create(user: current_user, account_id: @invite.account_id, role: 'co-user')
+    invite = Invite.find_by(id: params[:id])
+    invite.update(status: true)
+    @role = Role.create(user: current_user, account_id: invite.account_id, role: 'co-user')
     redirect_to :accounts
   end
 

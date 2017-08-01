@@ -23,7 +23,6 @@ class AccountsController < ApplicationController
     @transactions = Transaction.where(user_id: current_user.id, account_id: params[:id])
     @income = Transaction.where(remote_account_id: account.iban.to_s, status_to: false)
     @roles = Role.where(account_id: params[:id])
-
   end
 
   def destroy

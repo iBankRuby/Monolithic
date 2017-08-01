@@ -2,6 +2,7 @@
 %h1 #{@account.iban}
 %p Balance: #{@account.balance}
 
+
 /= link_to 'Edit', edit_account_path(@account)
 /\|
 = link_to 'Back', accounts_path

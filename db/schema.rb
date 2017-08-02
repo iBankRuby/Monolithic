@@ -15,24 +15,24 @@ ActiveRecord::Schema.define(version: 20170802163422) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
-  create_table "accounts", force: :cascade do |t|
-    t.decimal "iban", precision: 16
-    t.float "balance"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-  end
-
-  create_table "accounts_users", force: :cascade do |t|
+  create_table "account_users", force: :cascade do |t|
     t.bigint "user_id"
     t.bigint "account_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.bigint "rule_id"
     t.bigint "role_id"
-    t.index ["account_id"], name: "index_accounts_users_on_account_id"
-    t.index ["role_id"], name: "index_accounts_users_on_role_id"
-    t.index ["rule_id"], name: "index_accounts_users_on_rule_id"
-    t.index ["user_id"], name: "index_accounts_users_on_user_id"
+    t.index ["account_id"], name: "index_account_users_on_account_id"
+    t.index ["role_id"], name: "index_account_users_on_role_id"
+    t.index ["rule_id"], name: "index_account_users_on_rule_id"
+    t.index ["user_id"], name: "index_account_users_on_user_id"
+  end
+
+  create_table "accounts", force: :cascade do |t|
+    t.decimal "iban", precision: 16
+    t.float "balance"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
   create_table "invites", force: :cascade do |t|
@@ -96,6 +96,6 @@ ActiveRecord::Schema.define(version: 20170802163422) do
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   end
 
-  add_foreign_key "accounts_users", "roles"
-  add_foreign_key "accounts_users", "rules"
+  add_foreign_key "account_users", "roles"
+  add_foreign_key "account_users", "rules"
 end

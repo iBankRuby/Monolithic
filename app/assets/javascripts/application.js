@@ -14,10 +14,6 @@
 //= require rails-ujs
 //= require jquery.turbolinks
 //= require turbolinks
-//= require turbolinks-compatibility
-//= require bootstrap
-//= require materialize-sprockets
-//= require_tree .
 
 $(document).ready(function(){
   $('.button-collapse').sideNav();	

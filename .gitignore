@@ -19,5 +19,5 @@ database.yml
 *.env
 .env.test
 .idea/
-/coverage/*
 /doc
+/coverage/

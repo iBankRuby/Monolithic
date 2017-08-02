@@ -11,25 +11,26 @@
     %table.table-responsive
       %thead
         %tr
+          %th Role
           %th Iban
           %th Balance
           %th Date created
           %th Actions
-
       %tbody
       - @accounts.each do |account|
         %tr
+          %td.owner.text-primary #{Role.find_by(account_id: account.id, user_id: current_user.id).role.capitalize}
           %td.iban #{account.iban}
           %td.balance #{account.balance}
           %td.date #{account.created_at.to_formatted_s(:short)}
           %td.actions
-            = link_to 'Show', account, :class => 'btn btn-sm btn-info'
+            = link_to 'Show', account, :class => 'btn btn-sm btn-info waves-effect'
             -#= link_to 'Edit', edit_account_path(account), :class => 'btn btn-sm btn-warning'
-            = link_to 'Destroy', account, :method => :delete, :data => { :confirm => 'Are you sure?' }, :class => 'btn btn-sm btn-danger'
+            = link_to 'Destroy', account, :method => :delete, :data => { :confirm => 'Are you sure?' }, :class => 'btn btn-sm btn-danger waves-effect'
 
   #co-user.col-md-12 Test 2
 .row
-  = link_to 'New Account', new_account_path, :class => 'btn btn-primary'
+  = link_to 'New Account', new_account_path, :class => 'btn btn-primary waves-effect'
 .row
   %div
     %h3 Invitations
@@ -45,6 +46,4 @@
           %tr
             %td= invite.user_from_id
             %td= invite.account.iban
-            %td= link_to 'Submit',account_invite_path(invite.account_id, invite.id), :method => :patch, :class => 'btn btn-sm btn-danger'
-
- 
+            %td= link_to 'Submit',account_invite_path(invite.account_id, invite.id), :method => :patch, :class => 'btn btn-sm btn-danger waves-effect'

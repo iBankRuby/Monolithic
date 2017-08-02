@@ -1,7 +1,10 @@
-= form_tag profile_index_path(@user), method: :post do
-	= label_tag :title, 'Name'
-	= text_field_tag :user[name]
-	= submit_tag 'Send'
+%h1 Update your profile
+
+
+/ = form_tag profile_index_path(@user), method: :post do
+/ 	= label_tag :title, 'Name'
+/ 	= text_field_tag :user[name]
+/ 	= submit_tag 'Send'
 
 
 / <form action="/submit_user" method="POST">

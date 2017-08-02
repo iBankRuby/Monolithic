@@ -1,6 +1,7 @@
 class Invite < ApplicationRecord
   validate :user_to_must_exits, :user_cannot_send_invites_to_himself
   validates :user_from_id, :user_to_id, numericality: true, presence: true
+  belongs_to :account
 
   private
 

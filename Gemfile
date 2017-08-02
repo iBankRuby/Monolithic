@@ -1,5 +1,5 @@
 source 'https://rubygems.org'
-ruby '2.4.0'
+ruby '2.4.1'
 
 git_source(:github) do |repo_name|
   repo_name = "#{repo_name}/#{repo_name}" unless repo_name.include?('/')
@@ -13,6 +13,7 @@ gem 'forgery'
 gem 'hamlit'
 gem 'hamlit-rails'
 gem 'jbuilder', '~> 2.5'
+gem 'materialize-sass'
 gem 'pg'
 gem 'puma', '~> 3.7'
 gem 'rails', '~> 5.1.2'
@@ -37,6 +38,7 @@ group :development do
   gem 'simplecov', require: false
   gem 'spring'
   gem 'spring-watcher-listen', '~> 2.0.0'
+  gem 'railroady'
 end
 
 group :test do

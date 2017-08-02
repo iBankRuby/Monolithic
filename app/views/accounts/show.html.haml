@@ -6,6 +6,10 @@
 /= link_to 'Edit', edit_account_path(@account)
 /\|
 = link_to 'Back', accounts_path
+%div
+= link_to 'Invite co-user', account_invites_url(@account)
+%br
+%br
 %br
 %br
 %div
@@ -39,6 +43,18 @@
 				%td= t.summ
 				%td= t.account_id
 				%td= t.created_at.to_formatted_s(:short)
+%h3 Account users
+-if @roles
+	%table
+		%thead
+			%tr
+				%th Email:
+				%th Role type:
+		%tbody
+		- @roles.each do |t|
+			%tr
+				%td= t.user.email
+				%td= t.role
 %br
 %br
 %div

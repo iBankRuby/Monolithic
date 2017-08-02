@@ -6,7 +6,7 @@
 /\|
 = link_to 'Back', accounts_path
 %div
-= link_to 'Invite co-user', account_invites_url(@account)
+= link_to 'Management', account_management_index_path(@account)
 %div
 %h3 Outgoing transactions
 -if @transactions

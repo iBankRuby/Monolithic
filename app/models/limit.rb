@@ -1,3 +1,4 @@
 class Limit < ApplicationRecord
-  belongs_to :accounts, through: :roles
+  has_one :account, through: :roles
+  has_one :role
 end

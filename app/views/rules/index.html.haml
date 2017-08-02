@@ -4,12 +4,9 @@
   %table
     %thead
       %tr
-        %th Rule 1
-        %th Rule 2
-        %th Edit
+        %th Spending Limit
     %tbody
     - @rules.each do |rule|
       %tr
-        %td= rule #TODO: add rule
-        %td= rule #TODO: add rule
-        %td= link_to 'Edit', edit_account_rule_url
+        %td= rule.spending_limit
+        %td= link_to 'Edit', edit_account_rule_url(id: rule.id, rule: rule), class: 'btn btn-sm btn-warning'

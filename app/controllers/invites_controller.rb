@@ -26,7 +26,6 @@ class InvitesController < ApplicationController
     invite.update(status: true)
     role = Role.create(user: current_user, account_id: invite.account_id, role: 'co-user')
     role.create_limit
-    binding.pry
     redirect_to :accounts
   end
 

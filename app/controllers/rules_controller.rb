@@ -1,21 +1,21 @@
 class RulesController < ApplicationController
   before_action :set_rule, only: %i[edit update]
 
+  attr_reader :rule
+
   def index
     @rules = Rule.all
   end
 
   def new
-    @rule = Rule.new(rule_params)
+    @rule = Rule.new
   end
 
   def create
-    @rule = Rule.new(rule_params)
+    @rule = Rule.new
 
-    if @rule.save
+    if rule.save
       redirect_to :account_rules
-    else
-      redirect_to :accounts
     end
   end
 
@@ -24,8 +24,6 @@ class RulesController < ApplicationController
   def update
     if rule.update(rule_params)
       redirect_to :edit_account_rule, notice: 'Rules have updated'
-    else
-      redirect_to :edit_account_rule, notice: 'Rules have not updated'
     end
   end
 

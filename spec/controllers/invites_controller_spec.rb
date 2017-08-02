@@ -1,6 +1,4 @@
 require 'rails_helper'
-require 'pry'
-require 'timecop'
 
 RSpec.describe InvitesController, type: :controller do
   let!(:user) { create :user }

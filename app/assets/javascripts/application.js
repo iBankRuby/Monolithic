@@ -12,6 +12,4 @@
 //
 //= require rails-ujs
 //= require turbolinks
-//= require bootstrap
-//= require materialize-sprockets
 //= require_tree .

@@ -1,7 +1,6 @@
 class ManagementController < ApplicationController
 
   def index
-    p params
     @account = Account.find(params[:account_id])
     @roles = Role.where(account_id: params[:account_id])
   end

@@ -5,7 +5,7 @@ class AccountsController < ApplicationController
   attr_reader :accounts, :user, :account, :income
 
   def index
-    @accounts = user.accounts.all
+    @accounts = @user.accounts.includes(:roles)
     @invites = Invite.where(user_to_id: current_user.id, status: nil)
   end
 

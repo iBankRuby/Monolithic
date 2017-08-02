@@ -12,7 +12,8 @@
   %tbody
     - @accounts.each do |account|
       %tr
-        %td.owner.text-primary #{Role.find_by(account_id: account.id, user_id: current_user.id).role.capitalize}
+        %td.owner.text-primary 
+          =account.roles.select{|r| r.user_id == current_user.id }.first.role.capitalize
         %td.iban #{account.iban}
         %td.balance.font-weight-bold #{account.balance}
         %td.date #{account.created_at.to_formatted_s(:short)}

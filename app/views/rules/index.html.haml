@@ -1,0 +1,15 @@
+%div
+%h3 Invitations
+-if @rules
+  %table
+    %thead
+      %tr
+        %th Rule 1
+        %th Rule 2
+        %th Edit
+    %tbody
+    - @rules.each do |rule|
+      %tr
+        %td= rule #TODO: add rule
+        %td= rule #TODO: add rule
+        %td= link_to 'Edit', edit_account_rule_url

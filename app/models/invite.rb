@@ -1,7 +1,7 @@
 class Invite < ApplicationRecord
   validate :user_to_must_exits, :user_cannot_send_invites_to_himself
-  validates :user_from_id, :user_to_id, numericality: true, presence: true
-  validates :user_from_id, uniqueness: { scope: :user_to_id, message: 'two invites on one acc' }
+  validates :user_from_id, :user_to_id, numericality: true, presence: true,
+                                        uniqueness: { scope: :user_to_id, message: 'two invites on one acc' }
   belongs_to :account
 
   # def confirmed?

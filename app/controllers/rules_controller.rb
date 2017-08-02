@@ -14,9 +14,7 @@ class RulesController < ApplicationController
   def create
     @rule = Rule.new
 
-    if rule.save
-      redirect_to :account_rules
-    end
+    redirect_to :account_rules if rule.save
   end
 
   def edit; end
@@ -34,6 +32,6 @@ class RulesController < ApplicationController
   end
 
   def rule_params
-    params.fetch(:rules).permit()
+    params.fetch(:rules).permit
   end
 end

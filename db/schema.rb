@@ -32,11 +32,6 @@ ActiveRecord::Schema.define(version: 20170731072708) do
     t.index ["account_id"], name: "index_invites_on_account_id"
   end
 
-  create_table "profiles", force: :cascade do |t|
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-  end
-
   create_table "roles", force: :cascade do |t|
     t.bigint "user_id"
     t.bigint "account_id"
@@ -52,8 +47,8 @@ ActiveRecord::Schema.define(version: 20170731072708) do
     t.bigint "account_id"
     t.string "remote_account_id"
     t.float "summ"
-    t.boolean "status_from"
-    t.boolean "status_to"
+    t.boolean "status_from", default: true
+    t.boolean "status_to", default: false
     t.datetime "checkout_from"
     t.datetime "checkout_to"
     t.datetime "created_at", null: false
@@ -76,6 +71,9 @@ ActiveRecord::Schema.define(version: 20170731072708) do
     t.datetime "last_sign_in_at"
     t.inet "current_sign_in_ip"
     t.inet "last_sign_in_ip"
+    t.string "confirmation_token"
+    t.datetime "confirmed_at"
+    t.datetime "confirmation_sent_at"
     t.integer "failed_attempts", default: 0, null: false
     t.string "unlock_token"
     t.datetime "locked_at"

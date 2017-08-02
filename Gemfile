@@ -49,4 +49,5 @@ group :test do
   gem 'rails-controller-testing'
   gem 'rspec-rails', '~> 3.6'
   gem 'selenium-webdriver'
+  gem 'timecop'
 end

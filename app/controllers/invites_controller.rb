@@ -18,15 +18,15 @@ class InvitesController < ApplicationController
     end
   end
 
-  def destroy
-    # delete for now, need store rejected invites somewhere with status false??
-    invite.delete && redirect_to(:accounts)
-  end
-
   def update
     invite.update(status: true)
     @role = Role.create(user: current_user, account_id: invite.account_id, role: 'co-user')
     redirect_to :accounts
+  end
+
+  def destroy
+    # delete for now, need store rejected invites somewhere with status false??
+    invite.delete && redirect_to(:accounts)
   end
 
   private

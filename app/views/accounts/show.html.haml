@@ -26,6 +26,7 @@
         %td= t.created_at.to_formatted_s(:short)
 %h3 Incoming transactions
 -if @income
+<<<<<<< HEAD
   %table
     %thead
       %tr
@@ -50,6 +51,20 @@
 			%tr
 				%td= t.user.email
 				%td= t.role
+=======
+	%table
+		%thead
+			%tr
+				%td Summ:
+				%td From_id:
+				%td Created:
+		%tbody
+		- @income.each do |t|
+			%tr
+				%td= t.summ
+				%td= t.account_id
+				%td= t.created_at.to_formatted_s(:short)
+>>>>>>> origin/backup2507
 %div
   = form_tag account_transactions_path(@account), method: :post do
     = label_tag :title, 'Account Iban'

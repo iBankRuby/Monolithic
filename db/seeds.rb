@@ -5,10 +5,17 @@
 #
 #   movies = Movie.create([{ name: 'Star Wars' }, { name: 'Lord of the Rings' }])
 #   Character.create(name: 'Luke', movie: movies.first)
+
+%w[owner co-user].each do |el|
+Role.create(name: el)
+
 user1 = User.create(email: 'admin@admin.com', password: 'password')
 acc1 = Account.create(iban: Forgery('credit_card').number, balance: 1000)
-acc1.roles.create(user: user1, role: 'owner')
+AccountUser.create(user_id: user1.id, account_id: acc1.id, role_id: 1)
 user2 = User.create(email: 'me@example.com', password: 'secret')
-Invite.create!(user_from_id: user1.id,
+Invite.create(
+               account_id: acc1.id,
+               user_from_id: user1.id,
                user_to_id: user2.id,
-               account_id: acc1.id)
+               )
+end

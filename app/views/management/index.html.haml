@@ -1,6 +1,4 @@
 = link_to 'Back', account_url(@account)
-%div
-= link_to 'Invite co-user', account_invites_path(@account)
 %h3 Account users
 -if @account_users
 	%table
@@ -14,4 +12,6 @@
 				%td= t.user.email
 				%td= t.role.name
 				%td= link_to 'Destroy', account_management_path(@account, t), :method => :delete, :class => 'btn btn-sm btn-danger'
-
+-if @account_users[0].role.name == 'owner'
+	%div
+	= link_to 'Invite co-user', account_invites_path(@account)

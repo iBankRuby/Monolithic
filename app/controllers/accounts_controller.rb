@@ -1,6 +1,6 @@
 class AccountsController < ApplicationController
   before_action :set_account, only: %i[show destroy]
-  before_action :set_current_user, only: %i[index show create]
+  before_action :set_current_user, only: %i[index index create]
 
   attr_reader :accounts, :user, :account, :income
 

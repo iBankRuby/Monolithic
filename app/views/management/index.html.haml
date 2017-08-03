@@ -1,6 +1,6 @@
 = link_to 'Back', account_url(@account)
 %div
-= link_to 'Invite co-user', account_invites_url(@account)
+= link_to 'Invite co-user', account_invites_path(@account)
 %h3 Account users
 -if @roles
 	%table
@@ -13,8 +13,5 @@
 			%tr
 				%td= t.user.email
 				%td= t.role
-				-#%td= link_to 'Destroy', account_management_path(t.id), :method => :delete, :class => 'btn btn-sm btn-danger'
-			-#= link_to 'Show', account, :class => 'btn btn-sm btn-info'
-			-#= link_to 'Destroy', account_management_path, :method => :delete, :class => 'btn btn-sm btn-danger'
-			-#= link_to 'Edit', edit_account_path(account), :class => 'btn btn-sm btn-warning'
-			-# = link_to 'Destroy', account, :method => :delete, :data => { :confirm => 'Are you sure?' }, :class
+				%td= link_to 'Destroy', account_management_path(@account, t), :method => :delete, :class => 'btn btn-sm btn-danger'
+

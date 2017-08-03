@@ -1,11 +1,11 @@
 class InvitesController < ApplicationController
   before_action :set_invite, only: %i[destroy update]
   before_action :set_user_to_id, only: :create
-  before_action :set_current_user_id, only: %i[show create]
+  before_action :set_current_user_id, only: %i[index create]
 
   attr_reader :invite, :user_to, :current_user_id
 
-  def show
+  def index
     @invites = Invite.where(user_from_id: current_user_id)
   end
 

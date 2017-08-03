@@ -5,15 +5,15 @@ RSpec.describe AccountsController, type: :controller do
   let(:account) { create :account }
   before { sign_in user }
 
-  describe 'GET show' do
+  describe 'GET index' do
     it 'has a 200 status code' do
-      get :show
+      get :index
       expect(response).to have_http_status :ok
     end
 
-    it 'render show template' do
-      get :show
-      expect(response).to render_template :show
+    it 'render index template' do
+      get :index
+      expect(response).to render_template :index
     end
   end
 
@@ -29,15 +29,15 @@ RSpec.describe AccountsController, type: :controller do
     end
   end
 
-  describe 'GET show' do
+  describe 'GET index' do
     it 'has a 200 status code' do
-      get :show, params: { id: account.id }
+      get :index, params: {id: account.id }
       expect(response).to have_http_status :ok
     end
 
-    it 'render show template' do
-      get :show, params: { id: account.id }
-      expect(response).to render_template :show
+    it 'render index template' do
+      get :index, params: {id: account.id }
+      expect(response).to render_template :index
     end
   end
 

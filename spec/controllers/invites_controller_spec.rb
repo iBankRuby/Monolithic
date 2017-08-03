@@ -7,15 +7,15 @@ RSpec.describe InvitesController, type: :controller do
 
   before { sign_in user }
 
-  describe 'GET show' do
+  describe 'GET index' do
     it 'has a 200 status code' do
-      get :show, params: {account_id: account.id }
+      get :index, params: {account_id: account.id }
       expect(response).to have_http_status :ok
     end
 
-    it 'render show template' do
-      get :show, params: {account_id: account.id }
-      expect(response).to render_template :show
+    it 'render index template' do
+      get :index, params: {account_id: account.id }
+      expect(response).to render_template :index
     end
   end
 

@@ -68,6 +68,10 @@ $secondary-color: #503ce9 !default;
 
 /* Nav */
 
+.navbar-right{
+	position: absolute;
+    right: 20px;
+}
 .user_name{
 	padding: 10px 32px 0;
 	text-align: center;

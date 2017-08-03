@@ -45,8 +45,17 @@ ActiveRecord::Schema.define(version: 20170802163422) do
     t.index ["account_id"], name: "index_invites_on_account_id"
   end
 
+  create_table "limits", force: :cascade do |t|
+    t.integer "reminder", default: 50
+    t.boolean "movable", default: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
   create_table "roles", force: :cascade do |t|
     t.string "name"
+    t.bigint "limit_id"
+    t.index ["limit_id"], name: "index_roles_on_limit_id"
   end
 
   create_table "rules", force: :cascade do |t|
@@ -96,4 +105,5 @@ ActiveRecord::Schema.define(version: 20170802163422) do
 
   add_foreign_key "account_users", "roles"
   add_foreign_key "account_users", "rules"
+  add_foreign_key "roles", "limits"
 end

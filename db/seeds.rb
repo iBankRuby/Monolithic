@@ -8,6 +8,7 @@
 
 %w[owner co-user].each do |el|
 Role.create(name: el)
+end
 
 user1 = User.create(email: 'admin@admin.com', password: 'password')
 acc1 = Account.create(iban: Forgery('credit_card').number, balance: 1000)
@@ -18,4 +19,3 @@ Invite.create(
                user_from_id: user1.id,
                user_to_id: user2.id,
                )
-end

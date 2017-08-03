@@ -14,8 +14,8 @@ class AccountsController < ApplicationController
   end
 
   def create
-    account = Account.create!(iban: Forgery('credit_card').number, balance: 1000)
-    account.account_users.create(user: user, role_id: Role.find_by_name('owner').id)
+    @account = Account.create!(iban: Forgery('credit_card').number, balance: 1000)
+    @account.roles.create(user: current_user, role: 'owner')
     redirect_to account, notice: 'Account was successfully created.'
   end
 

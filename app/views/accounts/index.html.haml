@@ -23,6 +23,8 @@
           = link_to 'Destroy', account, :method => :delete, :data => { :confirm => 'Are you sure?' }, :class => 'btn btn-sm btn-danger waves-effect'
 
 = link_to 'New Account', new_account_path, :class => 'btn waves-effect'
+= link_to 'All Limits', limits_path, :class => 'btn btn-primary'
+= link_to 'Limits for current user', limit_path(current_user.id), :class => 'btn btn-primary'
 %div
   %h3 Invitations
   -if @invites

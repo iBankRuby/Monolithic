@@ -28,6 +28,8 @@ class InvitesController < ApplicationController
     @account_user = AccountUser.create(user: current_user,
                                        account_id: invite.account_id,
                                        role_id: Role.find_by(name: 'co-user').id)
+    role = Role.create(user: current_user, account_id: invite.account_id, role: 'co-user')
+    role.create_limit
     redirect_to :accounts
   end
 

@@ -6,6 +6,8 @@ Rails.application.routes.draw do
     resources :rules, except: %i[index destroy]
   end
 
+  resources :limits
+
   devise_for :users
   root to: 'accounts#index'
 end

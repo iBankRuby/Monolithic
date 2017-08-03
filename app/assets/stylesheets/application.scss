@@ -65,3 +65,23 @@ $secondary-color: #503ce9 !default;
 @import "materialize/components/date_picker/default";
 @import "materialize/components/date_picker/default.date";
 @import "materialize/components/date_picker/default.time";
+
+/* Nav */
+
+.navbar-right{
+	position: absolute;
+    right: 20px;
+}
+.user_name{
+	padding: 10px 32px 0;
+	text-align: center;
+}
+.user_name p{
+	color: rgba(0, 0, 0, 0.87);
+	font-size: 14px;
+  line-height: 48px;
+  margin-bottom: 0
+}
+.gravatar{
+	height: 48px;
+}

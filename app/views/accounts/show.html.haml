@@ -39,9 +39,9 @@
 				%td= t.account_id
 				%td= t.created_at.to_formatted_s(:short)
 %div
-	= form_tag account_transactions_path(@account), method: :post do
-		= label_tag :title, 'Account Iban'
-		= text_field_tag :account
-		= label_tag :title, 'Amount'
-		= text_field_tag :summ
-		= submit_tag 'Send'
+  = form_tag account_transactions_path(@account), method: :post do
+    = label_tag :title, 'Account Iban'
+    = text_field_tag :account
+    = label_tag :title, 'Amount'
+    = text_field_tag :summ
+    = submit_tag 'Send'

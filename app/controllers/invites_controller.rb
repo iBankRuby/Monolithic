@@ -1,5 +1,5 @@
 class InvitesController < ApplicationController
-  before_action :set_invite, only: :destroy
+  before_action :set_invite, only: %i[destroy update]
   before_action :set_user_to_id, only: :create
   before_action :set_current_user_id, only: %i[index create]
 
@@ -19,13 +19,12 @@ class InvitesController < ApplicationController
   end
 
   def destroy
-    invite.delete && redirect_to(:invites)
+    invite.delete && redirect_to(:accounts)
   end
 
   def update
-    @invite = Invite.find_by(id: params[:id])
-    @invite.update(status: true)
-    @role = Role.create(user: current_user, account_id: @invite.account_id, role: 'co-user')
+    invite.update(status: true)
+    @role = Role.create(user: current_user, account_id: invite.account_id, role: 'co-user')
     redirect_to :accounts
   end
 

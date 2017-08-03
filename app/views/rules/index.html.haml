@@ -1,0 +1,12 @@
+%div
+%h3 Invitations
+-if @rules
+  %table
+    %thead
+      %tr
+        %th Spending Limit
+    %tbody
+    - @rules.each do |rule|
+      %tr
+        %td= rule.spending_limit
+        %td= link_to 'Edit', edit_account_rule_url(id: rule.id, rule: rule), class: 'btn btn-sm btn-warning'

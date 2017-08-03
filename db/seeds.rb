@@ -12,3 +12,6 @@ user2 = User.create(email: 'me@example.com', password: 'secret')
 Invite.create!(user_from_id: user1.id,
                user_to_id: user2.id,
                account_id: acc1.id)
+%w[owner co-user].each do |el|
+  Role.create(name: el)
+end

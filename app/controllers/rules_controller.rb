@@ -38,6 +38,6 @@ class RulesController < ApplicationController
   end
 
   def rule_params
-    params.fetch(:rules).permit(:spending_limit)
+    params.fetch(:account_rule).permit(:spending_limit)
   end
 end

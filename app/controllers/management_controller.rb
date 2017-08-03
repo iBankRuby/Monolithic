@@ -2,11 +2,13 @@ class ManagementController < ApplicationController
   before_action :set_account
 
   def index
-    @roles = Role.where(account_id: @account.id)
+    @account = Account.find(params[:account_id])
+    account_manager = AccountManager.new(current_user, params[:account_id])
+    @account_users = account_manager.manage
   end
 
   def destroy
-    Role.find_by(id: params[:id]).destroy
+    AccountUser.find_by(id: params[:id]).destroy
   end
 
   private

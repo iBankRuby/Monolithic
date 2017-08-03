@@ -4,14 +4,6 @@ class Invite < ApplicationRecord
                                         uniqueness: { scope: :user_to_id, message: 'You cannot send invite twice' }
   belongs_to :account
 
-  # def confirmed?
-  #   status
-  # end
-
-  # def expired?
-  #   (created_at + 3600 * 24 * 3) < Time.now
-  # end
-
   private
 
   def user_to_must_exits

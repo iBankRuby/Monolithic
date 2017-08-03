@@ -2,16 +2,16 @@
 %div
 = link_to 'Invite co-user', account_invites_path(@account)
 %h3 Account users
--if @roles
+-if @account_users
 	%table
 		%thead
 			%tr
 				%th Email:
 				%th Role type:
 		%tbody
-		- @roles.each do |t|
+		- @account_users.each do |t|
 			%tr
 				%td= t.user.email
-				%td= t.role
+				%td= t.role.name
 				%td= link_to 'Destroy', account_management_path(@account, t), :method => :delete, :class => 'btn btn-sm btn-danger'
 

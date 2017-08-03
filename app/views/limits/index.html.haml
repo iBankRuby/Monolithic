@@ -8,8 +8,8 @@
   %tbody
   - @limits.each do |l|
     %tr
-      %td=l.role.account.iban
-      %td=l.role.user.email
+      %td=l.account_users.account.iban
+      %td=l.account_users.user.email
       %td=l.reminder
       -#= link_to 'Show', account, :class => 'btn btn-sm btn-info'
       -#= link_to 'Edit', edit_account_path(account), :class => 'btn btn-sm btn-warning'

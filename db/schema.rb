@@ -21,8 +21,10 @@ ActiveRecord::Schema.define(version: 20170802163422) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.bigint "rule_id"
+    t.bigint "limit_id"
     t.bigint "role_id"
     t.index ["account_id"], name: "index_account_users_on_account_id"
+    t.index ["limit_id"], name: "index_account_users_on_limit_id"
     t.index ["role_id"], name: "index_account_users_on_role_id"
     t.index ["rule_id"], name: "index_account_users_on_rule_id"
     t.index ["user_id"], name: "index_account_users_on_user_id"
@@ -101,6 +103,7 @@ ActiveRecord::Schema.define(version: 20170802163422) do
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   end
 
+  add_foreign_key "account_users", "limits"
   add_foreign_key "account_users", "roles"
   add_foreign_key "account_users", "rules"
 end

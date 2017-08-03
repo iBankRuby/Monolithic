@@ -1,12 +1,9 @@
 class LimitsController < ApplicationController
-  # before_action :set_limit
   def index
     @limits = Limit.all
   end
 
   def show
+    @role = Role.where(user_id: current_user.id, role: 'co-user')
   end
-  # def set_invite
-  #   @limits = Limits.all
-  # end
 end

@@ -2,12 +2,14 @@
 %table.table-responsive
   %thead
     %tr
-      %th Limit
+      %th Acc_iban
+      %th User_email
       %th Reminder
   %tbody
   - @limits.each do |l|
     %tr
-      %td=l.limit
+      %td=l.role.account.iban
+      %td=l.role.user.email
       %td=l.reminder
       -#= link_to 'Show', account, :class => 'btn btn-sm btn-info'
       -#= link_to 'Edit', edit_account_path(account), :class => 'btn btn-sm btn-warning'

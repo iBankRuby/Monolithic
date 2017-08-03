@@ -1,14 +1,14 @@
-%h1 Current Limit
+%h1 Current user(as co-user) limits
 %table.table-responsive
   %thead
     %tr
-      %th Limit
-      %th Reminder
+      %th From account
+      %th Limit(reminder)
   %tbody
-  - @limits.each do |l|
+  - @role.each do |r|
     %tr
-      %td=l.limit
-      %td=l.reminder
+      %td=r.account.iban
+      %td=r.limit.reminder
       -#= link_to 'Show', account, :class => 'btn btn-sm btn-info'
       -#= link_to 'Edit', edit_account_path(account), :class => 'btn btn-sm btn-warning'
       -#= link_to 'Destroy', account, :method => :delete, :data => { :confirm => 'Are you sure?' }, :class => 'btn btn-sm btn-danger'

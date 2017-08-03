@@ -82,6 +82,15 @@ $secondary-color: #503ce9 !default;
   line-height: 48px;
   margin-bottom: 0
 }
-.gravatar{
-	height: 48px;
+
+
+/* Form Sign Up */
+input#user_password{
+	margin-bottom: 2px;
+}
+.input-field em#length_pass{
+	color: rgba(0, 0, 0, 0.15);
+}
+.form_auth{
+	margin: auto;
 }

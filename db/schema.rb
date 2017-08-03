@@ -97,4 +97,3 @@ ActiveRecord::Schema.define(version: 20170802163422) do
   add_foreign_key "account_users", "roles"
   add_foreign_key "account_users", "rules"
 end
-

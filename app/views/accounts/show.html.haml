@@ -1,7 +1,11 @@
 %p#notice= notice
-%h1 #{@account.iban}
-%p Balance: #{@account.balance}
-
+%table
+  %thead
+    %tr
+      %th 
+        %h5 #{@account.iban}
+      %th 
+        %h5 Balance: #{@account.balance}
 /= link_to 'Edit', edit_account_path(@account)
 /\|
 = link_to 'Back', accounts_path

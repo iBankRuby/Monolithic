@@ -68,21 +68,44 @@ $secondary-color: #503ce9 !default;
 
 /* Nav */
 
-.navbar-right{
-	position: absolute;
-    right: 20px;
-}
-.user_name{
-	padding: 10px 32px 0;
-	text-align: center;
-}
-.user_name p{
-	color: rgba(0, 0, 0, 0.87);
-	font-size: 14px;
-  line-height: 48px;
-  margin-bottom: 0
+.navbar-right {
+  position: absolute;
+  right: 20px;
+  align-items: center;
+  a.logout {
+    padding: 0 10px;
+    width: 60px;
+    height: 56px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
 }
 
+h5.name_user {
+  line-height: 56px;
+  margin: 0 15px 0 0;
+}
+
+.navbar-right {
+  p.txt_logout {
+    display: none;
+  }
+  a.logout:hover {
+    p.txt_logout {
+      display: block;
+      margin: 0;
+      color: #fff;
+    }
+    i.material-icons {
+      font-size: 22px;
+      height: 22px;
+      line-height: 22px;
+      text-align: center;
+      color: #fff;
+    }
+  }
+}
 
 /* Form Sign Up */
 input#user_password{

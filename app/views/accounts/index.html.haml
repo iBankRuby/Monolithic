@@ -20,3 +20,20 @@
           = link_to 'Destroy', account, :method => :delete, :data => { :confirm => 'Are you sure?' }, :class => 'btn btn-sm btn-danger'
 
 = link_to 'New Account', new_account_path, :class => 'btn btn-primary'
+%div
+%h3 Invitations
+-if @invites
+  %table
+    %thead
+      %tr
+        %th From user_id:
+        %th iban:
+        %th Accept:
+        %th Reject:
+    %tbody
+    - @invites.each do |invite|
+      %tr
+        %td= invite.user_from_id
+        %td= invite.account.iban
+        %td= link_to 'Submit',account_invite_path(invite.account_id, invite.id), :method => :patch, :class => 'btn btn-sm btn-info'
+        %td= link_to 'Reject',account_invite_path(invite.account_id, invite.id), :method => :delete, :class => 'btn btn-sm btn-danger'

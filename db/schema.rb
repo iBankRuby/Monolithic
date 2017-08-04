@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170724140629) do
+ActiveRecord::Schema.define(version: 20170731072708) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -20,6 +20,16 @@ ActiveRecord::Schema.define(version: 20170724140629) do
     t.float "balance"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+  end
+
+  create_table "invites", force: :cascade do |t|
+    t.bigint "account_id"
+    t.integer "user_from_id", null: false
+    t.integer "user_to_id", null: false
+    t.boolean "status"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["account_id"], name: "index_invites_on_account_id"
   end
 
   create_table "roles", force: :cascade do |t|
@@ -37,8 +47,8 @@ ActiveRecord::Schema.define(version: 20170724140629) do
     t.bigint "account_id"
     t.string "remote_account_id"
     t.float "summ"
-    t.boolean "status_from"
-    t.boolean "status_to"
+    t.boolean "status_from", default: true
+    t.boolean "status_to", default: false
     t.datetime "checkout_from"
     t.datetime "checkout_to"
     t.datetime "created_at", null: false

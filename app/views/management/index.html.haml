@@ -1,6 +1,8 @@
+- role = @account_users.shift
+%h1 #{role}
 = link_to 'Back', account_url(@account)
 %h3 Account users
--if @account_users
+-if @account_users[0]
 	%table
 		%thead
 			%tr
@@ -8,13 +10,13 @@
 				%th Role type:
 				%th Reminder:
 		%tbody
-		- @account_users.each do |t|
+		- @account_users[0].each do |t|
 			%tr
 				%td= t.user.email
 				%td= t.role.name
 				%td= t.limit.reminder
 				%td= link_to 'Destroy', account_management_path(@account, t), :method => :delete, :class => 'btn btn-sm btn-danger'
--if @account_users[0].role.name == 'owner'
+-if role == 'owner'
 	%div
 	= link_to 'Invite co-user', account_invites_path(@account)
 

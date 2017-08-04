@@ -26,7 +26,6 @@ RSpec.describe LimitsController, type: :controller do
 
   describe 'GET show' do
     it 'has a 200 status code' do
-      binding.pry
       get :show, params: { current_user: user.id, role_id: 2 }
       expect(response).to have_http_status :ok
     end

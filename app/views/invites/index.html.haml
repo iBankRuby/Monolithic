@@ -1,4 +1,7 @@
-=notice
+%p#notice= notice
+= link_to accounts_url, :class => "waves-effect waves-light link_back" do
+  %i.material-icons keyboard_arrow_left
+  Back to Accounts Page
 
 =form_for :invite do |f|
   =f.text_field :email, placeholder: 'Enter email'

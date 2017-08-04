@@ -1,4 +1,7 @@
 %p#notice= notice
+= link_to accounts_path, :class => "waves-effect waves-light link_back" do
+  %i.material-icons keyboard_arrow_left
+  Back to Accounts Page
 %table
   %thead
     %tr
@@ -8,7 +11,7 @@
         %h5 Balance: #{@account.balance}
 /= link_to 'Edit', edit_account_path(@account)
 /\|
-= link_to 'Back', accounts_path
+
 %div
 = link_to 'Management', account_management_index_path(@account)
 .row

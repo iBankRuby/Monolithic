@@ -117,3 +117,12 @@ input#user_password{
 .form_auth{
 	margin: auto;
 }
+
+/* */
+a.link_back {
+  display: flex;
+  color: #757575;
+  &:hover {
+    color: #424242;
+  }
+}

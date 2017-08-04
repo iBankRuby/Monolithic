@@ -1,6 +1,5 @@
 class Users::SessionsOrRegistrationsController < ApplicationController
-  def new
-  end
+  def new; end
   
   private
  

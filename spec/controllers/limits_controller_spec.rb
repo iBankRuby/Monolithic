@@ -1,16 +1,17 @@
 require 'rails_helper'
 
 RSpec.describe LimitsController, type: :controller do
-  let(:user) { create(:user) }
   let(:co_user) { create(:user, email: 'me3@mail.by') }
   let(:account) { create(:account) }
   let(:limit) { create(:limit) }
+  let(:role) { create(:role, id: 2, name: 'co-user') }
   let(:usr_acc) { create(:account_user,
                          user_id: co_user.id,
                          account_id: account.id,
-                         limit_id: limit.id) }
+                         limit_id: limit.id,
+                         role_id: role.id) }
 
-  before { sign_in user }
+  before { sign_in co_user }
 
   describe 'GET index' do
     it 'has a 200 status code' do
@@ -26,12 +27,12 @@ RSpec.describe LimitsController, type: :controller do
 
   describe 'GET show' do
     it 'has a 200 status code' do
-      get :show, params: { current_user: user.id, role_id: 2 }
+      get :show, params: { id: co_user.id }
       expect(response).to have_http_status :ok
     end
 
     it 'render show template' do
-      get :show
+      get :show, params: { id: co_user.id }
       expect(response).to render_template :show
     end
   end

@@ -25,9 +25,10 @@ class InvitesController < ApplicationController
   def update
     invite.update(status: true)
     # TODO: Is it necessary instance variable?
-    @account_user = AccountUser.create(user: current_user,
-                                       account_id: invite.account_id,
-                                       role_id: Role.find_by(name: 'co-user').id)
+    account_user = AccountUser.create(user: current_user,
+                                      account_id: invite.account_id,
+                                      role_id: Role.find_by(name: 'co-user').id)
+    account_user.create_limit
     redirect_to :accounts
   end
 

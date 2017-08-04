@@ -38,6 +38,7 @@ class TransactionCreator
 
   def update_account_from
     account_from.balance -= summ
+    binding.pry
     account_from.save!
   end
 

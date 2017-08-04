@@ -1,4 +1,20 @@
 %h1 Accounts list
+.row
+  %ul.tabs
+    %li.tab.col-md-3
+      %a.active{:href => "#owner"} Owner
+    %li.tab.col-md-3
+      %a{:href => "#co-user"} Co-User
+      / %li.tab.col.s3.disabled
+      /   %a{:href => "#test3"} Disabled Tab      
+  #owner.col-md-12
+    %table.table-responsive
+      %thead
+        %tr
+          %th Iban
+          %th Balance
+          %th Date created
+          %th Actions
 
 %table.table-responsive.table-hover
   %thead

@@ -16,6 +16,9 @@
 				%td= t.role.name
 				%td= t.limit.reminder
 				%td= link_to 'Destroy', account_management_path(@account, t), :method => :delete, :class => 'btn btn-sm btn-danger'
+				-if role == 'owner'
+					= link_to 'Manage', account_co_user_path(@account, t.user)
+
 -if role == 'owner'
 	%div
 	= link_to 'Invite co-user', account_invites_path(@account)

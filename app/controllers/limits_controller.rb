@@ -6,5 +6,4 @@ class LimitsController < ApplicationController
   def show
     @role = AccountUser.where(user_id: current_user.id, role_id: Role.find_by(name: 'co-user'))
   end
-
 end

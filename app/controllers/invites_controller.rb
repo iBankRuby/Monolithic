@@ -16,19 +16,21 @@ class InvitesController < ApplicationController
     else
       redirect_to :account_invites, notice: 'Invite haven\'t been sent'
     end
+  end  
+
+  def update
+    if invite.update(status: true)
+      AccountUser.create(user: current_user,
+                         account_id: invite.account_id,
+                         role_id: Role.find_by(name: 'co-user').id)
+      redirect_to :accounts
+    else
+      redirect_to :accounts, notice: 'Oops... Something went wrong. Try again.'
+    end
   end
 
   def destroy
     invite.delete && redirect_to(:accounts)
-  end
-
-  def update
-    invite.update(status: true)
-    # TODO: Is it necessary instance variable?
-    @account_user = AccountUser.create(user: current_user,
-                                       account_id: invite.account_id,
-                                       role_id: Role.find_by(name: 'co-user').id)
-    redirect_to :accounts
   end
 
   private

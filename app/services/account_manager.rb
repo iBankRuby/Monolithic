@@ -23,7 +23,6 @@ class AccountManager
 
   def get_users(role_type)
     return [].push @account_user if role_type == 'co-user'
-    @account_users = AccountUser.where(account_id: @account_id)
+    @account_users = AccountUser.where(account_id: @account_id).where.not(limit_id: nil)
   end
-
 end

@@ -4,6 +4,10 @@ class LimitsController < ApplicationController
   end
 
   def show
-    @role = Role.where(user_id: current_user.id, role: 'co-user')
+    @role = AccountUser.where(user_id: current_user.id, role_id: Role.find_by(name: 'co-user'))
+  end
+
+  def update
+
   end
 end

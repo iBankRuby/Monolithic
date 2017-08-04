@@ -2,7 +2,13 @@ language: ruby
 script:
   - export RAILS_ENV=test
   - bundle exec rake db:create db:schema:load db:test:prepare
+  - bundle exec rake db:seed
   - bundle exec rspec --color --format documentation --require spec_helper --require rails_helper
+  - bundle exec rubocop
+  - bundle exec reek
 
 rvm:
   - 2.4.1
+
+notifications:   
+  email: false

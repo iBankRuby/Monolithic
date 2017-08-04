@@ -1,22 +1,48 @@
 %h1 Accounts list
-
-%table.table-responsive
-  %thead
-    %tr
-      %th Iban
-      %th Balance
-      %th Date created
-      %th Actions
-
-  %tbody
-    - @accounts.each do |account|
-      %tr
-        %td.iban #{account.iban}
-        %td.balance #{account.balance}
-        %td.date #{account.created_at.to_formatted_s(:short)}
-        %td.actions
-          = link_to 'Show', account, :class => 'btn btn-sm btn-info'
-          -#= link_to 'Edit', edit_account_path(account), :class => 'btn btn-sm btn-warning'
-          = link_to 'Destroy', account, :method => :delete, :data => { :confirm => 'Are you sure?' }, :class => 'btn btn-sm btn-danger'
-
-= link_to 'New Account', new_account_path, :class => 'btn btn-primary'
+.row
+  %ul.tabs
+    %li.tab.col-md-3
+      %a.active{:href => "#owner"} As an Owner
+    %li.tab.col-md-3
+      %a{:href => "#co-user"} As Co-User
+  #owner.col-md-12
+    %table.table-responsive.table-hover
+      %thead
+        %tr
+          %th Role
+          %th Iban
+          %th Balance
+          %th Date created
+          %th Actions
+      %tbody
+        - @accounts.each do |account|
+          %tr
+            %td.owner.text-primary 
+              =account.account_users.select{|r| r.user_id == current_user.id }.first.role.name.capitalize
+            %td.iban #{account.iban}
+            %td.balance.font-weight-bold #{account.balance}
+            %td.date #{account.created_at.to_formatted_s(:short)}
+            %td.actions
+              = link_to 'Show', account, :class => 'btn btn-sm waves-effect'
+              -#= link_to 'Edit', edit_account_path(account), :class => 'btn btn-sm btn-warning'
+              = link_to 'Destroy', account, :method => :delete, :data => { :confirm => 'Are you sure?' }, :class => 'btn btn-sm btn-danger waves-effect'
+= link_to 'New Account', new_account_path, :class => 'btn waves-effect'
+= link_to 'All Limits', limits_path, :class => 'btn btn-primary'
+= link_to 'Limits for current user', limit_path(current_user.id), :class => 'btn btn-primary'
+%div
+  %h3 Invitations
+  -if @invites
+    %table
+      %thead
+        %tr
+          %th From user_id:
+          %th iban:
+          %th Accept:
+          %th Reject:
+      %tbody
+      - @invites.each do |invite|
+        %tr
+          %td= invite.user_from_id
+          %td= invite.account.iban
+          %td= link_to 'Accept invite',account_invite_path(invite.account_id, invite.id), :method => :patch, :class => 'btn btn-sm waves-effect'
+          %td= link_to 'Reject',account_invite_path(invite.account_id, invite.id), :method => :delete, :class => 'btn-danger btn btn-sm  waves-effect'

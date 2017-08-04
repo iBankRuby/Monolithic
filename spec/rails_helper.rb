@@ -6,6 +6,9 @@ require 'simplecov'
 require 'spec_helper'
 require 'rspec/rails'
 
+require 'pry'
+require 'timecop'
+
 require 'support/controller_helpers'
 
 ActiveRecord::Migration.maintain_test_schema!

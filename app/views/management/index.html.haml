@@ -1,0 +1,18 @@
+= link_to 'Back', account_url(@account)
+%div
+= link_to 'Invite co-user', account_invites_path(@account)
+%h3 Account users
+-if @account_users
+  %table
+    %thead
+      %tr
+        %th Email:
+        %th Role type:
+        %th Reminder:
+    %tbody
+    - @account_users.each do |t|
+      %tr
+        %td= t.user.email
+        %td= t.role.name
+        %td= t.limit.reminder
+        %td= link_to 'Destroy', account_management_path(@account, t), :method => :delete, :class => 'btn btn-sm btn-danger'

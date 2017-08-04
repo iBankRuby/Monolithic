@@ -1,4 +1,3 @@
-!!!
 %html
   %head
   %meta{:content => "text/html; charset=UTF-8", "http-equiv" => "Content-Type"}/
@@ -7,18 +6,24 @@
   = stylesheet_link_tag  'application', media: 'all', 'data-turbolinks-track': 'reload'
   = javascript_include_tag 'application', 'data-turbolinks-track': 'reload'
   %body
-  %header.navbar-light.navbar-toggleable-md.bd-navbar
-    %nav.container-fluid.navbar.navbar-toggleable-md.navbar-light.bg-faded
-      %button.navbar-toggler.navbar-toggler-right{"aria-controls" => "navbarNav", "aria-expanded" => "false", "aria-label" => "Toggle navigation", "data-target" => "#navbarNav", "data-toggle" => "collapse", :type => "button"}      
-      #navbarNav.collapse.navbar-collapse
-      %ul.navbar-nav
-        %li.nav-item
-          %a.nav-link{:href => "/accounts"} Accounts 
-        - if user_signed_in?
-          %li.nav-item
+  %header.navbar-toggleable-md.bd-navbar
+    %nav.container-fluid.navbar.navbar-toggleable-md.navbar-default
+      - if user_signed_in?  
+        = render :partial => "./layouts/nav"
+      %a.navbar-brand{:href => "/#"} iBank
+      %ul.navbar-nav.navbar-right        
+        - if user_signed_in?          
+          / %li
+          /   = link_to 'Accounts', "/accounts", :class => 'nav-link'
+          %li
             = link_to 'Logout', destroy_user_session_path, method: :delete, :class => 'nav-link'
-        - else
-          %li.nav-item
-            = link_to 'Login', new_user_session_path, :class => 'nav-link'   
+        / - else
+        /   %li.nav-item
+        /     = link_to 'Login', new_user_session_path, :class => 'nav-link'   
   .container
-    = yield
+    .row
+      .col-md-12
+        = yield
+  %footer.bd-footer.text-muted
+    .container
+      %p iBank team, 2017

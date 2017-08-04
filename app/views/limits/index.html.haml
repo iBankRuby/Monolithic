@@ -1,0 +1,17 @@
+%h1 Limits info
+= link_to 'Back', accounts_path
+%table.table-responsive
+  %thead
+    %tr
+      %th Acc_iban
+      %th User_email
+      %th Reminder
+  %tbody
+  - @limits.each do |l|
+    %tr
+      %td=l.account_user.account.iban
+      %td=l.account_user.user.email
+      %td=l.reminder
+      -#= link_to 'Show', account, :class => 'btn btn-sm btn-info'
+      -#= link_to 'Edit', edit_account_path(account), :class => 'btn btn-sm btn-warning'
+      -#= link_to 'Destroy', account, :method => :delete, :data => { :confirm => 'Are you sure?' }, :class => 'btn btn-sm btn-danger'

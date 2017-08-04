@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class InvitesController < ApplicationController
   before_action :set_invite, only: %i[destroy update]
   before_action :set_user_to_id, only: :create
@@ -25,11 +27,10 @@ class InvitesController < ApplicationController
   def update
     invite.update(status: true)
     # TODO: Is it necessary instance variable?
-    @account_user = AccountUser.create(user: current_user,
-                                       account_id: invite.account_id,
-                                       role_id: Role.find_by(name: 'co-user').id)
-    role = Role.create(user: current_user, account_id: invite.account_id, role: 'co-user')
-    role.create_limit
+    account_user = AccountUser.create(user: current_user,
+                                      account_id: invite.account_id,
+                                      role_id: Role.find_by(name: 'co-user').id)
+    account_user.create_limit
     redirect_to :accounts
   end
 

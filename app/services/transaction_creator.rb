@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class TransactionCreator
   # interface
   # def self.create_transaction(params, user)

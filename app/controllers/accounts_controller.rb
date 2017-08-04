@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class AccountsController < ApplicationController
   before_action :set_account, only: %i[show destroy]
   before_action :set_current_user, only: %i[index create show]
@@ -15,7 +17,8 @@ class AccountsController < ApplicationController
 
   def create
     @account = Account.create!(iban: Forgery('credit_card').number, balance: 1000)
-    @account.roles.create(user: current_user, role: 'owner')
+    @account.account_users.create(user: user, role_id: Role.find_by(name: 'owner').id)
+
     redirect_to account, notice: 'Account was successfully created.'
   end
 

@@ -1,4 +1,5 @@
 %h1 Limits info
+= link_to 'Back', accounts_path
 %table.table-responsive
   %thead
     %tr
@@ -8,8 +9,8 @@
   %tbody
   - @limits.each do |l|
     %tr
-      %td=l.role.account.iban
-      %td=l.role.user.email
+      %td=l.account_user.account.iban
+      %td=l.account_user.user.email
       %td=l.reminder
       -#= link_to 'Show', account, :class => 'btn btn-sm btn-info'
       -#= link_to 'Edit', edit_account_path(account), :class => 'btn btn-sm btn-warning'

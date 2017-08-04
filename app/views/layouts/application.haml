@@ -10,8 +10,7 @@
     %nav.container-fluid.navbar.navbar-toggleable-md.navbar-default
       - if user_signed_in?  
         = render :partial => "./layouts/nav"
-      %a.navbar-brand{:href => "#"} iBank
-      
+      %a.navbar-brand{:href => "/#"} iBank
       %ul.navbar-nav.navbar-right        
         - if user_signed_in?          
           / %li
@@ -28,5 +27,3 @@
   %footer.bd-footer.text-muted
     .container
       %p iBank team, 2017
-
-

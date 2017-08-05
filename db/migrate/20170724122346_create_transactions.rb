@@ -7,7 +7,7 @@ class CreateTransactions < ActiveRecord::Migration[5.1]
       t.float :summ
       t.boolean :status_from, default: true
       t.boolean :status_to, default: false
-      t.datetime :checkout_from     # time of user answer for approve question
+      t.datetime :checkout_from # time of user answer for approve question
       t.datetime :checkout_to
       t.timestamps
     end

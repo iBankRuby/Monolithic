@@ -60,8 +60,8 @@ ActiveRecord::Schema.define(version: 20170802163422) do
     t.bigint "account_id"
     t.string "remote_account_id"
     t.float "summ"
-    t.boolean "status_from", default: true
-    t.boolean "status_to", default: false
+    t.boolean "status_from"
+    t.boolean "status_to"
     t.datetime "checkout_from"
     t.datetime "checkout_to"
     t.datetime "created_at", null: false
@@ -84,9 +84,6 @@ ActiveRecord::Schema.define(version: 20170802163422) do
     t.datetime "last_sign_in_at"
     t.inet "current_sign_in_ip"
     t.inet "last_sign_in_ip"
-    t.string "confirmation_token"
-    t.datetime "confirmed_at"
-    t.datetime "confirmation_sent_at"
     t.integer "failed_attempts", default: 0, null: false
     t.string "unlock_token"
     t.datetime "locked_at"

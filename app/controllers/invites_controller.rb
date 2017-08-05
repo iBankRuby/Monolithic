@@ -1,12 +1,12 @@
 class InvitesController < ApplicationController
   before_action :set_invite, only: %i[destroy update]
   before_action :set_user_to_id, only: :create
-  before_action :set_current_user_id, only: %i[index create]
+  before_action :set_current_user_id, only: :create
 
   attr_reader :invite, :user_to, :current_user_id
 
   def index
-    @invites = Invite.where(user_from_id: current_user_id)
+    @invites = Account.find(params[:account_id]).invites
   end
 
   def create
@@ -19,7 +19,7 @@ class InvitesController < ApplicationController
   end
 
   def update
-    if invite.update(status: true)
+    if invite.update(invite_params)
       AccountUser.create(user: current_user,
                          account_id: invite.account_id,
                          role_id: Role.find_by(name: 'co-user').id)
@@ -30,7 +30,7 @@ class InvitesController < ApplicationController
   end
 
   def destroy
-    # delete for now, need store rejected invites somewhere with status false??
+    # TODO: Method will return sent invite.
     invite.delete && redirect_to(:accounts)
   end
 
@@ -41,12 +41,7 @@ class InvitesController < ApplicationController
   end
 
   def invite_params
-    params.fetch(:invite).permit(:email)
-  end
-
-  def email_blank
-    invite_params[:email].blank?
-
+    params.fetch(:invite).permit(:email, :status)
   end
 
   def set_user_to_id

@@ -18,10 +18,6 @@ class InvitesController < ApplicationController
     end
   end
 
-  def destroy
-    invite.delete && redirect_to(:accounts)
-  end
-
   def update
     if invite.update(status: true)
       AccountUser.create(user: current_user,
@@ -31,6 +27,11 @@ class InvitesController < ApplicationController
     else
       redirect_to :accounts, notice: 'Oops... Something went wrong. Try again.'
     end
+  end
+
+  def destroy
+    # delete for now, need store rejected invites somewhere with status false??
+    invite.delete && redirect_to(:accounts)
   end
 
   private
@@ -43,10 +44,21 @@ class InvitesController < ApplicationController
     params.fetch(:invite).permit(:email)
   end
 
+  def email_blank
+    invite_params[:email].blank?
+
+  end
+
   def set_user_to_id
-    @user_to = User.find_by(email: invite_params[:email]).id
-  rescue NoMethodError
-    redirect_to account_invites_url, notice: 'Field should\'t be blank'
+    email = invite_params[:email]
+    user = User.find_by(email: email)
+    if email.blank?
+      redirect_to account_invites_url, notice: 'Field should\'t be blank'
+    elsif user.nil?
+      redirect_to account_invites_url, notice: '@mail not found'
+    else
+      @user_to = user.id
+    end
   end
 
   def set_current_user_id

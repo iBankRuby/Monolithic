@@ -1,7 +1,7 @@
 class Invite < ApplicationRecord
   validate :user_to_must_exits, :user_cannot_send_invites_to_himself
   validates :user_from_id, :user_to_id, numericality: true, presence: true
-  validates :user_from_id, uniqueness: { scope: :user_to_id, message: 'You cannot send invite twice' }
+  validates :account_id, uniqueness: { scope: :user_to_id, message: 'You cannot send invite twice' }
   validates :status, presence: true, on: :update
   belongs_to :account
 

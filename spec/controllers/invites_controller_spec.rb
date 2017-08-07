@@ -50,6 +50,11 @@ RSpec.describe InvitesController, type: :controller do
         post :create, params: { account_id: account.id, invite: { email: 'user@mail.com' } }
         expect(Invite.where(user_to_id: another_user.id).count).to eq(1)
       end
+
+      it 'will redirect to invites if user is nonexist' do
+        post :create, params: { account_id: account.id, invite: { email: 'user123@mail.com' } }
+        expect(response).to redirect_to account_invites_url
+      end
     end
   end
 
@@ -57,17 +62,51 @@ RSpec.describe InvitesController, type: :controller do
     let! :user do
       create :user
     end
+
     before :each do
-      sign_in user
-       FactoryGirl.create :user, :id => 1, :email => 'me55@mail.ru'
-      @user2 = FactoryGirl.create :user, :id => 2, :email => 'me3@mail.ru'
+      FactoryGirl.create :user, id: 1, email: 'me55@mail.ru'
+      @user2 = FactoryGirl.create :user, id: 2, email: 'me3@mail.ru'
       @account = FactoryGirl.create :account
-      @invite = FactoryGirl.create :invite, :account_id => @account.id
+      @invite = FactoryGirl.create :invite, account_id: @account.id
     end
 
-    it 'redirect to account' do
-      patch :update, params: { id: @invite.id, account_id: @account.id, user: @user2.id }
-      expect(response).to redirect_to :accounts
+    before do
+      Timecop.freeze(Date.today + 10)
+    end
+
+    after do
+      Timecop.return
+    end
+
+    context 'with valid params' do
+      it 'redirect to account' do
+        patch :update, params: { id: @invite.id, account_id: @account.id, invite: { status: true } }
+        expect(response).to redirect_to :accounts
+      end
+
+      it 'set invite status to true' do
+        patch :update, params: { id: @invite.id, account_id: @account.id, invite: { status: true } }
+        expect(Invite.find(@invite.id).status).to be_truthy
+      end
+
+      it 'set invite status to false' do
+        patch :update, params: { id: @invite.id, account_id: @account.id, invite: { status: false } }
+        expect(Invite.find(@invite.id).status).to be_falsey
+      end
+
+      it 'will be updated later than created' do
+        patch :update, params: { id: @invite.id, account_id: @account.id, invite: { status: true } }
+        invite = Invite.find(@invite.id)
+        expect(invite.updated_at).not_to eq(invite.created_at)
+      end
+    end
+
+    context 'with invalid params' do
+      it 'won\'t update invite status' do
+        patch :update, params: { id: @invite.id, account_id: @account.id, invite: { status: nil } }
+        invite = Invite.find(@invite.id)
+        expect(invite.updated_at).to eq(invite.created_at)
+      end
     end
   end
 

@@ -1,0 +1,12 @@
+= form_for :account_rule, url: { action: 'update' }, method: 'patch' do |f|
+  - if @rule.errors.any?
+    #error_explanation
+      %h2= "#{pluralize(@rule.errors.count, "error")} prohibited this account from being saved:"
+      %ul
+        - @rule.errors.full_messages.each do |msg|
+          %li= msg
+
+  .actions
+    %fieldset.toggleable{disabled: true}
+      = f.text_field :spending_limit, value: @rule.spending_limit
+      = f.submit 'Save'

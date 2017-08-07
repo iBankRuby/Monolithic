@@ -10,10 +10,23 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170731072708) do
+ActiveRecord::Schema.define(version: 20170802163422) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "account_users", force: :cascade do |t|
+    t.bigint "user_id"
+    t.bigint "account_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.bigint "rule_id"
+    t.bigint "role_id"
+    t.index ["account_id"], name: "index_account_users_on_account_id"
+    t.index ["role_id"], name: "index_account_users_on_role_id"
+    t.index ["rule_id"], name: "index_account_users_on_rule_id"
+    t.index ["user_id"], name: "index_account_users_on_user_id"
+  end
 
   create_table "accounts", force: :cascade do |t|
     t.decimal "iban", precision: 16
@@ -33,13 +46,13 @@ ActiveRecord::Schema.define(version: 20170731072708) do
   end
 
   create_table "roles", force: :cascade do |t|
-    t.bigint "user_id"
-    t.bigint "account_id"
-    t.string "role"
+    t.string "name"
+  end
+
+  create_table "rules", force: :cascade do |t|
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.index ["account_id"], name: "index_roles_on_account_id"
-    t.index ["user_id"], name: "index_roles_on_user_id"
+    t.decimal "spending_limit", precision: 10, scale: 4
   end
 
   create_table "transactions", force: :cascade do |t|
@@ -47,8 +60,8 @@ ActiveRecord::Schema.define(version: 20170731072708) do
     t.bigint "account_id"
     t.string "remote_account_id"
     t.float "summ"
-    t.boolean "status_from", default: true
-    t.boolean "status_to", default: false
+    t.boolean "status_from"
+    t.boolean "status_to"
     t.datetime "checkout_from"
     t.datetime "checkout_to"
     t.datetime "created_at", null: false
@@ -71,9 +84,6 @@ ActiveRecord::Schema.define(version: 20170731072708) do
     t.datetime "last_sign_in_at"
     t.inet "current_sign_in_ip"
     t.inet "last_sign_in_ip"
-    t.string "confirmation_token"
-    t.datetime "confirmed_at"
-    t.datetime "confirmation_sent_at"
     t.integer "failed_attempts", default: 0, null: false
     t.string "unlock_token"
     t.datetime "locked_at"
@@ -81,4 +91,6 @@ ActiveRecord::Schema.define(version: 20170731072708) do
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   end
 
+  add_foreign_key "account_users", "roles"
+  add_foreign_key "account_users", "rules"
 end

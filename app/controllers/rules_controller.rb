@@ -46,3 +46,4 @@ class RulesController < ApplicationController
     @account = Account.find(params[:account_id])
   end
 end
+

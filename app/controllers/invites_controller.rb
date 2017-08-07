@@ -21,9 +21,10 @@ class InvitesController < ApplicationController
 
   def update
     if invite.update(invite_params)
-      AccountUser.create(user: current_user,
+      account_user = AccountUser.create(user: current_user,
                          account_id: invite.account_id,
                          role_id: Role.find_by(name: 'co-user').id)
+      account_user.create_limit
       redirect_to :accounts
     else
       redirect_to :accounts, notice: 'Oops... Something went wrong. Try again.'

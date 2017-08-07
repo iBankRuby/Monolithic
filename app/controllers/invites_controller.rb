@@ -7,6 +7,7 @@ class InvitesController < ApplicationController
 
   def index
     @invites = Account.find(params[:account_id]).invites
+    @rule = Rule.new
   end
 
   def create
@@ -27,16 +28,6 @@ class InvitesController < ApplicationController
     else
       redirect_to :accounts, notice: 'Oops... Something went wrong. Try again.'
     end
-  end
-
-  def update
-    invite.update(status: true)
-    # TODO: Is it necessary instance variable?
-    account_user = AccountUser.create(user: current_user,
-                                      account_id: invite.account_id,
-                                      role_id: Role.find_by(name: 'co-user').id)
-    account_user.create_limit
-    redirect_to :accounts
   end
 
   def destroy

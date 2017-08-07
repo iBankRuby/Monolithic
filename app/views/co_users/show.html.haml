@@ -32,3 +32,6 @@
         %td= t.account_id
         %td= t.created_at.to_formatted_s(:short)
         %td= link_to 'Confirm', account_transaction_path(@account, t), :method => :put, :class => 'btn btn-sm btn-danger'
+
+= link_to 'New Rules', new_account_rule_path, :class => 'btn btn-sm btn-danger'
+

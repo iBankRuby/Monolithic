@@ -1,4 +1,10 @@
 %h1 Edit co-user's rules
 
+.switch
+  %label 
+    Edit
+    %input#editable{:type => "checkbox"}/
+    %span.lever
+
 =render 'edit_form'
 =link_to 'Back', account_rules_url

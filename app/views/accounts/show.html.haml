@@ -1,47 +1,64 @@
 %p#notice= notice
-%h1 #{@account.iban}
-%p Balance: #{@account.balance}
-
+= link_to accounts_path, :class => "waves-effect waves-light link_back" do
+  %i.material-icons keyboard_arrow_left
+  Back to Accounts Page
+%table
+  %thead
+    %tr
+      %th 
+        %h5 #{@account.iban}
+      %th 
+        %h5 Balance: #{@account.balance}
 /= link_to 'Edit', edit_account_path(@account)
 /\|
-= link_to 'Back', accounts_path
+
 %div
 = link_to 'Management', account_management_index_path(@account)
+.row
+  %ul.tabs
+    %li.tab.col-md-4
+      %a.active{:href => "#out_trans"} Outgoing transactions
+    %li.tab.col-md-4
+      %a{:href => "#inc_trans"} Incoming transactions
+      / %li.tab.col.s3.disabled
+      /   %a{:href => "#test3"} Disabled Tab  
+  #out_trans.col-md-12
+    %h3 Outgoing transactions
+    -if @transactions
+      %table
+        %thead
+          %tr
+            %th To:
+            %th Summ:
+            %th Status:
+            %th Created:
+        %tbody
+        - @transactions.each do |t|
+          %tr
+            %td= t.remote_account_id
+            %td= t.summ
+            %td= t.status_to
+            %td= t.created_at.to_formatted_s(:short)
+  #inc_trans.col-md-12
+    %h3 Incoming transactions
+    -if @income
+      %table
+        %thead
+          %tr
+            %td Summ:
+            %td From_id:
+            %td Created:
+        %tbody
+        - @income.each do |t|
+          %tr
+            %td= t.summ
+            %td= t.account_id
+            %td= t.created_at.to_formatted_s(:short)
 %div
-%h3 Outgoing transactions
--if @transactions
-	%table
-		%thead
-			%tr
-				%th To:
-				%th Summ:
-				%th Status:
-				%th Created:
-		%tbody
-		- @transactions.each do |t|
-			%tr
-				%td= t.remote_account_id
-				%td= t.summ
-				%td= t.status_to
-				%td= t.created_at.to_formatted_s(:short)
-%h3 Incoming transactions
--if @income
-	%table
-		%thead
-			%tr
-				%td Summ:
-				%td From_id:
-				%td Created:
-		%tbody
-		- @income.each do |t|
-			%tr
-				%td= t.summ
-				%td= t.account_id
-				%td= t.created_at.to_formatted_s(:short)
-%div
-	= form_tag account_transaction_path(@account), method: :post do
-		= label_tag :title, 'Account Iban'
-		= text_field_tag :account
-		= label_tag :title, 'Amount'
-		= text_field_tag :summ
-		= submit_tag 'Send'
+  = form_tag account_transactions_path(@account), method: :post do
+    = label_tag :title, 'Account Iban'
+    = text_field_tag :account
+    = label_tag :title, 'Amount'
+    = text_field_tag :summ
+    = submit_tag 'Send'
+

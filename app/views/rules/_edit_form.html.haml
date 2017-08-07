@@ -7,5 +7,6 @@
           %li= msg
 
   .actions
-    = f.text_field :spending_limit, value: @rule.spending_limit
-    = f.submit 'Save'
+    %fieldset.toggleable{disabled: true}
+      = f.text_field :spending_limit, value: @rule.spending_limit
+      = f.submit 'Save'

@@ -1,27 +1,40 @@
 %h1 Accounts list
+.row
+  .col-md-10
+    /%ul.tabs
+    /  %li.tab.col-md-3
+    /    %a.active{:href => "#owner"} Owner
+    /  %li.tab.col-md-3
+    /    %a{:href => "#co-user"} Co-User
+    /  %li.tab.col.s3.disabled
+    /    %a{:href => "#test3"} Disabled Tab      
+    /#owner.col-md-12
+    %table.table-responsive
+      %thead
+        %tr
+          %th Iban
+          %th Balance
+          %th Date created
+          %th Actions
 
-%table.table-responsive
-  %thead
-    %tr
-      %th Iban
-      %th Balance
-      %th Date created
-      %th Actions
+      %tbody
+      - @accounts.each do |account|
+        %tr
+          %td.iban #{account.iban}
+          %td.balance #{account.balance}
+          %td.date #{account.created_at.to_formatted_s(:short)}
+          %td.actions
+            = link_to 'Show', account, :class => 'btn btn-sm btn-info'
+            -#= link_to 'Edit', edit_account_path(account), :class => 'btn btn-sm btn-warning'
+            = link_to 'Destroy', account, :method => :delete, :data => { :confirm => 'Are you sure?' }, :class => 'btn btn-sm btn-danger'
 
-  %tbody
-    - @accounts.each do |account|
-      %tr
-        %td.iban #{account.iban}
-        %td.balance #{account.balance}
-        %td.date #{account.created_at.to_formatted_s(:short)}
-        %td.actions
-          = link_to 'Show', account, :class => 'btn btn-sm btn-info'
-          -#= link_to 'Edit', edit_account_path(account), :class => 'btn btn-sm btn-warning'
-          = link_to 'Destroy', account, :method => :delete, :data => { :confirm => 'Are you sure?' }, :class => 'btn btn-sm btn-danger'
 
-= link_to 'New Account', new_account_path, :class => 'btn btn-primary'
+
+  .col-md-2
+    = link_to 'New Account', new_account_path, :class => 'btn btn-primary'
 = link_to 'All Limits', limits_path, :class => 'btn btn-primary'
 = link_to 'Limits for current user', limit_path(current_user.id), :class => 'btn btn-primary'
+
 %div
 %h3 Invitations
 -if @invites
@@ -39,3 +52,4 @@
         %td= invite.account.iban
         %td= link_to 'Submit',account_invite_path(invite.account_id, invite.id), :method => :patch, :class => 'btn btn-sm btn-info'
         %td= link_to 'Reject',account_invite_path(invite.account_id, invite.id), :method => :delete, :class => 'btn btn-sm btn-danger'
+

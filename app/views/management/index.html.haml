@@ -1,6 +1,9 @@
+%p#notice= notice
 - role = @account_users.shift
 %h1 #{role}
-= link_to 'Back', account_url(@account)
+= link_to account_url(@account), :class => "waves-effect waves-light link_back" do
+	%i.material-icons keyboard_arrow_left
+	Back to Accounts Management
 %h3 Account users
 -if @account_users[0]
 	%table

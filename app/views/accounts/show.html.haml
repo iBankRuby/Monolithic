@@ -1,5 +1,6 @@
 %p#notice= notice
 %h1 #{@account.iban}
+%h3= 'Valid THRU: ' + @account.valid_thru.strftime('%m/%d')
 %p Balance: #{@account.balance}
 
 /= link_to 'Edit', edit_account_path(@account)
@@ -44,4 +45,8 @@
 		= text_field_tag :account
 		= label_tag :title, 'Amount'
 		= text_field_tag :summ
+		= label_tag :title, 'Expiration day'
+		= text_field_tag :day
+		= label_tag :title, 'Expiration month'
+		= text_field_tag :month
 		= submit_tag 'Send'

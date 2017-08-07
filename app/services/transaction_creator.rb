@@ -13,6 +13,13 @@ class TransactionCreator
     @user = user
   end
 
+  def check_creds
+    expired = account_to.valid_thru
+    return false if @params[:day] != expired.strftime('%d')
+    return false if @params[:month] != expired.strftime('%m')
+    true
+  end
+
   def create_transaction
     ActiveRecord::Base.transaction do
       create_transaction_object

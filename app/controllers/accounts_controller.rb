@@ -14,7 +14,10 @@ class AccountsController < ApplicationController
   end
 
   def create
-    account = Account.create!(iban: Forgery('credit_card').number, balance: 1000)
+    iban = Ibandit::IBAN.new(country_code: 'BE',
+                             account_number: Forgery('credit_card').number)
+    account = Account.create!(iban: iban.iban,
+                              balance: 1000)
     account.account_users.create(user: user, role_id: Role.find_by(name: 'owner').id)
     redirect_to account, notice: 'Account was successfully created.'
   end

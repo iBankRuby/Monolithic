@@ -1,7 +1,4 @@
 class ExceedingRequest < ApplicationRecord
-  # has_one :account, through: :account_user
-  # has_one :user, through: :account_user
-
   belongs_to :account_user
 
   validate :user_can_send_one_exceeding_request_per_period

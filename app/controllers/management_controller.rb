@@ -9,6 +9,7 @@ class ManagementController < ApplicationController
 
   def destroy
     AccountUser.find_by(id: params[:id]).destroy
+    redirect_to account_management_index_path, notice: 'Co-user was successfully deleted.'
   end
 
   private

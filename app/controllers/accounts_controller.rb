@@ -23,9 +23,8 @@ class AccountsController < ApplicationController
   end
 
   def show
-    @transactions = Transaction.where(user_id: user.id, account_id: account.id)
+    @transactions = Transaction.where(user_id: user.id, account_id: account.id, status_from: true)
     @income = Transaction.where(remote_account_id: account.iban.to_s, status_to: false)
-    @roles = AccountUser.where(account_id: params[:id])
   end
 
   def destroy

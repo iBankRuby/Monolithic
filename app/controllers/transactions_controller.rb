@@ -8,4 +8,9 @@ class TransactionsController < ApplicationController
       redirect_to account_path(params[:account_id]), notice: 'Transaction was NOT created.'
     end
   end
+
+  def update
+    transaction_creator = TransactionCreator.new(params, current_user)
+    transaction_creator.confirm
+  end
 end

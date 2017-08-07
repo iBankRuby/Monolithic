@@ -65,3 +65,64 @@ $secondary-color: #503ce9 !default;
 @import "materialize/components/date_picker/default";
 @import "materialize/components/date_picker/default.date";
 @import "materialize/components/date_picker/default.time";
+
+/* Nav */
+
+.navbar-right {
+  position: absolute;
+  right: 20px;
+  align-items: center;
+  a.logout {
+    padding: 0 10px;
+    width: 60px;
+    height: 56px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+}
+
+h5.name_user {
+  line-height: 56px;
+  margin: 0 15px 0 0;
+}
+
+.navbar-right {
+  p.txt_logout {
+    display: none;
+  }
+  a.logout:hover {
+    p.txt_logout {
+      display: block;
+      margin: 0;
+      color: #fff;
+    }
+    i.material-icons {
+      font-size: 22px;
+      height: 22px;
+      line-height: 22px;
+      text-align: center;
+      color: #fff;
+    }
+  }
+}
+
+/* Form Sign Up */
+input#user_password{
+	margin-bottom: 2px;
+}
+.input-field em#length_pass{
+	color: rgba(0, 0, 0, 0.15);
+}
+.form_auth{
+	margin: auto;
+}
+
+/* */
+a.link_back {
+  display: flex;
+  color: #757575;
+  &:hover {
+    color: #424242;
+  }
+}

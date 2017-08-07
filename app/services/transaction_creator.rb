@@ -23,13 +23,10 @@ class TransactionCreator
     @account = account_from
   end
 
-  # def confirm
-  #   @transaction = Transaction.find(params[:id])
-  #   @confirmation = true
-  #   @role = 'co-user'
-  #   carry_out
-  #   @account = account_from
-  # end
+  def confirm
+    prepare_to_confirmation
+    carry_out
+  end
 
   private
 
@@ -62,7 +59,7 @@ class TransactionCreator
     if @confirmation
       update_account_from
       update_account_to
-      update_reminder if @role == 'co-user'
+      update_reminder if @confirming || role == 'co-user'
     else
       build_request
     end
@@ -79,7 +76,11 @@ class TransactionCreator
   end
 
   def update_reminder
-    account_user.limit.reminder -= summ
+    if account_user.limit.reminder > summ
+      account_user.limit.reminder -= summ
+    else
+      account_user.limit.reminder = 0
+    end
     account_user.limit.save
   end
 
@@ -91,7 +92,8 @@ class TransactionCreator
   #   @user ||= User.find(current_user.id)
   # end
   def account_user
-    @account_user ||= AccountUser.find_by(user_id: user.id, account_id: account_from.id)
+    return @account_user ||= AccountUser.find_by(user_id: user.id, account_id: account_from.id) unless @confirming
+    @account_user ||= AccountUser.find_by(user_id: @transaction.user_id, account_id: account_from.id)
   end
 
   def account_from
@@ -99,14 +101,24 @@ class TransactionCreator
   end
 
   def account_to
-    @account_to ||= Account.find_by(iban: params[:account])
+    return @account_to ||= Account.find_by(iban: params[:account]) unless @confirming
+    @account_to ||= Account.find_by(iban: @transaction.remote_account_id)
   end
 
   def summ
-    params[:summ].to_f
+    return params[:summ].to_f unless @confirming
+    @transaction.summ
   end
 
   def role
     @role = @account_user.role.name
+  end
+
+  def prepare_to_confirmation
+    @transaction = Transaction.find(params[:id])
+    @confirmation = true
+    @transaction.status_from = @confirmation
+    @transaction.save
+    @confirming = true
   end
 end

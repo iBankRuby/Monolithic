@@ -54,18 +54,6 @@
             %td= t.summ
             %td= t.account_id
             %td= t.created_at.to_formatted_s(:short)
-%h3 Account users
--if @roles
-  %table
-    %thead
-      %tr
-        %th Email:
-        %th Role type:
-    %tbody
-    - @roles.each do |t|
-      %tr
-        %td= t.user.email
-        %td= t.role
 %div
   = form_tag account_transactions_path(@account), method: :post do
     = label_tag :title, 'Account Iban'
@@ -73,3 +61,4 @@
     = label_tag :title, 'Amount'
     = text_field_tag :summ
     = submit_tag 'Send'
+

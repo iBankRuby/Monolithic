@@ -29,11 +29,12 @@
             = link_to 'Destroy', account, :method => :delete, :data => { :confirm => 'Are you sure?' }, :class => 'btn btn-sm btn-danger'
 
 
-    /#co-user.col-md-12 Test 2
 
   .col-md-2
-    = link_to 'New Account', new_account_path, :class => 'btn btn-primary' 
-  
+    = link_to 'New Account', new_account_path, :class => 'btn btn-primary'
+= link_to 'All Limits', limits_path, :class => 'btn btn-primary'
+= link_to 'Limits for current user', limit_path(current_user.id), :class => 'btn btn-primary'
+
 %div
 %h3 Invitations
 -if @invites

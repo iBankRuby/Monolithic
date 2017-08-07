@@ -5,9 +5,10 @@
 %table
   %thead
     %tr
-      %th 
+      %th
         %h5 #{@account.iban}
-      %th 
+        %h5= 'Valid THRU: ' + @account.valid_thru.strftime('%m/%d')
+      %th
         %h5 Balance: #{@account.balance}
 /= link_to 'Edit', edit_account_path(@account)
 /\|
@@ -21,7 +22,7 @@
     %li.tab.col-md-4
       %a{:href => "#inc_trans"} Incoming transactions
       / %li.tab.col.s3.disabled
-      /   %a{:href => "#test3"} Disabled Tab  
+      /   %a{:href => "#test3"} Disabled Tab
   #out_trans.col-md-12
     %h3 Outgoing transactions
     -if @transactions
@@ -54,11 +55,19 @@
             %td= t.summ
             %td= t.account_id
             %td= t.created_at.to_formatted_s(:short)
-%div
+.col.s12
   = form_tag account_transactions_path(@account), method: :post do
-    = label_tag :title, 'Account Iban'
-    = text_field_tag :account
-    = label_tag :title, 'Amount'
-    = text_field_tag :summ
+    .col.s8.input-field
+      = label_tag :title, 'Account Iban'
+      = text_field_tag :account
+    .col.s2.input-field
+      = label_tag :title, 'Month'
+      = text_field_tag :month
+    .col.s2.input-field
+      = label_tag :title, 'Day'
+      = text_field_tag :day
+    .col.s12.input-field
+      = label_tag :title, 'Amount'
+      = text_field_tag :summ
     = submit_tag 'Send'
 

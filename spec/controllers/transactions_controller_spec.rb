@@ -25,6 +25,16 @@ RSpec.describe TransactionsController, type: :controller do
       }
     end
 
+    let!(:invalid_params) do
+      {
+        account_id: account_from.id,
+        account: account_to.iban,
+        summ: 100.0,
+        day: '99',
+        month: account_to.valid_thru.strftime('%m')
+      }
+    end
+
     before do
       sign_in user
     end
@@ -34,6 +44,14 @@ RSpec.describe TransactionsController, type: :controller do
         expect do
           post :create, params: transaction_params
         end.to change(Transaction, :count).by(1)
+      end
+    end
+
+    context 'with invalid params' do
+      it 'creates a new Transaction' do
+        expect do
+          post :create, params: invalid_params
+        end.to change(Transaction, :count).by(0)
       end
     end
   end

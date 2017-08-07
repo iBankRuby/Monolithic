@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170802163422) do
+ActiveRecord::Schema.define(version: 20170807075501) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -33,6 +33,14 @@ ActiveRecord::Schema.define(version: 20170802163422) do
     t.float "balance"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+  end
+
+  create_table "exceeding_requests", force: :cascade do |t|
+    t.decimal "amount", precision: 10, scale: 2
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.bigint "account_user_id"
+    t.index ["account_user_id"], name: "index_exceeding_requests_on_account_user_id"
   end
 
   create_table "invites", force: :cascade do |t|
@@ -93,4 +101,5 @@ ActiveRecord::Schema.define(version: 20170802163422) do
 
   add_foreign_key "account_users", "roles"
   add_foreign_key "account_users", "rules"
+  add_foreign_key "exceeding_requests", "account_users"
 end

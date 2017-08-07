@@ -1,10 +1,11 @@
 class RulesController < ApplicationController
   before_action :set_rule, only: %i[edit update]
+  before_action :set_account, only: :index
 
-  attr_reader :rule, :rules
+  attr_reader :rule, :rules, :account
 
   def index
-    @rules = Rule.all
+    @rules = account.rules
   end
 
   def new
@@ -39,5 +40,9 @@ class RulesController < ApplicationController
 
   def rule_params
     params.fetch(:account_rule).permit(:spending_limit)
+  end
+
+  def set_account
+    @account = Account.find(params[:account_id])
   end
 end

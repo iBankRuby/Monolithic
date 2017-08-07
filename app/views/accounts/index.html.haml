@@ -37,5 +37,5 @@
       %tr
         %td= invite.user_from_id
         %td= invite.account.iban
-        %td= link_to 'Submit',account_invite_path(invite.account_id, invite.id), :method => :patch, :class => 'btn btn-sm btn-info'
-        %td= link_to 'Reject',account_invite_path(invite.account_id, invite.id), :method => :delete, :class => 'btn btn-sm btn-danger'
+        %td= link_to 'Submit', account_invite_path(invite.account_id, invite.id, invite: { status: true }), method: :patch, class: 'btn btn-sm btn-info'
+        %td= link_to 'Reject', account_invite_path(invite.account_id, invite.id, invite: { status: false }), method: :patch, class: 'btn btn-sm btn-danger'

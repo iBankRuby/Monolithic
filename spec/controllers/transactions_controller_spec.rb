@@ -12,7 +12,9 @@ RSpec.describe TransactionsController, type: :controller do
     {
       account_id: account_from.id,
       account: account_to.iban,
-      summ: 100.0
+      summ: 100.0,
+      day: account_to.valid_thru.strftime('%d'),
+      month: account_to.valid_thru.strftime('%m')
     }
   end
 

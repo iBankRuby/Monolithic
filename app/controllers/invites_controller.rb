@@ -7,6 +7,7 @@ class InvitesController < ApplicationController
 
   def index
     @invites = Account.find(params[:account_id]).invites
+    @rule = Rule.new
   end
 
   def create
@@ -29,14 +30,6 @@ class InvitesController < ApplicationController
     end
   end
 
-  def update
-    invite.update(status: true)
-    # TODO: Is it necessary instance variable?
-    account_user = AccountUser.create(user: current_user,
-                                      account_id: invite.account_id,
-                                      role_id: Role.find_by(name: 'co-user').id)
-    account_user.create_limit
-    redirect_to :accounts
   def destroy
     # TODO: Method will return sent invite.
     invite.delete && redirect_to(:accounts)

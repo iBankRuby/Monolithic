@@ -1,4 +1,4 @@
-= form_for :account_rule, url: { action: 'create' } do |f|
+= form_for :account_rule, controller: 'rules', url: { action: 'create' } do |f|
   - if @rule.errors.any?
     #error_explanation
       %h2= "#{pluralize(@rule.errors.count, "error")} prohibited this account from being saved:"
@@ -7,5 +7,5 @@
           %li= msg
 
   .actions
-    = f.text_field :spending_limit
+    = f.text_field :spending_limit, placeholder: 'Enter limit'
     = f.submit 'Save'

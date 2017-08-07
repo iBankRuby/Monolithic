@@ -67,8 +67,6 @@ class TransactionCreator
       update_account_from
       update_account_to
       update_reminder if @confirming || role == 'co-user'
-    else
-      build_request
     end
   end
 

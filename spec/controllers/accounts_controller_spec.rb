@@ -41,6 +41,18 @@ RSpec.describe AccountsController, type: :controller do
     end
   end
 
+  describe 'GET show' do
+    it 'has a 200 status code' do
+      get :show, params: { id: account.id }
+      expect(response).to have_http_status :ok
+    end
+
+    it 'render show template' do
+      get :show, params: { id: account.id }
+      expect(response).to render_template :show
+    end
+  end
+
   describe 'POST create' do
     it 'redirect to account' do
       post :create, params: { account: account }

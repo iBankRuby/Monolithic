@@ -14,6 +14,6 @@ Rails.application.routes.draw do
   resources :limits
 
   resources :profile
-  
+
   root to: 'accounts#index'
 end

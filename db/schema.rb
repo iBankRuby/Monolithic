@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170802163422) do
+ActiveRecord::Schema.define(version: 20170806082021) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -31,10 +31,10 @@ ActiveRecord::Schema.define(version: 20170802163422) do
   end
 
   create_table "accounts", force: :cascade do |t|
-    t.decimal "iban", precision: 16
     t.float "balance"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.string "iban"
   end
 
   create_table "invites", force: :cascade do |t|
@@ -96,7 +96,6 @@ ActiveRecord::Schema.define(version: 20170802163422) do
     t.string "confirmation_token"
     t.datetime "confirmed_at"
     t.datetime "confirmation_sent_at"
-    t.string "unconfirmed_email"
     t.integer "failed_attempts", default: 0, null: false
     t.string "unlock_token"
     t.datetime "locked_at"

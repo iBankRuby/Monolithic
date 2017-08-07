@@ -5,9 +5,10 @@
 %table
   %thead
     %tr
-      %th 
+      %th
         %h5 #{@account.iban}
-      %th 
+        %h5= 'Valid THRU: ' + @account.valid_thru.strftime('%m/%d')
+      %th
         %h5 Balance: #{@account.balance}
 /= link_to 'Edit', edit_account_path(@account)
 /\|
@@ -21,7 +22,7 @@
     %li.tab.col-md-4
       %a{:href => "#inc_trans"} Incoming transactions
       / %li.tab.col.s3.disabled
-      /   %a{:href => "#test3"} Disabled Tab  
+      /   %a{:href => "#test3"} Disabled Tab
   #out_trans.col-md-12
     %h3 Outgoing transactions
     -if @transactions
@@ -60,5 +61,9 @@
     = text_field_tag :account
     = label_tag :title, 'Amount'
     = text_field_tag :summ
+    = label_tag :title, 'Expiration day'
+    = text_field_tag :day
+    = label_tag :title, 'Expiration month'
+    = text_field_tag :month
     = submit_tag 'Send'
 

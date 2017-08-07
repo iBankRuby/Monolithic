@@ -13,6 +13,13 @@ class TransactionCreator
     @user = user
   end
 
+  def check_creds
+    expired = account_to.valid_thru
+    return false if @params[:day] != expired.strftime('%d')
+    return false if @params[:month] != expired.strftime('%m')
+    true
+  end
+
   def create_transaction
     ActiveRecord::Base.transaction do
       check_confirmation
@@ -116,8 +123,10 @@ class TransactionCreator
 
   def prepare_to_confirmation
     @transaction = Transaction.find(params[:id])
+    p @transaction
     @confirmation = true
     @transaction.status_from = @confirmation
+    p @transaction
     @transaction.save
     @confirming = true
   end

@@ -1,3 +1,3 @@
 class ProfileController < ApplicationController
-  attr_reader :accounts, :user	 
+  attr_reader :accounts, :user   
 end

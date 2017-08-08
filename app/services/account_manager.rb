@@ -13,23 +13,28 @@ class AccountManager
   private
 
   def prepare_response
-    @account_users = account_users_by_account_id
+    @account_users ||= account_users_by_account_id
     @role = check_role
     build_response
   end
 
   def check_role
-    account_users.first.role.name
+    account_user = account_users.find_by(user_id: user.id)
+    account_user.role.name
   end
 
   def build_response
     response = { role: role }
-    role.eql?('co-user')
+    if role.eql?('co-user')
+      @account_users = account_users.where(user_id: user.id)
+    else
+      @account_users = account_users.where.not(limit_id: nil)
+    end
     response.merge!(account_users: account_users)
   end
 
 
   def account_users_by_account_id
-    AccountUser.where(account_id: account_id).where.not(limit_id: nil)
+    AccountUser.where(account_id: account_id)
   end
 end

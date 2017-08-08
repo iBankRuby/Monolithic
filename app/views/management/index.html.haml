@@ -11,12 +11,14 @@
 			%tr
 				%th Email:
 				%th Role type:
+				-#%th Limit:
 				%th Reminder:
 		%tbody
 		- @account_users[:account_users].each do |t|
 			%tr
 				%td= t.user.email
 				%td= t.role.name
+				-#%td= t.rule.spending_limit
 				%td= t.limit.reminder
 				%td= link_to 'Destroy', account_management_path(@account, t), method: :delete, class: 'btn btn-sm btn-danger'
 				-if role.eql? 'owner'

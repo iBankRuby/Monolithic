@@ -3,7 +3,7 @@ class ManagementController < ApplicationController
 
   def index
     @account = Account.find(params[:account_id])
-    account_manager = AccountManager.new(current_user, params[:account_id])
+    account_manager = AccountManager.new(user: current_user, account_id: params[:account_id])
     @account_users = account_manager.manage
   end
 

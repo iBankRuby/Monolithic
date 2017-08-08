@@ -19,18 +19,17 @@ class AccountManager
   end
 
   def check_role
-    account_user = account_users.find_by(user_id: user.id)
-    account_user.role.name unless account_user.nil?
+    account_users.first.role.name
   end
 
   def build_response
     response = { role: role }
-    role.eql?('co-user') && (@account_users = account_users.where.not(limit_id: nil))
+    role.eql?('co-user')
     response.merge!(account_users: account_users)
   end
 
 
   def account_users_by_account_id
-    AccountUser.where(account_id: account_id)
+    AccountUser.where(account_id: account_id).where.not(limit_id: nil)
   end
 end

@@ -8,5 +8,5 @@
 
   .actions
     %fieldset.toggleable{disabled: true}
-      = text_field_tag 'account_rule[spending_limit]', value: @rule.spending_limit
+      = text_field_tag 'account_rule[spending_limit]', @rule.spending_limit
       = f.submit 'Save'

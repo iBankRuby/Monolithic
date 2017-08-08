@@ -23,8 +23,11 @@ class AccountManager
 
   def build_response(role_type)
     response = [].push role_type
-    return response.push @account_users if role_type == 'co-user'
+    response.push acc_usrs role_type
+  end
+
+  def acc_usrs(role_type)
+    return @account_users if role_type == 'co-user'
     @account_users = AccountUser.where(account_id: @account_id).where.not(limit_id: nil)
-    response.push @account_users
   end
 end

@@ -46,7 +46,7 @@ class TransactionCreator
   end
 
   def check_reminder
-    account_user.limit.reminder >= summ
+    limit.reminder >= summ
   end
 
   def check_balance
@@ -81,12 +81,12 @@ class TransactionCreator
   end
 
   def update_reminder
-    if account_user.limit.reminder > summ
-      account_user.limit.reminder -= summ
+    if limit.reminder > summ
+      limit.reminder -= summ
     else
-      account_user.limit.reminder = 0
+      limit.reminder = 0
     end
-    account_user.limit.save
+    limit.save
   end
 
   def build_request
@@ -116,15 +116,17 @@ class TransactionCreator
   end
 
   def role
-    @role = @account_user.role.name
+    @role = account_user.role.name
+  end
+
+  def limit
+    account_user.limit
   end
 
   def prepare_to_confirmation
     @transaction = Transaction.find(params[:id])
-    p @transaction
     @confirmation = true
     @transaction.status_from = @confirmation
-    p @transaction
     @transaction.save
     @confirming = true
   end

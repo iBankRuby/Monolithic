@@ -55,15 +55,19 @@
             %td= t.summ
             %td= t.account_id
             %td= t.created_at.to_formatted_s(:short)
-%div
+.col.s12
   = form_tag account_transactions_path(@account), method: :post do
-    = label_tag :title, 'Account Iban'
-    = text_field_tag :account
-    = label_tag :title, 'Amount'
-    = text_field_tag :summ
-    = label_tag :title, 'Expiration day'
-    = text_field_tag :day
-    = label_tag :title, 'Expiration month'
-    = text_field_tag :month
+    .col.s8.input-field
+      = label_tag :title, 'Account Iban'
+      = text_field_tag :account
+    .col.s2.input-field
+      = label_tag :title, 'Month'
+      = text_field_tag :month
+    .col.s2.input-field
+      = label_tag :title, 'Day'
+      = text_field_tag :day
+    .col.s12.input-field
+      = label_tag :title, 'Amount'
+      = text_field_tag :summ
     = submit_tag 'Send'
 

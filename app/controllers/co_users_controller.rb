@@ -9,6 +9,7 @@ class CoUsersController < ApplicationController
 
   def update
     rule.update!(co_user_params)
+    limit.update!(reminder: co_user_params[:spending_limit])
   end
 
   private
@@ -35,5 +36,9 @@ class CoUsersController < ApplicationController
 
   def co_user_params
     params.fetch(:account_rule).permit(:spending_limit)
+  end
+
+  def limit
+    account_user.limit
   end
 end

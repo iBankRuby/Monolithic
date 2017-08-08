@@ -56,6 +56,6 @@ class TransactionCreator
   end
 
   def role
-    account_user.role.name
+    @role ||= account_user.role.name
   end
 end

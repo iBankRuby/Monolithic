@@ -12,6 +12,14 @@ class CoUsersController < ApplicationController
   private
 
   def account
-    @account = Account.find(params[:account_id])
+    @account ||= Account.find(params[:account_id])
+  end
+
+  def user_id
+    params[:id]
+  end
+
+  def acc_id
+    account.id
   end
 end

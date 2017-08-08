@@ -3,9 +3,9 @@
 class AccountManager
   attr_reader :account_id, :user, :account_users, :role
 
-  def initialize(args)
-    @user = args[:user]
-    @account_id = args[:account_id]
+  def initialize(user, acc_id)
+    @user = user
+    @account_id = acc_id
   end
 
   def manage
@@ -22,7 +22,7 @@ class AccountManager
 
   def check_role
     account_user = account_users.find_by(user_id: user.id)
-    account_user.role.name unless account_user.nil?
+    account_user.role.name
   end
 
   def build_response
@@ -36,6 +36,6 @@ class AccountManager
   end
 
   def account_users_by_account_id
-    AccountUser.where(account_id: account_id)
+    AccountUser.where(account_id: account_id).where.not(limit_id: nil)
   end
 end

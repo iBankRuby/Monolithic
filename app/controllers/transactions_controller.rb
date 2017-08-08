@@ -12,7 +12,7 @@ class TransactionsController < ApplicationController
   end
 
   def update
-    transaction_creator = TransactionCreator.new(params: params, user: current_user)
-    transaction_creator.confirm
+    # transaction_creator = TransactionCreator.new(params: params, user: current_user)
+    # transaction_creator.confirm
   end
 end

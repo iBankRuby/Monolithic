@@ -27,7 +27,11 @@ class AccountManager
 
   def build_response
     response = { role: role }
-    role.eql?('co-user') || (@account_users = account_users.where.not(limit_id: nil))
+    @account_users = if role.eql? 'co-users'
+                       account_users.where.not(limit_id: nil)
+                     else
+                       account_users.where(user_id: user.id)
+                     end
     response.merge!(account_users: account_users)
   end
 

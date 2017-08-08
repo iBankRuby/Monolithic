@@ -4,7 +4,6 @@ class CoUsersController < ApplicationController
     @transactions = Transaction.where(user_id: user_id, account_id: acc_id, status_from: true)
     @unconfirmed = Transaction.where(user_id: user_id, account_id: acc_id, status_from: false)
     @rule = rule
-
   end
 
   def update

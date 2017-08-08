@@ -1,4 +1,4 @@
-class RulesController < ApplicationController
+=beginclass RulesController < ApplicationController
   before_action :set_rule, only: %i[edit update]
   before_action :set_account, only: %i[index create]
 
@@ -26,9 +26,9 @@ class RulesController < ApplicationController
 
   def update
     if rule.update(rule_params)
-      redirect_to :edit_account_rule, notice: 'Rules have updated.'
+      redirect_to :account_co_user, notice: 'Rules have updated.'
     else
-      redirect_to :edit_account_rule, notice: 'Rules have note updated. Invalid params.'
+      redirect_to :account_co_user, notice: 'Rules have note updated. Invalid params.'
     end
   end
 
@@ -46,3 +46,4 @@ class RulesController < ApplicationController
     @account = Account.find(params[:account_id])
   end
 end
+=end

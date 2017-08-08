@@ -3,7 +3,12 @@ class CoUsersController < ApplicationController
     account
     @transactions = Transaction.where(user_id: user_id, account_id: acc_id, status_from: true)
     @unconfirmed = Transaction.where(user_id: user_id, account_id: acc_id, status_from: false)
-    @rule = account_user.rule
+    @rule = rule
+
+  end
+
+  def update
+    rule.update!(co_user_params)
   end
 
   private
@@ -22,5 +27,13 @@ class CoUsersController < ApplicationController
 
   def account_user
     AccountUser.find_by(user_id: user_id, account_id: acc_id)
+  end
+
+  def rule
+    @rule ||= account_user.rule
+  end
+
+  def co_user_params
+    params.fetch(:account_rule).permit(:spending_limit)
   end
 end

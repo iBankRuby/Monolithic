@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170806082021) do
+ActiveRecord::Schema.define(version: 20170808091653) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -23,7 +23,9 @@ ActiveRecord::Schema.define(version: 20170806082021) do
     t.bigint "rule_id"
     t.bigint "limit_id"
     t.bigint "role_id"
+    t.datetime "deleted_at"
     t.index ["account_id"], name: "index_account_users_on_account_id"
+    t.index ["deleted_at"], name: "index_account_users_on_deleted_at"
     t.index ["limit_id"], name: "index_account_users_on_limit_id"
     t.index ["role_id"], name: "index_account_users_on_role_id"
     t.index ["rule_id"], name: "index_account_users_on_rule_id"
@@ -35,6 +37,8 @@ ActiveRecord::Schema.define(version: 20170806082021) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.string "iban"
+    t.datetime "deleted_at"
+    t.index ["deleted_at"], name: "index_accounts_on_deleted_at"
   end
 
   create_table "invites", force: :cascade do |t|

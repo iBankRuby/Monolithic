@@ -1,6 +1,7 @@
 class Account < ApplicationRecord
+  acts_as_paranoid
   has_many :transactions
-  has_many :account_users
+  has_many :account_users, dependent: :destroy
   has_many :roles, through: :account_users
   has_many :users, through: :account_users
   has_many :invites

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170806082021) do
+ActiveRecord::Schema.define(version: 20170808082153) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -48,7 +48,7 @@ ActiveRecord::Schema.define(version: 20170806082021) do
   end
 
   create_table "limits", force: :cascade do |t|
-    t.integer "reminder", default: 50
+    t.integer "remainder", default: 50
     t.boolean "movable", default: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false

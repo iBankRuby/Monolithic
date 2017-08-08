@@ -4,12 +4,12 @@
   %thead
     %tr
       %th From account
-      %th Limit(reminder)
+      %th Limit(remainder)
   %tbody
   - @role.each do |r|
     %tr
       %td=r.account.iban
-      %td=r.limit.reminder
+      %td=r.limit.remainder
       -#= link_to 'Show', account, :class => 'btn btn-sm btn-info'
       -#= link_to 'Edit', edit_account_path(account), :class => 'btn btn-sm btn-warning'
       -#= link_to 'Destroy', account, :method => :delete, :data => { :confirm => 'Are you sure?' }, :class => 'btn btn-sm btn-danger'

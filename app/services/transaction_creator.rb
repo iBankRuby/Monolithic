@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class TransactionCreator
   # interface
   # def self.create_transaction(params, user)
@@ -6,18 +8,17 @@ class TransactionCreator
   #   transaction_creator.account
   # end
 
-  attr_reader :params, :user, :account, :limit
+  attr_reader :params, :user, :account, :remainder, :confirmation, :transaction, :account_user, :confirming
 
-  def initialize(params, user)
-    @params = params
-    @user = user
+  def initialize(args)
+    @params = args[:params]
+    @user = args[:user]
+    @remainder = account_user.limit.remainder
   end
 
   def check_creds
     expired = account_to.valid_thru
-    return false if @params[:day] != expired.strftime('%d')
-    return false if @params[:month] != expired.strftime('%m')
-    true
+    params[:day] != expired.strftime('%d') && params[:month] != expired.strftime('%m')
   end
 
   def create_transaction
@@ -41,12 +42,15 @@ class TransactionCreator
 
   def check_confirmation
     account_user
-    return @confirmation = check_reminder if role == 'co-user'
-    @confirmation = check_balance
+    @confirmation = if role.eql? 'co-user'
+                      check_remainder
+                    else
+                      check_balance
+                    end
   end
 
-  def check_reminder
-    account_user.limit.reminder >= summ
+  def check_remainder
+    remainder >= summ
   end
 
   def check_balance
@@ -56,17 +60,17 @@ class TransactionCreator
   def create_transaction_object
     Transaction.create(remote_account_id: params[:account],
                        summ: summ,
-                       status_from: @confirmation,
+                       status_from: confirmation,
                        status_to: false,
                        user: user,
                        account: account_from)
   end
 
   def carry_out
-    if @confirmation
+    if confirmation
       update_account_from
       update_account_to
-      update_reminder if @confirming || role == 'co-user'
+      update_remainder if confirming || role == 'co-user'
     end
   end
 
@@ -80,25 +84,25 @@ class TransactionCreator
     account_to.save!
   end
 
-  def update_reminder
-    if account_user.limit.reminder > summ
-      account_user.limit.reminder -= summ
-    else
-      account_user.limit.reminder = 0
-    end
+  def update_remainder
+    @remainder -= summ < remainder ? summ : 0
     account_user.limit.save
   end
 
   def build_request
-    #later
+    # later
   end
 
   # def user
   #   @user ||= User.find(current_user.id)
   # end
+
   def account_user
-    return @account_user ||= AccountUser.find_by(user_id: user.id, account_id: account_from.id) unless @confirming
-    @account_user ||= AccountUser.find_by(user_id: @transaction.user_id, account_id: account_from.id)
+    @account_user ||= if confirming
+                        AccountUser.find_by(user_id: transaction.user_id, account_id: account_from_id)
+                      else
+                        AccountUser.find_by(user_id: user.id, account_id: account_from_id)
+                      end
   end
 
   def account_from
@@ -106,26 +110,34 @@ class TransactionCreator
   end
 
   def account_to
-    return @account_to ||= Account.find_by(iban: params[:account]) unless @confirming
-    @account_to ||= Account.find_by(iban: @transaction.remote_account_id)
+    @account_to ||= if confirming
+                      Account.find_by(iban: transaction.remote_account_id)
+                    else
+                      Account.find_by(iban: params[:account])
+                    end
   end
 
   def summ
-    return params[:summ].to_f unless @confirming
-    @transaction.summ
+    if confirming
+      transaction.summ
+    else
+      params[:summ].to_f
+    end
   end
 
   def role
-    @role = @account_user.role.name
+    @role = account_user.role.name
+  end
+
+  def account_from_id
+    account_from.id
   end
 
   def prepare_to_confirmation
     @transaction = Transaction.find(params[:id])
-    p @transaction
     @confirmation = true
-    @transaction.status_from = @confirmation
-    p @transaction
-    @transaction.save
+    transaction.status_from = confirmation
+    transaction.save
     @confirming = true
   end
 end

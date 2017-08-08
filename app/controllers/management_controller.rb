@@ -1,10 +1,13 @@
+# frozen_string_literal: true
+
 class ManagementController < ApplicationController
-  before_action :set_account
+  before_action :set_account, only: :index
+  before_action :set_account_id, only: :index
+
+  attr_reader :account_id
 
   def index
-    @account = Account.find(params[:account_id])
-    account_manager = AccountManager.new(user: current_user, account_id: params[:account_id])
-    @account_users = account_manager.manage
+    @account_users = AccountManager.new(user: current_user, account_id: account_id).manage
   end
 
   def destroy
@@ -13,6 +16,10 @@ class ManagementController < ApplicationController
   end
 
   private
+
+  def set_account_id
+    @account_id = params[:account_id]
+  end
 
   def set_account
     @account = Account.find(params[:account_id])

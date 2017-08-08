@@ -16,7 +16,7 @@ class ExceedingRequest < ApplicationRecord
 
   def user_can_send_one_exceeding_request_per_period
     current_day = Date.today
-    ExceedingRequest.where('created_at >= ? and created_at <= ?', current_day, current_day + 1).each do |request|
+    ExceedingRequest.where(created_at: current_day..(current_day + 1.day)).each do |request|
       if compare_user_with(request) && compare_account_with(request)
         errors.add(:created_at, 'You cannot create request twice in life period of limit')
         break

@@ -3,7 +3,7 @@ class CoUsersController < ApplicationController
     account
     @transactions = Transaction.where(user_id: user_id, account_id: acc_id, status_from: true)
     @unconfirmed = Transaction.where(user_id: user_id, account_id: acc_id, status_from: false)
-    @rule = Rule.find(params[:account_id])
+    @rule = account_user.rule
   end
 
   private
@@ -18,5 +18,9 @@ class CoUsersController < ApplicationController
 
   def acc_id
     account.id
+  end
+
+  def account_user
+    AccountUser.find_by(user_id: user_id, account_id: acc_id)
   end
 end

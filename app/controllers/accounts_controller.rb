@@ -26,6 +26,11 @@ class AccountsController < ApplicationController
     incoming_transactions_list
   end
 
+  def update
+    Account.friendly.restore(params[:id], recursive: true)
+    redirect_to accounts_url
+  end
+
   def destroy
     account.destroy
     redirect_to accounts_url

@@ -33,11 +33,6 @@ Rails.application.configure do
 
   config.action_mailer.default_url_options = { host: 'root_url' }
 
-  config.action_mailer.delivery_method = :sendgrid_actionmailer
-  config.action_mailer.sendgrid_actionmailer_settings = {
-    api_key: ENV['SENDGRID_API_KEY']
-  }
-
   # Print deprecation notices to the Rails logger.
   config.active_support.deprecation = :log
 

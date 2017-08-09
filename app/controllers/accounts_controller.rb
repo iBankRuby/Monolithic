@@ -6,7 +6,6 @@ class AccountsController < ApplicationController
 
   def index
     @accounts = user.accounts
-    @user = user
     @invites = Invite.where(user_to_id: user.id, status: nil)
   end
 

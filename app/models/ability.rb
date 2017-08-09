@@ -21,16 +21,8 @@ class Ability
 
   def initialize(current_user)
     @current_user ||= current_user
-    
-    # can :manage, Account if @account_user.has_role? 'owner'
-    # object of account, not account directly
     can :manage, Account, current_user.accounts do |account|
-      # AccountUser.find_by(user_id: current_user.id, account_id: account.id).has_role?('owner')
-      account.account_users.find_by(user_id: current_user.id).has_role?('owner')
-
+      account.account_users.find_by(user_id: current_user.id).role?('owner')
     end
-    #can :read, Account if user.has_role? 'co-user'
-
-    #can :read, :all if user.has_role? :observer
   end
 end

@@ -98,7 +98,7 @@ class TransactionCreator
   end
 
   def account_from
-    @account_from ||= Account.find(params[:account_id])
+    @account_from ||= Account.friendly.find(params[:account_id])
   end
 
   def account_to

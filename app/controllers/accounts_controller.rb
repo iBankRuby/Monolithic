@@ -34,7 +34,7 @@ class AccountsController < ApplicationController
   private
 
   def set_account
-    @account = Account.find(params[:id])
+    @account = Account.friendly.find(params[:id])
   end
 
   def user

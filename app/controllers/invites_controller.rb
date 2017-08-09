@@ -2,16 +2,17 @@ class InvitesController < ApplicationController
   before_action :set_invite, only: %i[destroy update]
   before_action :set_user_to_id, only: :create
   before_action :set_current_user_id, only: :create
+  before_action :set_account, only: %i[index create]
 
-  attr_reader :invite, :user_to, :current_user_id
+  attr_reader :invite, :user_to, :current_user_id, :account
 
   def index
-    @invites = Account.find(params[:account_id]).invites
+    @invites = account.invites
     @rule = Rule.new
   end
 
   def create
-    @invite = Invite.new(user_from_id: current_user_id, user_to_id: user_to, account_id: params[:account_id])
+    @invite = Invite.new(user_from_id: current_user_id, user_to_id: user_to, account_id: account.id)
     rule = Rule.new(rule_params)
     invite.rule = rule
     if invite.save && rule.save
@@ -40,6 +41,10 @@ class InvitesController < ApplicationController
   end
 
   private
+
+  def set_account
+    @account = Account.friendly.find(params[:account_id])
+  end
 
   def set_invite
     @invite = Invite.find(params[:id])

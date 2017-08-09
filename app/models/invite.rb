@@ -5,6 +5,13 @@ class Invite < ApplicationRecord
   validates :status, inclusion: { in: [true, false] }, on: :update
   belongs_to :account
 
+  def self.create_invite_with_rules(args)
+    invite = Invite.new(args[:invite_params])
+    rules = Rule.new(args[:rule_params])
+
+    invite.save && rules.save
+  end
+
   private
 
   def user_to_must_exits

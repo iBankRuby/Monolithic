@@ -15,9 +15,8 @@ class ExceedingRequestsController < ApplicationController
 
   def update
     if exceeding_request.update(exceeding_request_params)
-      binding.pry
       redirect_to accounts_url,
-                  notice: (exceeding_request_params[:status] ? 'Request has successfully confirmed' : 'Request has rejected')
+                  notice: (exceeding_request_params[:status].eql?('true') ? 'Request has successfully confirmed' : 'Request has rejected')
     else
       redirect_to accounts_url, alert: 'Invalid params'
     end

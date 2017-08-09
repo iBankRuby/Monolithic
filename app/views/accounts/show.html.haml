@@ -3,10 +3,10 @@
 %p Balance: #{@account.balance}
 
 /= link_to 'Edit', edit_account_path(@account)
-/\|
 = link_to 'Back', accounts_path
 %div
-= link_to 'Invite co-user', account_invites_url(@account)
+- if can? :manage, @account
+  = link_to 'Invite co-user', account_invites_url(@account)
 %br
 %br
 %br

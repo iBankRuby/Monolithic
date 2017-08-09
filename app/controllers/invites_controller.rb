@@ -12,8 +12,10 @@ class InvitesController < ApplicationController
 
   def create
     @invite = Invite.new(user_from_id: current_user_id, user_to_id: user_to, account_id: params[:account_id])
-    if invite.valid?
-      invite.save && redirect_to(:account_invites, notice: 'Invite has been sent.')
+    rule = Rule.new(rule_params)
+    invite.rule = rule
+    if invite.save && rule.save
+      redirect_to(:account_invites, notice: 'Invite has been sent.')
     else
       redirect_to :account_invites, notice: 'Invite haven\'t been sent'
     end
@@ -23,7 +25,7 @@ class InvitesController < ApplicationController
     if invite.update(invite_params)
       account_user = AccountUser.create(user: current_user,
                                         account_id: invite.account_id,
-                                        rule_id: Rule.create(spending_limit: 0.0).id,
+                                        rule_id: invite.rule.id,
                                         limit_id: Limit.create(reminder: 0.0).id,
                                         role_id: Role.find_by(name: 'co-user').id)
       redirect_to :accounts
@@ -62,4 +64,9 @@ class InvitesController < ApplicationController
   def set_current_user_id
     @current_user_id = current_user.id
   end
+
+  def rule_params
+    params.fetch(:rule).permit(:spending_limit)
+  end
+
 end

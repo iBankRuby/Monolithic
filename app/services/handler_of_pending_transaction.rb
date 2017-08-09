@@ -2,7 +2,7 @@
 
 class HandlerOfPendingTransaction
   # TODO: Module requires role, summ, account_from, account_to
-  include TransactionHandler::Transaction
+  include TransactionService
 
   # def confirm
   #   prepare_to_confirmation

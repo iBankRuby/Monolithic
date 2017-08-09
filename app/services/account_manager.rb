@@ -3,9 +3,9 @@
 class AccountManager
   attr_reader :account_id, :user, :account_users, :role
 
-  def initialize(user, acc_id)
-    @user = user
-    @account_id = acc_id
+  def initialize(args)
+    @user = args[:user]
+    @account_id = args[:account_id]
   end
 
   def manage
@@ -36,6 +36,6 @@ class AccountManager
   end
 
   def account_users_by_account_id
-    AccountUser.where(account_id: account_id).where.not(limit_id: nil)
+    AccountUser.where(account_id: account_id)
   end
 end

@@ -1,5 +1,5 @@
 class ExceedingRequestsController < ApplicationController
-  before_action :set_exceeding_request, only: :destroy
+  before_action :set_exceeding_request, only: %i[update destroy]
 
   attr_reader :exceeding_request
 
@@ -10,6 +10,16 @@ class ExceedingRequestsController < ApplicationController
       redirect_to accounts_url, notice: 'Request have sent successfully.'
     else
       redirect_to accounts_url, notice: 'Oops... Request have not sent.'
+    end
+  end
+
+  def update
+    if exceeding_request.update(exceeding_request_params)
+      binding.pry
+      redirect_to accounts_url,
+                  notice: (exceeding_request_params[:status] ? 'Request has successfully confirmed' : 'Request has rejected')
+    else
+      redirect_to accounts_url, alert: 'Invalid params'
     end
   end
 
@@ -24,6 +34,6 @@ class ExceedingRequestsController < ApplicationController
   end
 
   def exceeding_request_params
-    params.fetch(:exceeding_request).permit(:amount)
+    params.fetch(:exceeding_request).permit(:amount, :status)
   end
 end

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170807151619) do
+ActiveRecord::Schema.define(version: 20170809092603) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -40,6 +40,7 @@ ActiveRecord::Schema.define(version: 20170807151619) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.bigint "account_user_id"
+    t.boolean "status"
     t.index ["account_user_id"], name: "index_exceeding_requests_on_account_user_id"
   end
 
@@ -68,8 +69,8 @@ ActiveRecord::Schema.define(version: 20170807151619) do
     t.bigint "account_id"
     t.string "remote_account_id"
     t.float "summ"
-    t.boolean "status_from"
-    t.boolean "status_to"
+    t.boolean "status_from", default: true
+    t.boolean "status_to", default: false
     t.datetime "checkout_from"
     t.datetime "checkout_to"
     t.datetime "created_at", null: false
@@ -92,13 +93,12 @@ ActiveRecord::Schema.define(version: 20170807151619) do
     t.datetime "last_sign_in_at"
     t.inet "current_sign_in_ip"
     t.inet "last_sign_in_ip"
-    t.integer "failed_attempts", default: 0, null: false
-    t.string "unlock_token"
-    t.datetime "locked_at"
     t.string "confirmation_token"
     t.datetime "confirmed_at"
     t.datetime "confirmation_sent_at"
-    t.index ["confirmation_token"], name: "index_users_on_confirmation_token", unique: true
+    t.integer "failed_attempts", default: 0, null: false
+    t.string "unlock_token"
+    t.datetime "locked_at"
     t.index ["email"], name: "index_users_on_email", unique: true
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   end

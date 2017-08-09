@@ -11,8 +11,9 @@ class InvitesController < ApplicationController
 
   def create
     @invite = Invite.new(user_from_id: current_user_id, user_to_id: user_to, account_id: params[:account_id])
-    if invite.valid?
-      invite.save && redirect_to(account_invites_url, notice: 'Invite have made.')
+    rule = Rule.new(rule_params)
+    if invite.save && rule.save
+      redirect_to account_invites_url, notice: 'Invite have made.'
     else
       redirect_to account_invites_url, notice: 'Invite haven\'t been made'
     end
@@ -42,6 +43,10 @@ class InvitesController < ApplicationController
 
   def invite_params
     params.fetch(:invite).permit(:email, :status)
+  end
+
+  def rule_params
+    params.fetch(:rule).permit(:spending_limit)
   end
 
   def set_user_to_id

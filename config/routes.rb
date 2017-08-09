@@ -3,7 +3,7 @@ Rails.application.routes.draw do
     resources :transactions, only: %i[create]
     resources :invites, only: %i[index create destroy update]
     resources :rules, except: %i[show destroy]
-    resources :exceeding_requests, only: %i[create destroy]
+    resources :exceeding_requests, only: %i[create update destroy]
   end
 
   devise_for :users

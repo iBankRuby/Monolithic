@@ -17,7 +17,12 @@
         %td.actions
           = link_to 'Show', account, :class => 'btn btn-sm btn-info'
           -#= link_to 'Edit', edit_account_path(account), :class => 'btn btn-sm btn-warning'
-          = link_to 'Destroy', account, :method => :delete, :data => { :confirm => 'Are you sure?' }, :class => 'btn btn-sm btn-danger'
+          -#if can? :manage, account.account_users.find_by(user_id: @user.id)
+          - if can? :manage, account
+
+            -# - if can? :manage, Account_users.find_by(user_id: @user.id, account_id: account.id)
+            -# - if can? :manage, AccountUsers.find_by(user_id: @user.id, account_id: account.id)
+            = link_to 'Destroy', account, :method => :delete, :data => { :confirm => 'Are you sure?' }, :class => 'btn btn-sm btn-danger'
 
 = link_to 'New Account', new_account_path, :class => 'btn btn-primary'
 %div

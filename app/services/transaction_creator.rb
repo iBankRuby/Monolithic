@@ -6,7 +6,7 @@ class TransactionCreator
   #   transaction_creator.account
   # end
 
-  attr_reader :params, :user, :account, :limit
+  attr_reader :params, :user, :account
 
   def initialize(params, user)
     @params = params
@@ -22,7 +22,8 @@ class TransactionCreator
 
   def create_transaction
     ActiveRecord::Base.transaction do
-      check_confirmation
+      account_user
+      confirmation
       create_transaction_object
       carry_out
     end
@@ -39,8 +40,7 @@ class TransactionCreator
 
   # implementation
 
-  def check_confirmation
-    account_user
+  def confirmation
     return @confirmation = check_reminder if role == 'co-user'
     @confirmation = check_balance
   end
@@ -56,7 +56,7 @@ class TransactionCreator
   def create_transaction_object
     Transaction.create(remote_account_id: params[:account],
                        summ: summ,
-                       status_from: @confirmation,
+                       status_from: confirmation,
                        status_to: false,
                        user: user,
                        account: account_from)
@@ -81,11 +81,7 @@ class TransactionCreator
   end
 
   def update_reminder
-    if limit.reminder > summ
-      limit.reminder -= summ
-    else
-      limit.reminder = 0
-    end
+    limit.reminder -= limit.reminder > summ ? summ : 0
     limit.save
   end
 
@@ -97,8 +93,8 @@ class TransactionCreator
   #   @user ||= User.find(current_user.id)
   # end
   def account_user
-    return @account_user ||= AccountUser.find_by(user_id: user.id, account_id: account_from.id) unless @confirming
-    @account_user ||= AccountUser.find_by(user_id: @transaction.user_id, account_id: account_from.id)
+    return @account_user ||= AccountUser.find_by(user_id: user.id, account_id: account_from) unless @confirming
+    @account_user ||= AccountUser.find_by(user_id: transaction.user_id, account_id: account_from)
   end
 
   def account_from
@@ -107,12 +103,12 @@ class TransactionCreator
 
   def account_to
     return @account_to ||= Account.find_by(iban: params[:account]) unless @confirming
-    @account_to ||= Account.find_by(iban: @transaction.remote_account_id)
+    @account_to ||= Account.find_by(iban: transaction.remote_account_id)
   end
 
   def summ
     return params[:summ].to_f unless @confirming
-    @transaction.summ
+    transaction.summ
   end
 
   def role
@@ -124,10 +120,14 @@ class TransactionCreator
   end
 
   def prepare_to_confirmation
-    @transaction = Transaction.find(params[:id])
+    transaction
     @confirmation = true
-    @transaction.status_from = @confirmation
-    @transaction.save
+    transaction.status_from = @confirmation
+    transaction.save
     @confirming = true
+  end
+
+  def transaction
+    @transaction ||= Transaction.find(params[:id])
   end
 end

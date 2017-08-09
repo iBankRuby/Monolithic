@@ -27,6 +27,11 @@ class AccountsController < ApplicationController
     @income = Transaction.where(remote_account_id: account.iban.to_s, status_to: false)
   end
 
+  def update
+    Account.restore(params[:id], recursive: true)
+    redirect_to accounts_url
+  end
+
   def destroy
     account.destroy
     redirect_to accounts_url

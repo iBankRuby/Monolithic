@@ -8,7 +8,6 @@ describe AccountManager do
 
     let!(:co_user) { create(:user, email: 'test01@mail.by') }
     let!(:account) { create(:account, balance: 1000) }
-    let!(:limit) { create(:limit) }
     let!(:usr_acc) { create(:account_user,
                           user_id: user.id,
                           account_id: account.id,
@@ -16,8 +15,8 @@ describe AccountManager do
     let!(:usr_acc_couser) { create(:account_user,
                             user_id: co_user.id,
                             account_id: account.id,
-                            limit_id: limit.id,
                             role_id: 2) }
+    let!(:limit) { create(:limit, account_user_id: usr_acc_couser.id) }
 
     let(:manager) { described_class.new(user, account.id) }
 

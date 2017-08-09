@@ -1,5 +1,6 @@
 class Account < ApplicationRecord
   acts_as_paranoid
+  include Friendlyable
   has_many :transactions
   has_many :account_users, dependent: :destroy
   has_many :limits, through: :account_users

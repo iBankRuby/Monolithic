@@ -1,7 +1,7 @@
 require 'rails_helper'
 
 describe AccountManager do
-  describe '#create_transaction' do
+  describe '#build_response' do
     let!(:user) do
       create(:user)
     end
@@ -20,9 +20,9 @@ describe AccountManager do
 
     let(:manager) { described_class.new(user, account.id) }
 
-    it 'create transaction' do
+    it 'build_response' do
       expect(manager.account_id).to eq(account.id)
-      expect(manager.manage.last.first.user_id).to eq(co_user.id)
+      expect(manager.manage[:account_users].last.user_id).to eq(co_user.id)
     end
   end
 end

@@ -1,9 +1,9 @@
 class ManagementController < ApplicationController
-  before_action :set_account
+  before_action :account
 
   def index
-    @account = Account.find(params[:account_id])
-    account_manager = AccountManager.new(current_user, params[:account_id])
+    account
+    account_manager = AccountManager.new(current_user, acc_id)
     @account_users = account_manager.manage
   end
 
@@ -14,7 +14,11 @@ class ManagementController < ApplicationController
 
   private
 
-  def set_account
-    @account = Account.find(params[:account_id])
+  def account
+    @account = Account.friendly.find(params[:account_id])
+  end
+
+  def acc_id
+    @account.id
   end
 end

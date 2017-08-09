@@ -5,10 +5,8 @@
 
 =form_for :invite do |f|
   =f.text_field :email, placeholder: 'Enter email'
+  =text_field_tag 'rule[spending_limit]', nil, placeholder: 'Enter limit'
   =f.submit 'Make invite'
-
-/ %h1 Add rules to new co-user
-/ =render 'rules/new_form'
 
 %ul
   -@invites.each do |invite|

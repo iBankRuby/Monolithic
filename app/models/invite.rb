@@ -5,6 +5,7 @@ class Invite < ApplicationRecord
   validates :status, presence: true, on: :update
 
   belongs_to :account, dependent: :destroy
+  has_one :rule
 
   private
 

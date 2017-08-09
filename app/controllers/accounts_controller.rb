@@ -28,7 +28,7 @@ class AccountsController < ApplicationController
   end
 
   def update
-    Account.restore(params[:id], recursive: true)
+    Account.friendly.restore(params[:id], recursive: true)
     redirect_to accounts_url
   end
 
@@ -40,7 +40,7 @@ class AccountsController < ApplicationController
   private
 
   def set_account
-    @account = Account.find(params[:id])
+    @account = Account.friendly.find(params[:id])
   end
 
   def set_current_user

@@ -1,30 +1,39 @@
 class AccountManager
-  attr_reader :account_id, :user, :account_users
-  def initialize(user, account_id)
+  attr_reader :account_id, :user, :account_users, :role
+
+  def initialize(user, acc_id)
     @user = user
-    @account_id = account_id
+    @account_id = acc_id
   end
 
   def manage
-    get_response
+    prepare_response
   end
 
   private
 
-  def get_response
-    role_type = check_role
-    build_response(role_type)
+  def prepare_response
+    @account_users ||= account_users_by_account_id
+    @role = check_role
+    build_response
   end
 
   def check_role
-    @account_users ||= AccountUser.where(user_id: @user.id, account_id: @account_id)
-    @account_users[0].role.name
+    account_user = account_users.find_by(user_id: user.id)
+    account_user.role.name
   end
 
-  def build_response(role_type)
-    response = [].push role_type
-    return response.push @account_users if role_type == 'co-user'
-    @account_users = AccountUser.where(account_id: @account_id, role_id: 2)
-    response.push @account_users
+  def build_response
+    response = { role: role }
+    @account_users = if role.eql?('co-user')
+                       account_users.where(user_id: user.id)
+                     else
+                       account_users.where.not(role_id: 1)
+                     end
+    response.merge!(account_users: account_users)
+  end
+
+  def account_users_by_account_id
+    AccountUser.where(account_id: account_id)
   end
 end

@@ -107,6 +107,8 @@ GEM
       i18n (~> 0.5)
     ffi (1.9.18)
     forgery (0.6.0)
+    friendly_id (5.2.1)
+      activerecord (>= 4.0.0)
     globalid (0.4.0)
       activesupport (>= 4.2.0)
     hamlit (2.8.4)
@@ -323,6 +325,7 @@ DEPENDENCIES
   factory_girl_rails
   faker
   forgery
+  friendly_id
   hamlit
   hamlit-rails
   ibandit (~> 0.11.5)

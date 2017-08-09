@@ -17,7 +17,9 @@
           / %li
           /   = link_to 'Accounts', "/accounts", :class => 'nav-link'
           %h5.name_user
-            #{current_user.name}  
+            #{current_user.name}
+          %h5.name_user
+            #{current_user.email}  
           %li
             = link_to destroy_user_session_path, method: :delete, :class => 'nav-link logout' do
               %i.large.material-icons exit_to_app

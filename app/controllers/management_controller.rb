@@ -15,10 +15,10 @@ class ManagementController < ApplicationController
   private
 
   def account
-    @account = Account.find(params[:account_id])
+    @account = Account.friendly.find(params[:account_id])
   end
 
   def acc_id
-    params[:account_id]
+    @account.id
   end
 end

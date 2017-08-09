@@ -15,7 +15,7 @@ class CoUsersController < ApplicationController
   private
 
   def account
-    @account ||= Account.find(params[:account_id])
+    @account ||= Account.friendly.find(params[:account_id])
   end
 
   def user_id

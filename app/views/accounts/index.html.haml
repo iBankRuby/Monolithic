@@ -29,8 +29,13 @@
       - @accounts.each do |account|
         %tr
           %td.iban #{account.iban}
-          %td.balance #{account.balance}
-          %td.role Owner
+          -role = account.account_users.find_by(user_id: current_user.id).role_id
+          -if  role == 1
+            %td.balance #{account.balance}
+            %td.role Owner
+          -if role == 2
+            %td.balance #{account.account_users.find_by(user_id: current_user.id).limit.reminder}
+            %td.role Co-user
           %td.date #{account.created_at.to_formatted_s(:short)}
           -if account.deleted_at.nil?
             %td.actions
@@ -49,8 +54,6 @@
     = form_for new_account_path do |f|
       = f.submit 'New Account', :class => 'btn btn-primary'
 /    = link_to 'New Account', new_account_path, :class => 'btn btn-primary'
-= link_to 'All Limits', limits_path, :class => 'btn btn-primary'
-= link_to 'Limits for current user', limit_path(current_user.id), :class => 'btn btn-primary'
 
 %div
 -unless @invites.empty?

@@ -5,7 +5,7 @@ class ExceedingRequestsController < ApplicationController
 
   def create
     @exceeding_request = ExceedingRequest.new(exceeding_request_params)
-    exceeding_request.account_user = AccountUser.find_by(account_id: params[:account_id], user_id: current_user.id)
+    exceeding_request.account_user = AccountUser.find_by(account_id: Account.find_by(hash_id: params[:account_id]), user_id: current_user.id)
     if exceeding_request.save
       redirect_to accounts_url, notice: 'Request have sent successfully.'
     else
@@ -29,7 +29,7 @@ class ExceedingRequestsController < ApplicationController
   private
 
   def set_exceeding_request
-    @exceeding_request = ExceedingRequest.find(params[:id])
+    @exceeding_request = ExceedingRequest.find_by(hash_id: params[:id])
   end
 
   def exceeding_request_params

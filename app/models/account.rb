@@ -1,4 +1,6 @@
 class Account < ApplicationRecord
+  include MyModule
+
   has_many :transactions
   has_many :account_users
   has_many :roles, through: :account_users

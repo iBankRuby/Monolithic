@@ -21,7 +21,6 @@
         %tr
           %th Iban
           %th Balance
-          %th Role
           %th Date created
           %th Actions
 
@@ -29,13 +28,7 @@
       - @accounts.each do |account|
         %tr
           %td.iban #{account.iban}
-          -role = account.account_users.find_by(user_id: current_user.id).role_id
-          -if  role == 1
-            %td.balance #{account.balance}
-            %td.role Owner
-          -if role == 2
-            %td.balance #{account.account_users.find_by(user_id: current_user.id).limit.reminder}
-            %td.role Co-user
+          %td.balance #{account.balance}
           %td.date #{account.created_at.to_formatted_s(:short)}
           -if account.deleted_at.nil?
             %td.actions

@@ -1,12 +1,12 @@
 class AccountsController < ApplicationController
   before_action :set_account, only: %i[show destroy]
-  before_action :set_current_user, only: %i[index create show]
 
-  attr_reader :accounts, :user, :account, :income
+  attr_reader :account
 
   def index
-    @accounts = user.accounts
-    @invites = Invite.where(user_to_id: user.id, status: nil)
+    @accounts ||= user.accounts
+    @invites ||= Invite.where(user_to_email: user.email, status: nil)
+    @exceeding_request ||= ExceedingRequest.exceeding_requests_for(user)
   end
 
   def new
@@ -36,7 +36,7 @@ class AccountsController < ApplicationController
     @account = Account.find(params[:id])
   end
 
-  def set_current_user
-    @user = current_user
+  def user
+    @user ||= current_user
   end
 end

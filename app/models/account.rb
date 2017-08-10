@@ -5,4 +5,9 @@ class Account < ApplicationRecord
   has_many :users, through: :account_users
   has_many :invites
   has_many :rules, through: :account_users
+  has_many :exceeding_requests, through: :account_users
+
+  def all_transactions
+    joins(:transaction)
+  end
 end

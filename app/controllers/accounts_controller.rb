@@ -5,7 +5,7 @@ class AccountsController < ApplicationController
 
   def index
     @accounts ||= user.accounts
-    @invites ||= Invite.where(user_to_id: user.id, status: nil)
+    @invites ||= Invite.where(user_to_email: user.email, status: nil)
     @exceeding_request ||= ExceedingRequest.exceeding_requests_for(user)
   end
 

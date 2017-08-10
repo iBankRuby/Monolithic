@@ -1,8 +1,11 @@
 =notice
 
 =form_for :invite do |f|
-  =f.text_field :email, placeholder: 'Enter email'
-  =f.submit 'Make invite'
+  =f.label 'Enter co-user email'
+  =f.email_field :email, placeholder: 'Enter email'
+  =f.label 'Enter limit'
+  =f.number_field 'rule[spending_limit]', within: 1...999
+  =f.submit 'Send invite'
 
 %ul
   -@invites.each do |invite|

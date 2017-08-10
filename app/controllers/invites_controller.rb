@@ -1,6 +1,6 @@
 class InvitesController < ApplicationController
   before_action :set_invite, only: %i[destroy update]
-  before_action :set_user_to_id, only: :create
+  # before_action :set_user_to_id, only: :create
   before_action :set_current_user_id, only: :create
   before_action :set_account, only: %i[index create]
 
@@ -12,11 +12,11 @@ class InvitesController < ApplicationController
   end
 
   def create
-    @invite = Invite.new(user_from_id: current_user_id, user_to_id: user_to, account_id: account.id)
-    rule = Rule.new(rule_params)
-    invite.rule = rule
-    if invite.save && rule.save
-      redirect_to(:account_invites, notice: 'Invite has been sent.')
+    invite_parameters = { user_from_id: current_user_id,
+                          user_to_email: invite_params[:email],
+                          account_id: params[:account_id] }
+    if Invite.create_invite_with_rules(invite_params: invite_parameters, rule_params: rule_params)
+      redirect_to account_invites_url, notice: 'Invite have made.'
     else
       redirect_to :account_invites, notice: 'Invite haven\'t been sent'
     end
@@ -52,6 +52,10 @@ class InvitesController < ApplicationController
 
   def invite_params
     params.fetch(:invite).permit(:email, :status)
+  end
+
+  def rule_params
+    params.fetch(:rule).permit(:spending_limit)
   end
 
   def set_user_to_id

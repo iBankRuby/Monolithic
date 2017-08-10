@@ -38,13 +38,22 @@ ActiveRecord::Schema.define(version: 20170809085340) do
     t.string "hash_id"
   end
 
+  create_table "exceeding_requests", force: :cascade do |t|
+    t.decimal "amount", precision: 10, scale: 2
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.bigint "account_user_id"
+    t.boolean "status"
+    t.index ["account_user_id"], name: "index_exceeding_requests_on_account_user_id"
+  end
+
   create_table "invites", force: :cascade do |t|
     t.bigint "account_id"
     t.integer "user_from_id", null: false
-    t.integer "user_to_id", null: false
     t.boolean "status"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.string "user_to_email", null: false
     t.index ["account_id"], name: "index_invites_on_account_id"
   end
 
@@ -57,6 +66,8 @@ ActiveRecord::Schema.define(version: 20170809085340) do
 
   create_table "roles", force: :cascade do |t|
     t.string "name"
+    t.bigint "limit_id"
+    t.index ["limit_id"], name: "index_roles_on_limit_id"
   end
 
   create_table "rules", force: :cascade do |t|
@@ -110,5 +121,6 @@ ActiveRecord::Schema.define(version: 20170809085340) do
   add_foreign_key "account_users", "limits"
   add_foreign_key "account_users", "roles"
   add_foreign_key "account_users", "rules"
-  add_foreign_key "rules", "invites"
+  add_foreign_key "exceeding_requests", "account_users"
+  add_foreign_key "roles", "limits"
 end

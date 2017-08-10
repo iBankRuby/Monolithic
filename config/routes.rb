@@ -4,7 +4,8 @@ Rails.application.routes.draw do
     resources :invites, only: %i[index create destroy update]
     resources :management
     resources :co_users
-    resources :rules, except: %i[destroy]
+    resources :rules, except: %i[show destroy]
+    resources :exceeding_requests, only: %i[create update destroy]
   end
   #devise_scope :user do
 	#  get '/home', to: 'devise/home#new'

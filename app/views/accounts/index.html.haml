@@ -65,7 +65,6 @@
         %td= invite.account.iban
         %td= link_to 'Submit', account_invite_path(invite.account_id, invite.id, invite: { status: true }), method: :patch, class: 'btn btn-sm btn-info'
         %td= link_to 'Reject', account_invite_path(invite.account_id, invite.id, invite: { status: false }), method: :patch, class: 'btn btn-sm btn-danger'
-
 %div
 -unless @exceeding_request.empty?
   %h3 Exceeding requests

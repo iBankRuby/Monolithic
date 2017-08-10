@@ -5,7 +5,7 @@ class AccountsController < ApplicationController
   def index
     accounts_list
     invites_list
-    @exceeding_request ||= ExceedingRequest.exceeding_requests_for(user)
+    @exceeding_request = ExceedingRequest.exceeding_requests_for(user)
   end
 
   def create

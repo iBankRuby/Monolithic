@@ -11,15 +11,8 @@
       %th
         %h5 Balance: #{@account.balance}
 /= link_to 'Edit', edit_account_path(@account)
-/\|
-
-= link_to 'Invite co-user', account_invites_url(@account)
-%br
-%br
-=form_tag account_exceeding_requests_url(@account), method: :post, action: :create do
-  =text_field_tag 'exceeding_request[amount]'
-  =submit_tag 'Request exceeding limit'
-
+- if can? :manage, @account
+  = link_to 'Invite co-user', account_invites_url(@account)
 %br
 %br
 %div

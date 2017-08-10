@@ -23,16 +23,16 @@
           %td.iban #{account.iban}
           %td.balance #{account.balance}
           %td.date #{account.created_at.to_formatted_s(:short)}
-          -if account.deleted_at.nil?
-            %td.actions
-              = link_to 'Show', account, :class => 'btn btn-sm btn-info'
-              -#= link_to 'Edit', edit_account_path(account), :class => 'btn btn-sm btn-warning'
-              = link_to 'Destroy', account, :method => :delete, :data => { :confirm => 'Are you sure?' }, :class => 'btn btn-sm btn-danger'
-          -if account.deleted_at?
-            %td.actions
-              = link_to 'Restore', account, :method => :patch, :class => 'btn btn-sm btn-warning'
-            %td.date Freezed #{account.deleted_at.to_formatted_s(:short)}
-
+          -if can? :manage, account
+            -if account.deleted_at.nil?
+              %td.actions
+                = link_to 'Show', account, :class => 'btn btn-sm btn-info'
+                -#= link_to 'Edit', edit_account_path(account), :class => 'btn btn-sm btn-warning'
+                = link_to 'Destroy', account, :method => :delete, :data => { :confirm => 'Are you sure?' }, :class => 'btn btn-sm btn-danger'
+            -if account.deleted_at?
+              %td.actions
+                = link_to 'Restore', account, :method => :patch, :class => 'btn btn-sm btn-warning'
+              %td.date Freezed #{account.deleted_at.to_formatted_s(:short)}
 
   .col-md-2
     = form_for new_account_path do |f|

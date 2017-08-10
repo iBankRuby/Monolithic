@@ -27,7 +27,7 @@
 
 %br
 %div
-= link_to 'All transactions', account_transactions_path, :class => 'btn btn-primary'
+= link_to 'All transactions', account_transactions_path(@account), :class => 'btn btn-primary'
 = link_to 'Management', account_management_index_path(@account), :class => 'btn btn-primary'
 
 .row

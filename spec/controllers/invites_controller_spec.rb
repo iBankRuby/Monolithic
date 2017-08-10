@@ -4,6 +4,8 @@ RSpec.describe InvitesController, type: :controller do
   let!(:user) { create :user }
   let!(:another_user) { create :another_user }
   let!(:account) { create :account }
+  let!(:invite) { create :invite }
+  let!(:rule) { create(:rule, invite_id: invite.id) }
 
   before { sign_in user }
 
@@ -22,37 +24,50 @@ RSpec.describe InvitesController, type: :controller do
   describe 'POST create' do
     context 'with valid params' do
       it 'creates a new invite' do
-        post :create, params: { account_id: account.id, invite: { email: 'user@mail.com' } }
-
+        post :create, params: { account_id: account.id,
+                                invite: { email: 'user@mail.com' },
+                                rule: { spending_limit: 1 } }
         invite = Invite.find_by(user_to_id: another_user.id)
         expect(Invite.exists?(invite.id)).to be_truthy
       end
 
       it 'redirect to invites' do
-        post :create, params: { account_id: account.id, invite: { email: 'user@mail.com' } }
+        post :create, params: { account_id: account.id,
+                                invite: { email: 'user@mail.com' },
+                                rule: { spending_limit: 1 } }
         expect(response).to redirect_to account_invites_url
       end
     end
 
     context 'with invalid params' do
       it 'does not create invite without email' do
-        post :create, params: { account_id: account.id, invite: { email: '' } }
+        post :create, params: { account_id: account.id,
+                                invite: { email: '' },
+                                rule: { spending_limit: 1 } }
         expect(Invite.count).to eq(0)
       end
 
       it 'does not create invite to same user' do
-        post :create, params: { account_id: account.id, invite: { email: 'me@example.com' } }
+        post :create, params: { account_id: account.id,
+                                invite: { email: 'me@example.com' },
+                                rule: { spending_limit: 1 } }
         expect(Invite.find_by(user_from_id: user.id, user_to_id: another_user.id)).to be_nil
       end
 
       it 'does not create invite twice' do
-        post :create, params: { account_id: account.id, invite: { email: 'user@mail.com' } }
-        post :create, params: { account_id: account.id, invite: { email: 'user@mail.com' } }
+        post :create, params: { account_id: account.id,
+                                invite: { email: 'user@mail.com' },
+                                rule: { spending_limit: 1 } }
+        post :create, params: { account_id: account.id,
+                                invite: { email: 'user@mail.com' },
+                                rule: { spending_limit: 1 } }
         expect(Invite.where(user_to_id: another_user.id).count).to eq(1)
       end
 
       it 'will redirect to invites if user is nonexist' do
-        post :create, params: { account_id: account.id, invite: { email: 'user123@mail.com' } }
+        post :create, params: { account_id: account.id,
+                                invite: { email: 'user123@mail.com' },
+                                rule: { spending_limit: 1 } }
         expect(response).to redirect_to account_invites_url
       end
     end

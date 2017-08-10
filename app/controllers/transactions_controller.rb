@@ -1,4 +1,10 @@
 class TransactionsController < ApplicationController
+  include TransactionsHistorian
+
+  def index
+    build_responce
+  end
+
   def create
     transaction_creator = TransactionCreator.new(params, current_user)
     if transaction_creator.check_creds

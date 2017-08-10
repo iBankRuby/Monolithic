@@ -1,3 +1,10 @@
+-if notice
+  %div.alert.alert-success
+    = notice
+-if alert
+  %div.alert.alert-danger
+    =alert
+
 %h1 Accounts list
 .row
   .col-md-10
@@ -14,6 +21,7 @@
         %tr
           %th Iban
           %th Balance
+          %th Role
           %th Date created
           %th Actions
 
@@ -21,7 +29,14 @@
       - @accounts.each do |account|
         %tr
           %td.iban #{account.iban}
-          %td.balance #{account.balance}
+          -role = account.account_users.find_by(user_id: current_user.id).role_id
+          -if  role == 1
+            %td.balance #{account.balance}
+            %td.role Owner
+          -if role == 2
+            %td.balance #{account.account_users.find_by(user_id: current_user.id).limit.reminder}
+            %td.role Co-user
+          //%td.balance #{account.balance}
           %td.date #{account.created_at.to_formatted_s(:short)}
           -if account.deleted_at.nil?
             %td.actions
@@ -44,8 +59,8 @@
 = link_to 'Limits for current user', limit_path(current_user.id), :class => 'btn btn-primary'
 
 %div
-%h3 Invitations
--if @invites
+-unless @invites.empty?
+  %h3 Invitations
   %table
     %thead
       %tr
@@ -60,3 +75,23 @@
         %td= invite.account.iban
         %td= link_to 'Submit', account_invite_path(invite.account_id, invite.id, invite: { status: true }), method: :patch, class: 'btn btn-sm btn-info'
         %td= link_to 'Reject', account_invite_path(invite.account_id, invite.id, invite: { status: false }), method: :patch, class: 'btn btn-sm btn-danger'
+
+%div
+-unless @exceeding_request.empty?
+  %h3 Exceeding requests
+  %table
+    %thead
+      %tr
+        %th Account
+        %th User
+        %th Amount
+        %th Actions
+    %tbody
+    - @exceeding_request.each do |request|
+      %tr
+        %td= request.account.iban
+        %td= request.user.name
+        %td= request.amount
+        %td
+          = link_to 'Submit', account_exceeding_request_path(request.account.id, request.id, exceeding_request: { status: true }), method: :patch, class: 'btn btn-sm btn-info'
+          = link_to 'Reject', account_exceeding_request_path(request.account.id, request.id, exceeding_request: { status: false }), method: :patch, class: 'btn btn-sm btn-danger'

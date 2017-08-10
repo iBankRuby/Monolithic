@@ -4,14 +4,12 @@ RSpec.describe CoUsersController, type: :controller do
   let!(:user) { create :user }
   let(:account) { create :account }
   let(:rule) { create(:rule, spending_limit: 0.0)}
-  let(:limit) { create(:limit, reminder: rule.spending_limit) }
   let!(:usr_acc) { create(:account_user,
                           user_id: user.id,
                           account_id: account.id,
-                          limit_id: limit.id,
                           rule_id: rule.id,
-                          role_id: 2)
-  }
+                          role_id: 2) }
+  let(:limit) { create(:limit, account_user_id: usr_acc.id, reminder: rule.spending_limit) }
   before { sign_in user }
 
   describe 'GET show' do

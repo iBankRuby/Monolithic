@@ -18,7 +18,7 @@ class ExceedingRequest < ApplicationRecord
       .joins('INNER JOIN roles ON roles.id = account_users.role_id')
       .where('account_users.user_id' => user.id,
              'roles.name' => 'owner',
-             status: nil)
+             'status' => nil)
   end
 
   private

@@ -5,7 +5,8 @@ class TransactionsController < ApplicationController
       transaction_creator.create_transaction
       redirect_to transaction_creator.account, notice: 'Transaction was successfully created.'
     else
-      redirect_to account_path(params[:account_id]), notice: 'Transaction was NOT created.'
+      redirect_to account_path(params[:account_id]),
+                  notice: 'Oops! Something wrong, try again later or contact administrator'
     end
   end
 

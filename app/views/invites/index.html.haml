@@ -3,16 +3,23 @@
   %i.material-icons keyboard_arrow_left
   Back to Accounts Page
 
-=form_for :invite do |f|
-  =f.text_field :email, placeholder: 'Enter email'
-  =text_field_tag 'rule[spending_limit]', nil, placeholder: 'Enter limit'
-  =f.submit 'Make invite'
-
-%ul
-  -@invites.each do |invite|
-    %li
-      User name:
-      =User.find(invite.user_to_id).name
-      Invited at:
-      =invite.created_at
-      =link_to 'Delete invite', account_invite_path(invite.account_id, invite), method: :delete, data: { confirm: 'Are you sure?' }
+.col.s12
+  =form_for :invite do |f|
+    .col.s12
+      =f.text_field :email, placeholder: 'Enter email'
+    .col.s6
+      =text_field_tag 'rule[spending_limit]', nil, placeholder: 'Enter limit'
+    .col.s6
+      =check_box_tag 'movable', 'true'
+      =label_tag 'movable', 'Fixed remainder'
+    .col.s12
+      =f.submit 'Make invite'
+.col.s12
+  %ul
+    -@invites.each do |invite|
+      %li
+        User name:
+        =User.find(invite.user_to_id).name
+        Invited at:
+        =invite.created_at
+        =link_to 'Delete invite', account_invite_path(invite.account_id, invite), method: :delete, data: { confirm: 'Are you sure?' }

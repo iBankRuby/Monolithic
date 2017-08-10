@@ -27,7 +27,7 @@ class InvitesController < ApplicationController
       account_user = AccountUser.create(user: current_user,
                                         account_id: invite.account_id,
                                         rule_id: invite.rule.id,
-                                        limit_id: Limit.create(reminder: 0.0).id,
+                                        limit_id: Limit.create(reminder: 0.0, movable: params[:movable]).id,
                                         role_id: Role.find_by(name: 'co-user').id)
       redirect_to :accounts
     else

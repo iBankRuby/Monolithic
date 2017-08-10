@@ -27,8 +27,10 @@ class InvitesController < ApplicationController
       account_user = AccountUser.create(user: current_user,
                                         account_id: invite.account_id,
                                         rule_id: invite.rule.id,
-                                        limit_id: Limit.create(reminder: 0.0, movable: params[:movable]).id,
-                                        role_id: Role.find_by(name: 'co-user').id)
+                                        # limit_id: Limit.create(reminder: 0.0, movable: params[:movable]).id,
+                                        #role_id: Role.find_by(name: 'co-user').id)
+                                        role_id: 2)
+      account_user.create_limit(reminder: 0.0)
       redirect_to :accounts
     else
       redirect_to :accounts, notice: 'Oops... Something went wrong. Try again.'

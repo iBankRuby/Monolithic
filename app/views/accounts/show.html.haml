@@ -9,13 +9,21 @@
         %h5 #{@account.iban}
         %h5= 'Valid THRU: ' + @account.valid_thru.strftime('%m/%d')
       %th
-        %h5 Balance: #{@account.balance}
+        -role = @account.account_users.find_by(user_id: current_user.id).role_id
+        -if  role == 1
+          %h5 Balance: #{@account.balance}
+        -if role == 2
+          %h5 Balance: #{@account.account_users.find_by(user_id: current_user.id).limit.reminder}
+
+
 /= link_to 'Edit', edit_account_path(@account)
 /\|
+%br
 %br
 =form_tag account_exceeding_requests_url(@account), method: :post, action: :create do
   =text_field_tag 'exceeding_request[amount]'
   =submit_tag 'Request exceeding limit'
+
 %br
 %div
 = link_to 'Management', account_management_index_path(@account)
@@ -35,14 +43,12 @@
           %tr
             %th To:
             %th Summ:
-            %th Status:
             %th Created:
         %tbody
         - @transactions.each do |t|
           %tr
             %td= t.remote_account_id
             %td= t.summ
-            %td= t.status_to
             %td= t.created_at.to_formatted_s(:short)
   #inc_trans.col-md-12
     %h3 Incoming transactions
@@ -50,14 +56,14 @@
       %table
         %thead
           %tr
+            %td From:
             %td Summ:
-            %td From_id:
             %td Created:
         %tbody
         - @income.each do |t|
           %tr
+            %td= t.account.iban
             %td= t.summ
-            %td= t.account_id
             %td= t.created_at.to_formatted_s(:short)
 .col.s12
   = form_tag account_transactions_path(@account), method: :post do

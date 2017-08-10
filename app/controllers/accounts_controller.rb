@@ -1,16 +1,11 @@
 class AccountsController < ApplicationController
   before_action :set_account, only: %i[show destroy]
-
-  attr_reader :account
+  attr_reader :accounts, :account, :income
 
   def index
-    @accounts ||= user.accounts
-    @invites ||= Invite.where(user_to_email: user.email, status: nil)
+    accounts_list
+    invites_list
     @exceeding_request ||= ExceedingRequest.exceeding_requests_for(user)
-  end
-
-  def new
-    @account = Account.new
   end
 
   def create
@@ -23,8 +18,13 @@ class AccountsController < ApplicationController
   end
 
   def show
-    @transactions = Transaction.where(user_id: user.id, account_id: account.id, status_from: true)
-    @income = Transaction.where(remote_account_id: account.iban.to_s, status_to: false)
+    outgoing_transactions_list
+    incoming_transactions_list
+  end
+
+  def update
+    Account.friendly.restore(params[:id], recursive: true)
+    redirect_to accounts_url
   end
 
   def destroy
@@ -40,5 +40,21 @@ class AccountsController < ApplicationController
 
   def user
     @user ||= current_user
+  end
+
+  def accounts_list
+    @accounts = user.accounts
+  end
+
+  def invites_list
+    @invites = Invite.where(user_to_id: user.id, status: nil)
+  end
+
+  def outgoing_transactions_list
+    @transactions = Transaction.where(user_id: user.id, account_id: account.id, status_from: true)
+  end
+
+  def incoming_transactions_list
+    @income = Transaction.where(remote_account_id: account.iban.to_s, status_from: true)
   end
 end

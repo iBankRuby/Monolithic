@@ -83,6 +83,7 @@ GEM
       execjs
     coffee-script-source (1.12.2)
     concurrent-ruby (1.0.5)
+    connection_pool (2.2.1)
     debug_inspector (0.0.3)
     descendants_tracker (0.0.4)
       thread_safe (~> 0.3, >= 0.3.1)
@@ -158,6 +159,8 @@ GEM
       mini_portile2 (~> 2.2.0)
     orm_adapter (0.5.0)
     parallel (1.12.0)
+    paranoia (2.3.1)
+      activerecord (>= 4.0, < 5.2)
     parser (2.4.0.0)
       ast (~> 2.2)
     pg (0.21.0)
@@ -169,6 +172,8 @@ GEM
     public_suffix (2.0.5)
     puma (3.9.1)
     rack (2.0.3)
+    rack-protection (2.0.0)
+      rack
     rack-test (0.6.3)
       rack (>= 1.0)
     railroady (1.5.3)
@@ -210,6 +215,7 @@ GEM
     rb-fsevent (0.10.2)
     rb-inotify (0.9.10)
       ffi (>= 0.5.0, < 2)
+    redis (3.3.3)
     reek (4.7.2)
       codeclimate-engine-rb (~> 0.4.0)
       parser (>= 2.4.0.0, < 2.5)
@@ -258,6 +264,11 @@ GEM
     selenium-webdriver (3.4.4)
       childprocess (~> 0.5)
       rubyzip (~> 1.0)
+    sidekiq (5.0.4)
+      concurrent-ruby (~> 1.0)
+      connection_pool (~> 2.2, >= 2.2.0)
+      rack-protection (>= 1.5.0)
+      redis (~> 3.3, >= 3.3.3)
     simplecov (0.14.1)
       docile (~> 1.1.0)
       json (>= 1.8, < 3)
@@ -332,6 +343,7 @@ DEPENDENCIES
   jquery-turbolinks
   listen (>= 3.0.5, < 3.2)
   materialize-sass
+  paranoia (~> 2.3, >= 2.3.1)
   pg
   pry
   puma (~> 3.7)
@@ -344,6 +356,7 @@ DEPENDENCIES
   rubocop
   sass-rails (~> 5.0)
   selenium-webdriver
+  sidekiq
   simplecov
   spring
   spring-watcher-listen (~> 2.0.0)

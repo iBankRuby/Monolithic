@@ -11,7 +11,6 @@
 # It's strongly recommended that you check this file into your version control system.
 
 ActiveRecord::Schema.define(version: 20170810080933) do
-
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -21,10 +20,10 @@ ActiveRecord::Schema.define(version: 20170810080933) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.bigint "rule_id"
-    t.bigint "limit_id"
     t.bigint "role_id"
+    t.datetime "deleted_at"
     t.index ["account_id"], name: "index_account_users_on_account_id"
-    t.index ["limit_id"], name: "index_account_users_on_limit_id"
+    t.index ["deleted_at"], name: "index_account_users_on_deleted_at"
     t.index ["role_id"], name: "index_account_users_on_role_id"
     t.index ["rule_id"], name: "index_account_users_on_rule_id"
     t.index ["user_id"], name: "index_account_users_on_user_id"
@@ -35,7 +34,9 @@ ActiveRecord::Schema.define(version: 20170810080933) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.string "iban"
+    t.datetime "deleted_at"
     t.string "hash_id"
+    t.index ["deleted_at"], name: "index_accounts_on_deleted_at"
   end
 
   create_table "exceeding_requests", force: :cascade do |t|
@@ -62,6 +63,12 @@ ActiveRecord::Schema.define(version: 20170810080933) do
     t.boolean "movable", default: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.bigint "account_user_id"
+    t.datetime "deleted_at"
+    t.bigint "rules_id"
+    t.index ["account_user_id"], name: "index_limits_on_account_user_id"
+    t.index ["deleted_at"], name: "index_limits_on_deleted_at"
+    t.index ["rules_id"], name: "index_limits_on_rules_id"
   end
 
   create_table "roles", force: :cascade do |t|
@@ -116,9 +123,10 @@ ActiveRecord::Schema.define(version: 20170810080933) do
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   end
 
-  add_foreign_key "account_users", "limits"
   add_foreign_key "account_users", "roles"
   add_foreign_key "account_users", "rules"
   add_foreign_key "exceeding_requests", "account_users"
+  add_foreign_key "limits", "account_users"
+  add_foreign_key "limits", "rules", column: "rules_id"
   add_foreign_key "rules", "invites"
 end

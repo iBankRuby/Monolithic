@@ -8,12 +8,11 @@ RSpec.describe TransactionsController, type: :controller do
 
     let!(:account_to) { create(:account, balance: 1000) }
     let!(:account_from) { create(:account, balance: 1000) }
-    let!(:limit) { create(:limit) }
     let!(:usr_acc) { create(:account_user,
                            user_id: user.id,
                            account_id: account_from.id,
-                           limit_id: limit.id,
                            role_id: 1) }
+    let!(:limit) { create(:limit, account_user_id: usr_acc.id) }
 
     let!(:transaction_params) do
       {
@@ -63,12 +62,11 @@ RSpec.describe TransactionsController, type: :controller do
 
     let!(:account_to) { create(:account, balance: 1000) }
     let!(:account_from) { create(:account, balance: 1000) }
-    let!(:limit) { create(:limit) }
     let!(:usr_acc) { create(:account_user,
                            user_id: user.id,
                            account_id: account_from.id,
-                           limit_id: limit.id,
                            role_id: 2) }
+    let!(:limit) { create(:limit, account_user_id: usr_acc.id) }
 
     let!(:transaction_params) do
       {
@@ -100,12 +98,11 @@ RSpec.describe TransactionsController, type: :controller do
 
     let!(:account_to) { create(:account, balance: 1000) }
     let!(:account_from) { create(:account, balance: 1000) }
-    let!(:limit) { create(:limit) }
     let!(:usr_acc) { create(:account_user,
                            user_id: user.id,
                            account_id: account_from.id,
-                           limit_id: limit.id,
                            role_id: 2) }
+    let!(:limit) { create(:limit, account_user_id: usr_acc.id) }
 
 
     let!(:transaction) { create(:transaction,

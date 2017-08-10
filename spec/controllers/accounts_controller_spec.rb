@@ -65,6 +65,14 @@ RSpec.describe AccountsController, type: :controller do
     end
   end
 
+  describe 'PATCH update' do
+    it 'restores account' do
+      delete :destroy, params: { id: account.id }
+      patch :update, params: { id: account.id }
+      expect(Account.exists?(account.id)).to be_truthy
+    end
+  end
+
   describe 'DELETE destroy' do
     it 'redirect to users' do
       delete :destroy, params: { id: account }

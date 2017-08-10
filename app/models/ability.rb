@@ -22,7 +22,7 @@ class Ability
   def initialize(current_user)
     @current_user ||= current_user
     can :manage, Account, current_user.accounts do |account|
-      account.account_users.find_by(user_id: current_user.id).role?('owner')
+      account.account_users.with_deleted.find_by(user_id: current_user.id).role?('owner')
     end
   end
 end

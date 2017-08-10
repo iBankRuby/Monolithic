@@ -31,8 +31,9 @@
                 = link_to 'Destroy', account, :method => :delete, :data => { :confirm => 'Are you sure?' }, :class => 'btn btn-sm btn-danger'
           -if account.deleted_at?
             -#if account.account_users.with_deleted.find_by(user_id: current_user.id).role.name == 'owner'
-            %td.actions
-              = link_to 'Restore', account, :method => :patch, :class => 'btn btn-sm btn-warning'
+            -if can? :manage, account
+              %td.actions
+                = link_to 'Restore', account, :method => :patch, :class => 'btn btn-sm btn-warning'
             %td.date Freezed #{account.deleted_at.to_formatted_s(:short)}
 
   .col-md-2

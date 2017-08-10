@@ -9,11 +9,15 @@
         %h5 #{@account.iban}
         %h5= 'Valid THRU: ' + @account.valid_thru.strftime('%m/%d')
       %th
-        %h5 Balance: #{@account.balance}
+        -role = @account.account_users.find_by(user_id: current_user.id).role_id
+        -if  role == 1
+          %h5 Balance: #{@account.balance}
+        -if role == 2
+          %h5 Balance: #{@account.account_users.find_by(user_id: current_user.id).limit.reminder}
+
+
 /= link_to 'Edit', edit_account_path(@account)
 /\|
-
-= link_to 'Invite co-user', account_invites_url(@account)
 %br
 %br
 =form_tag account_exceeding_requests_url(@account), method: :post, action: :create do

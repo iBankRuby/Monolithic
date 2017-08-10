@@ -8,10 +8,6 @@ class AccountsController < ApplicationController
     invites_list
   end
 
-  def new
-    @account = Account.new
-  end
-
   def create
     iban = Ibandit::IBAN.new(country_code: 'BE',
                              account_number: Forgery('credit_card').number)

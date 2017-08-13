@@ -8,27 +8,27 @@
   %body
   %header.navbar-toggleable-md.bd-navbar
     %nav.container-fluid.navbar.navbar-toggleable-md.navbar-default
-      - if user_signed_in?  
+      - if user_signed_in?
         = render :partial => "./layouts/nav"
       %a.navbar-brand{:href => "#"} iBank
-      
-      %ul.navbar-nav.navbar-right        
-        - if user_signed_in?          
+
+      %ul.navbar-nav.navbar-right
+        - if user_signed_in?
           / %li
           /   = link_to 'Accounts', "/accounts", :class => 'nav-link'
           %h5.name_user
             #{current_user.name}
           %h5.name_user
-            #{current_user.email}  
+            #{current_user.email}
           %li
             = link_to destroy_user_session_path, method: :delete, :class => 'nav-link logout' do
               %i.large.material-icons exit_to_app
               %p.txt_logout Logout
-            
-            
+
+
         / - else
         /   %li.nav-item
-        /     = link_to 'Login', new_user_session_path, :class => 'nav-link'   
+        /     = link_to 'Login', new_user_session_path, :class => 'nav-link'
   .container
     .row
       .col-md-12

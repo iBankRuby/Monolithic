@@ -8,4 +8,8 @@ class AccountUser < ApplicationRecord
 
   validates :user_id, presence: true
   validates :account_id, presence: true
+
+  def role?(r)
+    role.name == r
+  end
 end

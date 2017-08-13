@@ -81,7 +81,7 @@ class TransactionCreator
   end
 
   def update_reminder
-    limit.reminder -= limit.reminder > summ ? summ : 0
+    limit.reminder = limit.reminder > summ ? limit.reminder -= summ : 0
     limit.save
   end
 

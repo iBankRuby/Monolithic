@@ -26,7 +26,8 @@
 
 %br
 %div
-= link_to 'Management', account_management_index_path(@account)
+= link_to 'All', account_transactions_url(@account), :class => 'btn btn-primary'
+= link_to 'Management', account_management_index_path(@account), :class => 'btn btn-primary'
 .row
   %ul.tabs
     %li.tab.col-md-4

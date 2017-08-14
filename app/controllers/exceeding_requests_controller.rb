@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class ExceedingRequestsController < ApplicationController
   before_action :set_exceeding_request, only: %i[update create destroy]
 
@@ -5,7 +7,7 @@ class ExceedingRequestsController < ApplicationController
 
   def create
     @exceeding_request = ExceedingRequest.new(exceeding_request_params)
-    exceeding_request.account_user = AccountUser.find_by(account_id: exceeding_request.account_user.account_id , user_id: current_user.id)
+    exceeding_request.account_user = AccountUser.find_by(account_id: exceeding_request.account_user.account_id, user_id: current_user.id)
     if exceeding_request.save
       redirect_to accounts_url, notice: 'Request have sent successfully.'
     else

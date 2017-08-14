@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class CoUsersController < ApplicationController
   def show
     account

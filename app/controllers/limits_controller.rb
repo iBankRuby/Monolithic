@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class LimitsController < ApplicationController
   def index
     @limits = Limit.all

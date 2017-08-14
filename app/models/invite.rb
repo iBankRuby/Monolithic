@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class Invite < ApplicationRecord
   has_one :rule
   belongs_to :account
@@ -24,7 +26,7 @@ class Invite < ApplicationRecord
 
   # TODO: Send with using background jobs.
   def send_invite
-    user = User.find_by(email: self.user_to_email)
+    user = User.find_by(email: user_to_email)
     if user
       InviteMailer.invite_for_existing_user(user).deliver
     else
@@ -38,4 +40,3 @@ class Invite < ApplicationRecord
     user_from_id == User.find_by(email: user_to_email) && errors.add(:user_from_id, 'You cannot send invites to yourself')
   end
 end
-  

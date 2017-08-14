@@ -5,6 +5,7 @@ class AccountUser < ApplicationRecord
   belongs_to :user
   belongs_to :account, -> { with_deleted }
   belongs_to :role
+
   belongs_to :rule, optional: true
   has_one :limit, dependent: :destroy
 

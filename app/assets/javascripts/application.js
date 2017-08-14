@@ -19,9 +19,7 @@
 //= require materialize-sprockets
 //= require_tree .
 
-$(document).ready(function(){
-  $('.button-collapse').sideNav();	
-  $('ul.tabs').tabs();
+$(document).ready(function() {
+    $('.button-collapse').sideNav();
+    $('ul.tabs').tabs();
 })
-
-

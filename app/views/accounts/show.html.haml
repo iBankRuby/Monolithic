@@ -18,14 +18,11 @@
 
 /= link_to 'Edit', edit_account_path(@account)
 /\|
-%br
-%br
+
 -if role == 2
   =form_tag account_exceeding_requests_url(@account), method: :post, action: :create do
     =text_field_tag 'exceeding_request[amount]'
     =submit_tag 'Request exceeding limit'
-
-%br
 %div
 = link_to 'All transactions', account_transactions_path(@account), :class => 'btn btn-primary'
 = link_to 'Management', account_management_index_path(@account), :class => 'btn btn-primary'
@@ -83,4 +80,3 @@
       = label_tag :title, 'Amount'
       = text_field_tag :summ
     = submit_tag 'Send'
-

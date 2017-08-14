@@ -5,12 +5,12 @@ Rails.application.routes.draw do
     resources :management
     resources :co_users
     resources :rules, except: %i[show destroy]
-    resources :exceeding_requests, only: %i[create destroy]
+    resources :exceeding_requests, only: %i[create update destroy]
   end
   #devise_scope :user do
 	#  get '/home', to: 'devise/home#new'
   #end
-  devise_for :users, :controllers => { registrations: 'registrations' }
+  devise_for :users, :controllers => { registrations: 'registrations', confirmations: 'devise/confirmations' }
 
   resources :limits
 

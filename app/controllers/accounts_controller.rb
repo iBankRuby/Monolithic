@@ -1,11 +1,11 @@
 class AccountsController < ApplicationController
   before_action :set_account, only: %i[show destroy]
-
   attr_reader :accounts, :account, :income
 
   def index
     accounts_list
     invites_list
+    @exceeding_request = ExceedingRequest.exceeding_requests_for(user)
   end
 
   def create
@@ -47,7 +47,7 @@ class AccountsController < ApplicationController
   end
 
   def invites_list
-    @invites = Invite.where(user_to_id: user.id, status: nil)
+    @invites = Invite.where(user_to_email: user.email, status: nil)
   end
 
   def outgoing_transactions_list

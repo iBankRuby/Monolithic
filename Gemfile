@@ -6,7 +6,8 @@ git_source(:github) do |repo_name|
   "https://github.com/#{repo_name}.git"
 end
 
-gem 'bootstrap', '~> 4.0.0.alpha6'
+gem 'bootstrap'
+gem 'cancancan', '~> 2.0'
 gem 'devise'
 gem 'dotenv'
 gem 'forgery'
@@ -27,7 +28,6 @@ gem 'sass-rails', '~> 5.0'
 gem 'sidekiq'
 gem 'turbolinks', '~> 5'
 gem 'uglifier', '>= 1.3.0'
-gem 'materialize-sass'
 
 group :assets do
   gem 'coffee-rails'
@@ -56,8 +56,8 @@ group :test do
   # Adds support for Capybara system testing and selenium driver
   gem 'capybara', '~> 2.13'
   gem 'listen', '>= 3.0.5', '< 3.2'
-  gem 'rails-controller-testing'
   gem 'rspec-rails', '~> 3.6'
   gem 'selenium-webdriver'
   gem 'timecop'
+  gem 'rails-controller-testing'
 end

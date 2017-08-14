@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170809165902) do
+ActiveRecord::Schema.define(version: 20170810080933) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -45,16 +45,17 @@ ActiveRecord::Schema.define(version: 20170809165902) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.bigint "account_user_id"
+    t.boolean "status"
     t.index ["account_user_id"], name: "index_exceeding_requests_on_account_user_id"
   end
 
   create_table "invites", force: :cascade do |t|
     t.bigint "account_id"
     t.integer "user_from_id", null: false
-    t.integer "user_to_id", null: false
     t.boolean "status"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.string "user_to_email", null: false
     t.index ["account_id"], name: "index_invites_on_account_id"
   end
 

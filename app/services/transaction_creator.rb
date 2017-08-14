@@ -14,6 +14,7 @@ class TransactionCreator
   end
 
   def check_creds
+    return false if account_to.nil?
     expired = account_to.valid_thru
     return false if @params[:day] != expired.strftime('%d')
     return false if @params[:month] != expired.strftime('%m')

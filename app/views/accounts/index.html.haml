@@ -1,3 +1,10 @@
+-if notice
+  %div.alert.alert-success
+    = notice
+-if alert
+  %div.alert.alert-danger
+    =alert
+
 %h1 Accounts list
 .row
   .col-md-10
@@ -27,23 +34,23 @@
             %td.actions
               = link_to 'Show', account, :class => 'btn btn-sm btn-info'
               -#= link_to 'Edit', edit_account_path(account), :class => 'btn btn-sm btn-warning'
-              = link_to 'Destroy', account, :method => :delete, :data => { :confirm => 'Are you sure?' }, :class => 'btn btn-sm btn-danger'
+              -if can? :manage, account
+                = link_to 'Destroy', account, :method => :delete, :data => { :confirm => 'Are you sure?' }, :class => 'btn btn-sm btn-danger'
           -if account.deleted_at?
-            %td.actions
-              = link_to 'Restore', account, :method => :patch, :class => 'btn btn-sm btn-warning'
+            -#if account.account_users.with_deleted.find_by(user_id: current_user.id).role.name == 'owner'
+            -if can? :manage, account
+              %td.actions
+                = link_to 'Restore', account, :method => :patch, :class => 'btn btn-sm btn-warning'
             %td.date Freezed #{account.deleted_at.to_formatted_s(:short)}
-
 
   .col-md-2
     = form_for new_account_path do |f|
       = f.submit 'New Account', :class => 'btn btn-primary'
 /    = link_to 'New Account', new_account_path, :class => 'btn btn-primary'
-= link_to 'All Limits', limits_path, :class => 'btn btn-primary'
-= link_to 'Limits for current user', limit_path(current_user.id), :class => 'btn btn-primary'
 
 %div
-%h3 Invitations
--if @invites
+-unless @invites.empty?
+  %h3 Invitations
   %table
     %thead
       %tr
@@ -58,3 +65,22 @@
         %td= invite.account.iban
         %td= link_to 'Submit', account_invite_path(invite.account_id, invite.id, invite: { status: true }), method: :patch, class: 'btn btn-sm btn-info'
         %td= link_to 'Reject', account_invite_path(invite.account_id, invite.id, invite: { status: false }), method: :patch, class: 'btn btn-sm btn-danger'
+%div
+-unless @exceeding_request.empty?
+  %h3 Exceeding requests
+  %table
+    %thead
+      %tr
+        %th Account
+        %th User
+        %th Amount
+        %th Actions
+    %tbody
+    - @exceeding_request.each do |request|
+      %tr
+        %td= request.account.iban
+        %td= request.user.name
+        %td= request.amount
+        %td
+          = link_to 'Submit', account_exceeding_request_path(request.account.id, request.id, exceeding_request: { status: true }), method: :patch, class: 'btn btn-sm btn-info'
+          = link_to 'Reject', account_exceeding_request_path(request.account.id, request.id, exceeding_request: { status: false }), method: :patch, class: 'btn btn-sm btn-danger'

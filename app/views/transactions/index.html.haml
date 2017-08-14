@@ -3,6 +3,7 @@
 	%table
 		%thead
 			%tr
+				%th User:
 				%th From:
 				%th To:
 				%th Summ:
@@ -10,6 +11,7 @@
 		%tbody
 		- @transactions.each do |t|
 			%tr
+				%td= t.user.email
 				%td= t.account.iban
 				%td= t.remote_account_id
 				%td= t.summ

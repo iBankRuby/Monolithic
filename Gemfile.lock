@@ -325,7 +325,7 @@ PLATFORMS
 DEPENDENCIES
   better_errors
   binding_of_caller
-  bootstrap
+  bootstrap (~> 4.0.0.alpha6)
   byebug
   cancancan (~> 2.0)
   capybara (~> 2.13)

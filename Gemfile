@@ -6,7 +6,7 @@ git_source(:github) do |repo_name|
   "https://github.com/#{repo_name}.git"
 end
 
-gem 'bootstrap', '~> 4.0.0.alpha6'
+gem 'bootstrap'
 gem 'cancancan', '~> 2.0'
 gem 'devise'
 gem 'dotenv'
@@ -49,10 +49,6 @@ group :development do
   gem 'spring'
   gem 'spring-watcher-listen', '~> 2.0.0'
   gem 'railroady'
-end
-
-group :development,:test do
-  gem 'forgery'
 end
 
 group :test do

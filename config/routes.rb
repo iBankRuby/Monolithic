@@ -1,6 +1,7 @@
 Rails.application.routes.draw do
   resources :accounts, except: %i[edit] do
     resources :transactions, only: %i[index create update]
+    resources :statistics, only: %i[index create update]
     resources :invites, only: %i[index create destroy update]
     resources :management
     resources :co_users

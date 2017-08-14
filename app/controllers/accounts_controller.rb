@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class AccountsController < ApplicationController
   before_action :set_account, only: %i[show destroy]
   attr_reader :accounts, :account, :income

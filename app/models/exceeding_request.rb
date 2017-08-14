@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class ExceedingRequest < ApplicationRecord
   belongs_to :account_user
 

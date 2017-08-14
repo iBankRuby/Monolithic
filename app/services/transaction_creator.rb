@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class TransactionCreator
   # interface
   # def self.create_transaction(params, user)
@@ -87,7 +89,7 @@ class TransactionCreator
   end
 
   def build_request
-    #later
+    # later
   end
 
   # def user

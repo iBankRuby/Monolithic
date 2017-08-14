@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class InvitesController < ApplicationController
   before_action :set_invite, only: %i[destroy update]
   # before_action :set_user_to_id, only: :create
@@ -79,5 +81,4 @@ class InvitesController < ApplicationController
   def rule_params
     params.fetch(:rule).permit(:spending_limit)
   end
-
 end

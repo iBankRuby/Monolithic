@@ -10,6 +10,29 @@
 // Read Sprockets README (https://github.com/rails/sprockets#sprockets-directives) for details
 // about supported directives.
 //
+//= require jquery
 //= require rails-ujs
+//= require jquery.turbolinks
 //= require turbolinks
+//= require turbolinks-compatibility
+//= require bootstrap
+//= require materialize-sprockets
+//= require timer
 //= require_tree .
+
+$(document).ready(function(){
+  $('.button-collapse').sideNav();	
+  $('ul.tabs').tabs();
+})
+
+$(function() {
+    var logout_timer = new Timer(122, '/users/sign_in', window);
+    logout_timer.start();
+
+    // restart timer if activity
+    $(document).on('keyup keypress blur change mousemove',function(){
+      logout_timer.start();
+    });
+
+});
+

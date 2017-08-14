@@ -14,15 +14,17 @@ class AccountsController < ApplicationController
   end
 
   def create
-    account = Account.create!(iban: Forgery('credit_card').number, balance: 1000)
+    iban = Ibandit::IBAN.new(country_code: 'BE',
+                             account_number: Forgery('credit_card').number)
+    account = Account.create!(iban: iban.iban,
+                              balance: 1000)
     account.account_users.create(user: user, role_id: Role.find_by(name: 'owner').id)
     redirect_to account, notice: 'Account was successfully created.'
   end
 
   def show
-    @transactions = Transaction.where(user_id: user.id, account_id: account.id)
+    @transactions = Transaction.where(user_id: user.id, account_id: account.id, status_from: true)
     @income = Transaction.where(remote_account_id: account.iban.to_s, status_to: false)
-    @roles = AccountUser.where(account_id: params[:id])
   end
 
   def destroy

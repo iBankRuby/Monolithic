@@ -7,22 +7,24 @@ class InvitesController < ApplicationController
 
   def index
     @invites = Account.find(params[:account_id]).invites
+    @rule = Rule.new
   end
 
   def create
     @invite = Invite.new(user_from_id: current_user_id, user_to_id: user_to, account_id: params[:account_id])
     if invite.valid?
-      invite.save && redirect_to(account_invites_url, notice: 'Invite have made.')
+      invite.save && redirect_to(:account_invites, notice: 'Invite has been sent.')
     else
-      redirect_to account_invites_url, notice: 'Invite haven\'t been made'
+      redirect_to :account_invites, notice: 'Invite haven\'t been sent'
     end
   end
 
   def update
     if invite.update(invite_params)
-      AccountUser.create(user: current_user,
-                         account_id: invite.account_id,
-                         role_id: Role.find_by(name: 'co-user').id)
+      account_user = AccountUser.create(user: current_user,
+                                        account_id: invite.account_id,
+                                        role_id: Role.find_by(name: 'co-user').id)
+      account_user.create_limit
       redirect_to :accounts
     else
       redirect_to :accounts, notice: 'Oops... Something went wrong. Try again.'

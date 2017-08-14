@@ -3,7 +3,8 @@ class Invite < ApplicationRecord
   validates :user_from_id, :user_to_id, numericality: true, presence: true
   validates :account_id, uniqueness: { scope: :user_to_id, message: 'You cannot send invite twice' }
   validates :status, presence: true, on: :update
-  belongs_to :account
+
+  belongs_to :account, dependent: :destroy
 
   private
 

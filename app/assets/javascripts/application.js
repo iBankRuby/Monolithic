@@ -13,9 +13,11 @@
 //= require jquery
 //= require jquery_ujs
 //= require turbolinks
+//= require turbolinks-compatibility
+//= require jquery.turbolinks
 //= require_tree .
 
-$(document).ready(function() {
-	$('ul.tabs').tabs();
+$(document).ready(function(){
+	$('#tabs').tabs();
 })
 

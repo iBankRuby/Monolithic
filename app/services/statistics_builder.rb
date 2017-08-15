@@ -11,7 +11,29 @@ module StatisticsBuilder
   private
 
   def clean_params
-    params.delete_if { |key, value| value.blank? }
+    range = created_at
+
+    params.except(
+      :utf8,
+      :authenticity_token,
+      :commit,
+      :account_id,
+      :controller,
+      :action,
+      :date_from,
+      :date_to
+    ).delete_if { |key, value| value.blank? }.each do |k, v| #.merge(created_at)
+      range[k] = v
+    end
+    range
+  end
+
+  def created_at
+    if params[:date_from] != '' && params[:date_from] != nil 
+      { created_at: params[:date_from].to_time.to_s..params[:date_to].to_time.end_of_day.to_s }
+    else
+      {}
+    end
   end
 
   def account_user
@@ -37,6 +59,5 @@ module StatisticsBuilder
   def build_statistics(role_type)
     @transactions = role_type == "owner" ?  transactions : transactions.where(user_id: current_user.id)
   end
-  
-  
+
 end

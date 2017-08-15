@@ -7,11 +7,10 @@ git_source(:github) do |repo_name|
 end
 
 gem 'aasm', '~> 4.12', '>= 4.12.2'
-gem 'bootstrap', '~> 4.0.0.alpha6'
+gem 'bootstrap', '4.0.0.alpha6'
 gem 'cancancan', '~> 2.0'
 gem 'devise'
 gem 'dotenv'
-gem 'forgery'
 gem 'friendly_id'
 gem 'hamlit'
 gem 'hamlit-rails'

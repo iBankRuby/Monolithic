@@ -19,11 +19,11 @@
     %table.table-responsive
       %thead
         %tr
+          %th Role
           %th Iban
           %th Balance
           %th Date created
           %th Actions
-
       %tbody
       - @accounts.each do |account|
         %tr
@@ -32,15 +32,15 @@
           %td.date #{account.created_at.to_formatted_s(:short)}
           -if account.deleted_at.nil?
             %td.actions
-              = link_to 'Show', account, :class => 'btn btn-sm btn-info'
+              = link_to 'Show', account, :class => 'btn btn-sm btn-info waves-effect'
               -#= link_to 'Edit', edit_account_path(account), :class => 'btn btn-sm btn-warning'
               -if can? :manage, account
-                = link_to 'Destroy', account, :method => :delete, :data => { :confirm => 'Are you sure?' }, :class => 'btn btn-sm btn-danger'
+                = link_to 'Destroy', account, :method => :delete, :data => { :confirm => 'Are you sure?' }, :class => 'btn btn-sm btn-danger waves-effect'
           -if account.deleted_at?
             -#if account.account_users.with_deleted.find_by(user_id: current_user.id).role.name == 'owner'
             -if can? :manage, account
               %td.actions
-                = link_to 'Restore', account, :method => :patch, :class => 'btn btn-sm btn-warning'
+                = link_to 'Restore', account, :method => :patch, :class => 'btn btn-sm btn-warning waves-effect'
             %td.date Freezed #{account.deleted_at.to_formatted_s(:short)}
 
   .col-md-2
@@ -63,9 +63,8 @@
       %tr
         %td= invite.user_from_id
         %td= invite.account.iban
-        %td= link_to 'Submit', account_invite_path(invite.account_id, invite.id, invite: { status: true }), method: :patch, class: 'btn btn-sm btn-info'
-        %td= link_to 'Reject', account_invite_path(invite.account_id, invite.id, invite: { status: false }), method: :patch, class: 'btn btn-sm btn-danger'
-
+        %td= link_to 'Submit', account_invite_path(invite.account_id, invite.id, invite: { status: true }), method: :patch, class: 'btn btn-sm btn-info waves-effect'
+        %td= link_to 'Reject', account_invite_path(invite.account_id, invite.id, invite: { status: false }), method: :patch, class: 'btn btn-sm btn-danger waves-effect'
 %div
 -unless @exceeding_request.empty?
   %h3 Exceeding requests
@@ -83,5 +82,5 @@
         %td= request.user.name
         %td= request.amount
         %td
-          = link_to 'Submit', account_exceeding_request_path(request.account.id, request.id, exceeding_request: { status: true }), method: :patch, class: 'btn btn-sm btn-info'
-          = link_to 'Reject', account_exceeding_request_path(request.account.id, request.id, exceeding_request: { status: false }), method: :patch, class: 'btn btn-sm btn-danger'
+          = link_to 'Accept invite', account_exceeding_request_path(request.account.id, request.id, exceeding_request: { status: true }), method: :patch, class: 'btn btn-sm btn-info waves-effect'
+          = link_to 'Reject', account_exceeding_request_path(request.account.id, request.id, exceeding_request: { status: false }), method: :patch, class: 'btn btn-sm btn-danger waves-effect'

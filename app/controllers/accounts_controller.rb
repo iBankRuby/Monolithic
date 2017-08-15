@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class AccountsController < ApplicationController
   before_action :set_account, only: %i[show destroy]
   attr_reader :accounts, :account, :income
@@ -5,7 +7,7 @@ class AccountsController < ApplicationController
   def index
     accounts_list
     invites_list
-    @exceeding_request ||= ExceedingRequest.exceeding_requests_for(user)
+    @exceeding_request = ExceedingRequest.exceeding_requests_for(user)
   end
 
   def create

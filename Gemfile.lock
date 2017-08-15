@@ -56,9 +56,7 @@ GEM
     bindex (0.5.0)
     binding_of_caller (0.7.2)
       debug_inspector (>= 0.0.1)
-    bootstrap (4.0.0.alpha6)
-      autoprefixer-rails (>= 6.0.3)
-      sass (>= 3.4.19)
+    
     builder (3.2.3)
     byebug (9.0.6)
     cancancan (2.0.0)
@@ -108,7 +106,6 @@ GEM
     faker (1.8.4)
       i18n (~> 0.5)
     ffi (1.9.18)
-    forgery (0.6.0)
     friendly_id (5.2.1)
       activerecord (>= 4.0.0)
     globalid (0.4.0)
@@ -325,7 +322,7 @@ PLATFORMS
 DEPENDENCIES
   better_errors
   binding_of_caller
-  bootstrap (= 4.0.0.alpha6)
+  
   byebug
   cancancan (~> 2.0)
   capybara (~> 2.13)
@@ -335,7 +332,6 @@ DEPENDENCIES
   dotenv
   factory_girl_rails
   faker
-  forgery
   friendly_id
   hamlit
   hamlit-rails

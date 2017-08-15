@@ -6,7 +6,7 @@ git_source(:github) do |repo_name|
   "https://github.com/#{repo_name}.git"
 end
 
-gem 'bootstrap', '4.0.0.alpha6'
+# gem 'bootstrap', '~> 4.0.0.alpha3'
 gem 'cancancan', '~> 2.0'
 gem 'devise'
 gem 'dotenv'
@@ -17,7 +17,7 @@ gem 'ibandit', '~> 0.11.5'
 gem 'jbuilder', '~> 2.5'
 gem 'jquery-rails'
 gem 'jquery-turbolinks'
-gem 'materialize-sass'
+# gem 'materialize-sass'
 gem 'paranoia', '~> 2.3', '>= 2.3.1'
 gem 'pg'
 gem 'puma', '~> 3.7'

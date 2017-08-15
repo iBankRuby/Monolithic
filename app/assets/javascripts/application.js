@@ -11,16 +11,13 @@
 // about supported directives.
 //
 //= require jquery
-//= require rails-ujs
-//= require jquery.turbolinks
+
+//= require jquery_ujs
+//= require jquery-ui-1.12.1.custom.min
 //= require turbolinks
-//= require turbolinks-compatibility
-//= require bootstrap
-//= require materialize-sprockets
 //= require_tree .
 
 $(document).ready(function() {
-    $('.button-collapse').sideNav();
-    $('ul.tabs').tabs();
+	$('ul.tabs').tabs();
 })
 

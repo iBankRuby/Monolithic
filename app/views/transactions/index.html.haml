@@ -16,3 +16,18 @@
 				%td= t.remote_account_id
 				%td= t.summ
 				%td= t.created_at.to_formatted_s(:short)
+
+.col.s12
+	.col.s8.input-field
+
+		= text_field_tag :datepicker, nil, class: "datepicker"
+	.col.s2.input-field
+		= label_tag :title, 'Month'
+		= text_field_tag :month
+	.col.s2.input-field
+		= label_tag :title, 'Day'
+		= text_field_tag :day
+	.col.s12.input-field
+		= label_tag :title, 'Amount'
+		= text_field_tag :summ
+	= submit_tag 'Send'

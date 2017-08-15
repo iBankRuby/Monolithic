@@ -37,4 +37,6 @@ module StatisticsBuilder
   def build_statistics(role_type)
     @transactions = role_type == "owner" ?  transactions : transactions.where(user_id: current_user.id)
   end
+  
+  
 end

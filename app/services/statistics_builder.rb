@@ -11,7 +11,22 @@ module StatisticsBuilder
   private
 
   def clean_params
-    params.delete_if { |key, value| value.blank? }
+    params.except(
+      :utf8,
+      :authenticity_token,
+      :commit,
+      :account_id,
+      :controller,
+      :action,
+      :date_from,
+      :date_to
+    ).delete_if { |key, value| value.blank? }.merge(created_range)
+  end
+
+  def created_at
+    unless params[:date_from] == ''
+      { created_at: params[:date_from].to_time..params[:date_to].to_time.end_of_day }
+    end
   end
 
   def account_user

@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class Limit < ApplicationRecord
   acts_as_paranoid
   belongs_to :account_user, optional: true

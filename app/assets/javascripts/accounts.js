@@ -2,6 +2,5 @@
 // All this logic will automatically be available in application.js.
 
 $(document).ready(function(){
-  $('ul.tabs').tabs('select_tab', 'tab_id');
-});
-        
+	$('#tabs').tabs();
+})  

@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 # class RulesController < ApplicationController
 #   before_action :set_rule, only: %i[edit update]
 #   before_action :set_account, only: %i[index create]

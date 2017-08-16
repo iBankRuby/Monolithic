@@ -1,6 +1,10 @@
 Rails.application.routes.draw do
   resources :accounts, except: %i[edit] do
-    resources :transactions, only: %i[index show create update destroy]
+    resources :transactions, only: %i[index create] do
+      patch :cancel
+      patch :confirm
+      patch :ownerapprove
+    end
     resources :invites, only: %i[index create destroy update]
     resources :management
     resources :co_users

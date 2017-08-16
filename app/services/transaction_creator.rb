@@ -78,12 +78,12 @@ class TransactionCreator
   end
 
   def update_account_from
-    account_from.balance -= summ
+    transaction.update(balance_after: account_from.balance -= summ)
     account_from.save!
   end
 
   def update_account_to
-    account_to.balance += summ
+    transaction.update(remote_balance_after: account_to.balance += summ)
     account_to.save!
   end
 

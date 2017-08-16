@@ -5,7 +5,6 @@
   %div.alert.alert-danger
     =alert
 
-%h1 Accounts list
 .row
   .col-md-10
     /%ul.tabs
@@ -32,10 +31,10 @@
           %td.date #{account.created_at.to_formatted_s(:short)}
           -if account.deleted_at.nil?
             %td.actions
-              = link_to 'Show', account, :type => "button", :class => 'btn btn-success'
+              = link_to 'Show', account, :class => 'btn btn-outline-info btn-round btn-sm'
               -#= link_to 'Edit', edit_account_path(account), :class => 'btn btn-sm btn-warning'
               -if can? :manage, account
-                = link_to 'Destroy', account, :method => :delete, :data => { :confirm => 'Are you sure?' }, :class => 'btn btn-sm btn-danger waves-effect'
+                = link_to 'Delete', account, :method => :delete, :data => { :confirm => 'Are you sure?' }, :class => 'btn btn-outline-danger btn-round btn-sm'
           -if account.deleted_at?
             -#if account.account_users.with_deleted.find_by(user_id: current_user.id).role.name == 'owner'
             -if can? :manage, account

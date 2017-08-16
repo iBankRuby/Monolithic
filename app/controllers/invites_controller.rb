@@ -79,6 +79,6 @@ class InvitesController < ApplicationController
   end
 
   def rule_params
-    params.fetch(:rule).permit(:spending_limit)
+    params.fetch(:invite).fetch(:rule).permit(:spending_limit)
   end
 end

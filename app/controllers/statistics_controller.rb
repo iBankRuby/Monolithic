@@ -2,8 +2,7 @@ class StatisticsController < ApplicationController
   include StatisticsBuilder
 
   def index
-    # build_responce    
-  	get_statistics
+  	get_statistics if params[:utf8]
   end
 
   def create  	

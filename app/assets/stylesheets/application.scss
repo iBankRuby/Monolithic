@@ -10,20 +10,50 @@
  * files in this directory. Styles in this file should be added after the last require_* statement.
  * It is generally better to create a new file per style scope.
  *
- *= require_tree .
  *= require_self
  */
 
-/* Fonts */
+@import "paper-kit/variables";
+@import "paper-kit/mixins";
 
-@import "https://fonts.googleapis.com/icon?family=Material+Icons";
+@import "paper-kit/typography";
 
-/* Bootstrap Material */
+// Core CSS
+@import "paper-kit/misc";
+@import "paper-kit/buttons";
+@import "paper-kit/inputs";
+@import "paper-kit/progress-bars";
+@import "paper-kit/sliders";
+@import "paper-kit/alerts";
+@import "paper-kit/labels";
+@import "paper-kit/tooltips-and-popovers";
+@import "paper-kit/sections";
+@import "paper-kit/checkbox-radio";
+@import "paper-kit/navbars";
+@import "paper-kit/images";
+@import "paper-kit/cards";
+@import "paper-kit/footers";
 
-//@import "bootstrap";
 
+// Bootstrap Switch
+@import "paper-kit/bootstrap-switch";
 
-/* General */
+// Fancy Stuff
+@import "paper-kit/dropdown";
+//
+// icons
+@import "paper-kit/icons";
+//
+@import "paper-kit/tabs-navs-pagination";
+@import "paper-kit/collapse";
+@import "paper-kit/carousel";
+@import "paper-kit/modal";
+//
+@import "paper-kit/responsive";
+@import "paper-kit/plugins/datetimepicker";
+@import "paper-kit/social-buttons";
+@import "paper-kit/examples";
+
 
 body {
     display: flex;
@@ -35,19 +65,7 @@ body {
 
 /* Nav */
 
-.navbar-right {
-  position: absolute;
-  right: 20px;
-  align-items: center;
-  a.logout {
-    padding: 0 10px;
-    width: 60px;
-    height: 56px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-  }
-}
+
 
 h5.name_user {
   line-height: 56px;
@@ -62,13 +80,6 @@ h5.name_user {
     p.txt_logout {
       display: block;
       margin: 0;
-      color: #fff;
-    }
-    i.material-icons {
-      font-size: 22px;
-      height: 22px;
-      line-height: 22px;
-      text-align: center;
       color: #fff;
     }
   }

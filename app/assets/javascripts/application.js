@@ -15,6 +15,7 @@
 //= require turbolinks
 //= require turbolinks-compatibility
 //= require jquery.turbolinks
+//= require paper-kit
 //= require_tree .
 
 $(document).ready(function(){

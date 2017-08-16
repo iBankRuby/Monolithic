@@ -20,9 +20,7 @@ class TransactionCreator
     ActiveRecord::Base.transaction do
       account_user
       create_transaction_object
-      # carry_out
     end
-
     @account = account_from
   end
 
@@ -46,8 +44,6 @@ class TransactionCreator
   # implementation
 
   def enough_of_money?
-    # return check_reminder if role == 'co-user'
-    # check_balance
     case role
     when 'co-user'
       transaction.need_approval! unless check_reminder
@@ -82,22 +78,18 @@ class TransactionCreator
   end
 
   def update_account_from
-    account_from.balance -= summ
+    transaction.update(balance_after: account_from.balance -= summ)
     account_from.save!
   end
 
   def update_account_to
-    account_to.balance += summ
+    transaction.update(remote_balance_after: account_to.balance += summ)
     account_to.save!
   end
 
   def update_reminder
     limit.reminder = limit.reminder > summ ? limit.reminder -= summ : 0
     limit.save
-  end
-
-  def build_request
-    # later
   end
 
   def account_user
@@ -147,6 +139,6 @@ class TransactionCreator
   end
 
   def transaction
-    @transaction ||= Transaction.find(params[:id])
+    @transaction ||= Transaction.find(params[:transaction_id])
   end
 end

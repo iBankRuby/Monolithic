@@ -37,9 +37,8 @@
             %li.nav-item
               %a.nav-link{:href => "#"}
                 %i.nc-icon.nc-single-02{"aria-hidden" => "true"}
-            %li.nav-item
-              %a.nav-link{:href => "#"}
-                %i.nc-icon.nc-settings-gear-65{"aria-hidden" => "true"}
+              = link_to destroy_user_session_path, method: :delete, :class => 'nav-link logout' do
+                %p.txt_logout Logout
 
 
                               

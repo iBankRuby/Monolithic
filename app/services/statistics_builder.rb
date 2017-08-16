@@ -40,10 +40,6 @@ module StatisticsBuilder
     @account_user ||= AccountUser.find_by(user_id: current_user, account_id: account.id)
   end
 
-  def account
-    @account ||= Account.find_by(hash_id: params[:account_id])
-  end
-
   def role
     @role ||= account_user.role.name
   end

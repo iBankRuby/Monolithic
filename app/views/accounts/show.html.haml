@@ -56,6 +56,9 @@
               %td.actions
                 = link_to 'Confirm', account_transaction_confirm_path(@account, t), :method => :patch, :class => 'btn btn-sm'
                 = link_to 'Cancel', account_transaction_cancel_path(@account, t), :method => :patch, :class => 'btn btn-sm btn-danger'
+            -if t.in_approval?
+              %td.actions
+                = link_to 'Cancel', account_transaction_cancel_path(@account, t), :method => :patch, :class => 'btn btn-sm btn-danger'
   #inc_trans.col-md-12
     %h3 Incoming transactions
     -if @income

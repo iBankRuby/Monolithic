@@ -11,6 +11,7 @@ module StatisticsBuilder
   private
 
   def clean_params
+    range = created_at
     params.except(
       :utf8,
       :authenticity_token,
@@ -20,11 +21,13 @@ module StatisticsBuilder
       :action,
       :date_from,
       :date_to
-    ).delete_if { |key, value| value.blank? }.merge(created_range)
+    ).delete_if { |key, value| value.blank? }.each do |k,v|
+      range[k] = v
+    end
   end
 
   def created_at
-    unless params[:date_from] == ''
+    if params[:date_from] != '' && params[:date_from] != nil
       { created_at: params[:date_from].to_time..params[:date_to].to_time.end_of_day }
     end
   end

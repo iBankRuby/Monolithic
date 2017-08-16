@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170810080933) do
+ActiveRecord::Schema.define(version: 20170811135143) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -87,14 +87,16 @@ ActiveRecord::Schema.define(version: 20170810080933) do
   create_table "transactions", force: :cascade do |t|
     t.bigint "user_id"
     t.bigint "account_id"
-    t.string "remote_account_id"
+    t.string "remote_account_iban"
     t.float "summ"
-    t.boolean "status_from", default: true
     t.boolean "status_to", default: false
     t.datetime "checkout_from"
     t.datetime "checkout_to"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.string "status_from"
+    t.integer "remainder"
+    t.float "balance"
     t.index ["account_id"], name: "index_transactions_on_account_id"
     t.index ["user_id"], name: "index_transactions_on_user_id"
   end

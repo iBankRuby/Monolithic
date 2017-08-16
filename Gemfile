@@ -6,12 +6,13 @@ git_source(:github) do |repo_name|
   "https://github.com/#{repo_name}.git"
 end
 
-# gem 'bootstrap', '~> 4.0.0.alpha3'
+gem 'aasm', '~> 4.12', '>= 4.12.2'
 gem 'cancancan', '~> 2.0'
 gem 'devise'
 gem 'dotenv'
 gem 'forgery'
 gem 'friendly_id'
+gem 'forgery'
 gem 'hamlit'
 gem 'hamlit-rails'
 gem 'ibandit', '~> 0.11.5'

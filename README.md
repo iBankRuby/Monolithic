@@ -1,4 +1,5 @@
 # README
+IS THE BEST OF THE BEST OF THE BEST OF BANK PROJECTS
 * Ruby version: 2.4.1
 * Test suite: rspec
 
@@ -10,7 +11,7 @@ aside user (co-owner) with access to another user's account
 ### Restrictions (ограничения)
 co-user's rules which allow actions to manage owner's account
 ### Balance limitation (ограничения баланса)
-amount of money which co-user can spend in dened period (1 day) 
+amount of money which co-user can spend in dened period (1 day)
 ### Account rules (правила счета)
 the same as restrictions
 ### Privileges (привилегии)

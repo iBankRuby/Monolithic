@@ -27,7 +27,7 @@
       %tbody
       - @accounts.each do |account|
         %tr
-          %td= account.account_users.find_by(user_id: current_user.id).role.name
+          %td= account.account_users.with_deleted.find_by(user_id: current_user.id).role.name
           %td.iban #{account.iban}
           %td.balance #{account.balance}
           %td.date #{account.created_at.to_formatted_s(:short)}

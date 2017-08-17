@@ -41,7 +41,7 @@
             -if can? :manage, account
               %td.actions
                 = link_to 'Restore', account, :method => :patch, :class => 'btn btn-sm btn-warning'
-            %td.date Freezed #{account.deleted_at.to_formatted_s(:short)}
+            %td.date Frozen at #{account.deleted_at.to_formatted_s(:short)}
 
   .col-md-2
     = form_for new_account_path do |f|
@@ -49,7 +49,7 @@
 /    = link_to 'New Account', new_account_path, :class => 'btn btn-primary'
 
 %div
--unless @invites.empty?
+-unless @invites.to_a.empty?
   %h3 Invitations
   %table
     %thead
@@ -66,7 +66,8 @@
         %td= link_to 'Submit', account_invite_path(invite.account_id, invite.id, invite: { status: true }), method: :patch, class: 'btn btn-sm btn-info'
         %td= link_to 'Reject', account_invite_path(invite.account_id, invite.id, invite: { status: false }), method: :patch, class: 'btn btn-sm btn-danger'
 %div
--unless @exceeding_request.empty?
+
+-unless @exceeding_request.to_a.empty?
   %h3 Exceeding requests
   %table
     %thead

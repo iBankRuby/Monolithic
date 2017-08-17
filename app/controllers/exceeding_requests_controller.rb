@@ -1,11 +1,12 @@
 class ExceedingRequestsController < ApplicationController
-  before_action :set_exceeding_request, only: %i[update create destroy]
+  before_action :set_exceeding_request, only: %i[update destroy]
 
   attr_reader :exceeding_request
 
   def create
     @exceeding_request = ExceedingRequest.new(exceeding_request_params)
-    exceeding_request.account_user = AccountUser.find_by(account_id: exceeding_request.account_user.account_id , user_id: current_user.id)
+    exceeding_request.account = Account.friendly.find(params[:account_id])
+    exceeding_request.user = current_user
     if exceeding_request.save
       redirect_to accounts_url, notice: 'Request have sent successfully.'
     else
@@ -14,9 +15,12 @@ class ExceedingRequestsController < ApplicationController
   end
 
   def update
-    if exceeding_request.update(exceeding_request_params)
+    status = exceeding_request_params[:status].eql?('true')
+    if exceeding_request.update(status: status)
+      status && exceeding_request.update_rule(account_id: params[:account_id],
+                                              user: current_user)
       redirect_to accounts_url,
-                  notice: (exceeding_request_params[:status].eql?('true') ? 'Request has successfully confirmed' : 'Request has rejected')
+                  notice: (status ? 'Request has successfully confirmed' : 'Request has rejected')
     else
       redirect_to accounts_url, alert: 'Invalid params'
     end
@@ -29,7 +33,7 @@ class ExceedingRequestsController < ApplicationController
   private
 
   def set_exceeding_request
-    @exceeding_request = ExceedingRequest.friendly.find(params[:id])
+    @exceeding_request = ExceedingRequest.find(params[:id])
   end
 
   def exceeding_request_params

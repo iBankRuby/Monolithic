@@ -11,10 +11,6 @@
 /           %td= t.user.name
 /           %th= t.role.name
 
-/ %select.btn.btn-outline-success.dropdown-toggle{:name => "to_vote"}
-/   %option.dropdown-item Users
-/   - @account_users.each do |t|
-/     %option.dropdown-item= t.user.name
 
 %h3 Outcome
 -if @transactions
@@ -96,4 +92,3 @@
   /   grid.appendChild(tbody);
 
   / }
-  

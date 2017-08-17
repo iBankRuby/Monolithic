@@ -4,12 +4,17 @@
       .row
         .col-md-1.form-group
           %p Date:
-        .col-md-4.form-group
-          = date_field_tag :date_from
-        .col-md-4.form-group  
-          = date_field_tag :date_to
         .col-md-3.form-group
+          = date_field_tag :date_from
+        .col-md-3.form-group  
+          = date_field_tag :date_to
+        / .col-md-3.form-group
+        /   %select.btn.btn-outline-primary.dropdown-toggle
+        /     - @account_users.each do |t|
+        /       %option.dropdown-item= t.user.name
+
+        .col-md-2.form-group
           /= select_tag "user", options_from_collection_for_select(, "id", "name")
-          = submit_tag 'Send'
+          = submit_tag 'Send', class: 'btn btn-sm btn-outline-primary'
 
 = render :partial => "./statistics/list"

@@ -27,7 +27,7 @@
       %tbody
       - @transactions.each do |t|
         %tr
-          %th= t.user.name
+          /%th= t.user.name
           %td= t.remote_account_iban
           %th= t.remainder
           %th= t.balance

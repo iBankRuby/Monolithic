@@ -27,8 +27,6 @@ Rails.application.configure do
   end
 
   config.action_mailer.perform_deliveries = true
-  # Do care if the mailer can't send.
-  config.action_mailer.perform_deliveries = false
 
   config.action_mailer.raise_delivery_errors = true
 

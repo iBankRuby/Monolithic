@@ -5,18 +5,18 @@
   <%= devise_error_messages! %>
 
   <div class="field input-field">
-    <%= f.label :name %><br />
-    <%= f.text_field :name, autofocus: true, :class=> "validate" %>
+    <%= f.label :Full_Name %><br />
+    <%= f.text_field :name, autofocus: true, :class=> "validate form-control form-control-success" %>
   </div>
 
   <div class="field input-field">
     <%= f.label :email %><br />
-    <%= f.email_field :email, autofocus: true, :class=> "validate" %>
+    <%= f.email_field :email, autofocus: true, :class=> "validate form-control form-control-success" %>
   </div>
 
   <div class="field input-field">
     <%= f.label :password %><br />    
-    <%= f.password_field :password, autocomplete: "off", :class=> "validate field_pass" %>
+    <%= f.password_field :password, autocomplete: "off", :class=> "validate field_pass form-control form-control-success" %>
     <% if @minimum_password_length %>
     <em id="length_pass">(<%= @minimum_password_length %> characters minimum)</em>
     <% end %><br />
@@ -24,7 +24,7 @@
 
   <div class="field input-field">
     <%= f.label :password_confirmation %><br />
-    <%= f.password_field :password_confirmation, autocomplete: "off", :class=> "validate" %>
+    <%= f.password_field :password_confirmation, autocomplete: "off", :class=> "validate form-control form-control-success" %>
   </div>
   <div class="actions">
     <%= f.submit "Sign up" %>

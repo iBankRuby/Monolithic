@@ -5,8 +5,8 @@
   %title IBank
   = csrf_meta_tags
   = stylesheet_link_tag  'application', media: 'all', 'data-turbolinks-track': 'reload'
-  %link{href: "https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/themes/smoothness/jquery-ui.css" }
-  / %link{href: "https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta/css/bootstrap.min.css", rel: "stylesheet", integrity: "sha384-/Y6pD6FV/Vv2HJnA6t+vslU6fwYXjCFtcEpHbNJ0lyAFsXTsjBbfaDjzALeQsN6M", crossorigin: "anonymous"}
+  /%link{href: "https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/themes/smoothness/jquery-ui.css" }
+  /%link{href: "https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta/css/bootstrap.min.css", rel: "stylesheet", integrity: "sha384-/Y6pD6FV/Vv2HJnA6t+vslU6fwYXjCFtcEpHbNJ0lyAFsXTsjBbfaDjzALeQsN6M", crossorigin: "anonymous"}
   /%link{href: "assets/bootstrap.min.css", rel: "stylesheet" }
   %link{href: "http://maxcdn.bootstrapcdn.com/font-awesome/latest/css/font-awesome.min.css", rel: "stylesheet" }
   /%link{href: "assets/nucleo-icons.css", rel: "stylesheet" }
@@ -17,33 +17,35 @@
   /%script{ src: "https://cdnjs.cloudflare.com/ajax/libs/tether/1.4.0/js/tether.min.js" }
   %script{ src: "https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.11.0/umd/popper.min.js", integrity: "sha384-b/U6ypiBEHpOf/4+1nzFpr53nxSS+GLCkfwBdFNTxtclqqenISfwAzpKaMNFNmj4", crossorigin: "anonymous" }
   %script{src: "https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta/js/bootstrap.min.js", integrity: "sha384-h0AbiXch4ZDo7tp9hKZ4TsHbi047NrKGLO3SEJAg45jXxnGIfYzk4Si90RDIqNm1", crossorigin: "anonymous"}
-  /%script{ src: "assets/tether.min.js" }
-  /%script{ src: "assets/bootstrap.min.js" }
+
 
   %body
-
-    %nav.navbar.navbar-toggleable-md.bg-success
+    %nav.navbar.navbar-toggleable-md
       .container
         %button.navbar-toggler.navbar-toggler-right{"aria-controls" => "navbarNav", "aria-expanded" => "false", "aria-label" => "Toggle navigation", "data-target" => "#navbar-success", "data-toggle" => "collapse", :type => "button"}
           %span.navbar-toggler-bar
           %span.navbar-toggler-bar
           %span.navbar-toggler-bar
-        %a.navbar-brand{:href => "#"} Success Color
+        %a.navbar-brand{:href => "#"} iBank
         #navbar-success.collapse.navbar-collapse
           %ul.navbar-nav.ml-auto
-            %li.nav-item
-              %a.nav-link{:href => "#"}
-                %i.nc-icon.nc-compass-05{"aria-hidden" => "true"}
-            %li.nav-item
-              %a.nav-link{:href => "#"}
-                %i.nc-icon.nc-single-02{"aria-hidden" => "true"}
-              = link_to destroy_user_session_path, method: :delete, :class => 'nav-link logout' do
-                %p.txt_logout Logout
-
-
-                              
-
-
+            - if user_signed_in?
+              %li.nav-item
+                .nav-link
+                  %i.nc-icon.nc-bell-55{"aria-hidden" => "true"}
+              %li.nav-item
+                .nav-link
+                  %i.nc-icon.nc-single-02{"aria-hidden" => "true"}
+                  #{current_user.name}
+              %li.nav-item                
+                = link_to destroy_user_session_path, method: :delete, :class => 'nav-link logout' do
+                  %i.nc-icon.nc-user-run{"aria-hidden" => "true"}
+                  Logout
+            - else
+              %li.nav-item
+                = link_to 'Login', new_user_session_path, :class => 'nav-link'
+              %li.nav-item
+                = link_to 'Sign Up', new_user_registration_path, :class => 'nav-link'
     / %nav.container-fluid.navbar.navbar-toggleable-md
     /   .container
     /     %a.navbar-brand{:href=> "/"} iBank
@@ -57,7 +59,7 @@
     /         %li.nav-item
     /           = link_to 'Login', new_user_session_path, :class => 'nav-link'
     .container
-      .row
+      .row.content
         .col-md-12
           = yield
   / %footer.bd-footer.text-muted

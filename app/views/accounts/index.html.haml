@@ -108,11 +108,5 @@
         %td= request.user.name
         %td= request.amount
         %td
-<<<<<<< HEAD
-          = link_to 'Accept invite', account_exceeding_request_path(request.account.id, request.id, exceeding_request: { status: true }), method: :patch, class: 'btn btn-sm btn-info waves-effect'
-          = link_to 'Reject', account_exceeding_request_path(request.account.id, request.id, exceeding_request: { status: false }), method: :patch, class: 'btn btn-sm btn-danger waves-effect'
-=======
           = link_to 'Accept invite', account_exceeding_request_path(request.account.id, request.id, exceeding_request: { status: true }), method: :patch, class: 'btn btn-sm btn-outline-primary'
           = link_to 'Reject', account_exceeding_request_path(request.account.id, request.id, exceeding_request: { status: false }), method: :patch, class: 'btn btn-sm btn-outline-danger'
-
->>>>>>> 36718d1bec5e7afb4b39c696ed0553dd9939582d

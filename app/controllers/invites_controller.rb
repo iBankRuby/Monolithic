@@ -74,4 +74,8 @@ class InvitesController < ApplicationController
   def set_current_user_id
     @current_user_id = current_user.id
   end
+
+  # def rule_params
+  #  params.fetch(:invite).fetch(:rule).permit(:spending_limit)
+  # end
 end

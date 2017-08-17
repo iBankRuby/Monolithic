@@ -34,6 +34,7 @@ gem 'que', '~> 0.14.0'
 group :assets do
   gem 'coffee-rails'
 end
+
 group :development do
   gem 'better_errors'
   gem 'binding_of_caller'
@@ -42,6 +43,7 @@ group :development do
   gem 'byebug', platforms: %i[mri mingw x64_mingw]
   gem 'faker'
   gem 'pry'
+  gem 'railroady'
   gem 'reek'
   gem 'rubocop'
   # Access an IRB console on exception pages or by using <%= console %> anywhere in the code.
@@ -50,7 +52,6 @@ group :development do
   gem 'simplecov', require: false
   gem 'spring'
   gem 'spring-watcher-listen', '~> 2.0.0'
-  gem 'railroady'
 end
 
 group :test do

@@ -37,7 +37,7 @@ class AccountsController < ApplicationController
   private
 
   def set_account
-    @account = Account.friendly.find(params[:id])
+    @account ||= Account.friendly.find(params[:id])
   end
 
   def user
@@ -49,7 +49,7 @@ class AccountsController < ApplicationController
   end
 
   def invites_list
-    @invites = Invite.where(user_to_email: user.email, status: nil)
+    @invites ||= Invite.where(user_to_email: user.email, status: nil)
   end
 
   def outgoing_transactions_list

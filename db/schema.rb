@@ -44,9 +44,11 @@ ActiveRecord::Schema.define(version: 20170817082847) do
     t.decimal "amount", precision: 10, scale: 2
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.bigint "account_user_id"
     t.boolean "status"
-    t.index ["account_user_id"], name: "index_exceeding_requests_on_account_user_id"
+    t.bigint "account_id"
+    t.bigint "user_id"
+    t.index ["account_id"], name: "index_exceeding_requests_on_account_id"
+    t.index ["user_id"], name: "index_exceeding_requests_on_user_id"
   end
 
   create_table "invites", force: :cascade do |t|
@@ -141,7 +143,8 @@ ActiveRecord::Schema.define(version: 20170817082847) do
 
   add_foreign_key "account_users", "roles"
   add_foreign_key "account_users", "rules"
-  add_foreign_key "exceeding_requests", "account_users"
+  add_foreign_key "exceeding_requests", "accounts"
+  add_foreign_key "exceeding_requests", "users"
   add_foreign_key "limits", "account_users"
   add_foreign_key "limits", "rules", column: "rules_id"
   add_foreign_key "rules", "invites"

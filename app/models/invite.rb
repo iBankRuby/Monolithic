@@ -1,7 +1,5 @@
-# frozen_string_literal: true
-
 class Invite < ApplicationRecord
-  has_one :rule
+  has_one :rule, dependent: :destroy
   belongs_to :account
 
   validate :user_cannot_send_invites_to_himself
@@ -16,16 +14,14 @@ class Invite < ApplicationRecord
 
   def self.create_invite_with_rules(args)
     invite = new(args[:invite_params])
-    invite.account = Account.find_by(hash_id: args.dig(:invite_params, :account_id))
-    rules = Rule.new(args[:rule_params])
-    invite.rule = rules
+    invite.account = Account.friendly.find(args.dig(:invite_params, :account_id))
+    invite.create_rule(args[:rule_params])
 
-    invite.send_invite
-    invite.save! && rules.save!
+    invite.save && invite.send_email
   end
 
-  # TODO: Send with using background jobs.
-  def send_invite
+  # TODO: Do sending with using background jobs.
+  def send_email
     user = User.find_by(email: user_to_email)
     if user
       InviteMailer.invite_for_existing_user(user).deliver
@@ -37,6 +33,6 @@ class Invite < ApplicationRecord
   private
 
   def user_cannot_send_invites_to_himself
-    user_from_id == User.find_by(email: user_to_email) && errors.add(:user_from_id, 'You cannot send invites to yourself')
+    user_from_id == User.find_by(email: user_to_email).id && errors.add(:user_from_id, 'You cannot send invites to yourself')
   end
 end

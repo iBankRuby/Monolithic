@@ -1,26 +1,21 @@
 # frozen_string_literal: true
 
 class ExceedingRequest < ApplicationRecord
-  belongs_to :account_user
+  belongs_to :account
+  belongs_to :user
 
   validate :user_can_send_one_exceeding_request_per_period, on: :create
   validates :amount, numericality: { greater_than_or_equal_to: 0 }
   validates :status, inclusion: { in: [true, false] }, on: :update
 
-  def user
-    account_user.user
-  end
-
-  def account
-    account_user.account
-  end
-
   def self.exceeding_requests_for(user)
-    joins(:account_user)
-      .joins('INNER JOIN roles ON roles.id = account_users.role_id')
-      .where('account_users.user_id' => user.id,
-             'roles.name' => 'owner',
-             'status' => nil)
+    joins(account: :roles).where(roles: { name: 'owner' }, account_users: { user_id: user.id }, status: nil)
+  end
+
+  def update_rule(args)
+    account = Account.friendly.find(args[:account_id])
+    acc_user = AccountUser.find_by(account_id: account.id, user_id: args[:user].id)
+    acc_user.rule.update(spending_limit: amount)
   end
 
   private

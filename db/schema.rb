@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170816130021) do
+ActiveRecord::Schema.define(version: 20170817082847) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -44,9 +44,11 @@ ActiveRecord::Schema.define(version: 20170816130021) do
     t.decimal "amount", precision: 10, scale: 2
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.bigint "account_user_id"
     t.boolean "status"
-    t.index ["account_user_id"], name: "index_exceeding_requests_on_account_user_id"
+    t.bigint "account_id"
+    t.bigint "user_id"
+    t.index ["account_id"], name: "index_exceeding_requests_on_account_id"
+    t.index ["user_id"], name: "index_exceeding_requests_on_user_id"
   end
 
   create_table "invites", force: :cascade do |t|
@@ -72,6 +74,17 @@ ActiveRecord::Schema.define(version: 20170816130021) do
     t.index ["rules_id"], name: "index_limits_on_rules_id"
   end
 
+  create_table "que_jobs", primary_key: ["queue", "priority", "run_at", "job_id"], force: :cascade, comment: "3" do |t|
+    t.integer "priority", limit: 2, default: 100, null: false
+    t.datetime "run_at", default: -> { "now()" }, null: false
+    t.bigserial "job_id", null: false
+    t.text "job_class", null: false
+    t.json "args", default: [], null: false
+    t.integer "error_count", default: 0, null: false
+    t.text "last_error"
+    t.text "queue", default: "", null: false
+  end
+
   create_table "roles", force: :cascade do |t|
     t.string "name"
   end
@@ -81,6 +94,8 @@ ActiveRecord::Schema.define(version: 20170816130021) do
     t.datetime "updated_at", null: false
     t.decimal "spending_limit", precision: 10, scale: 4
     t.bigint "invite_id"
+    t.datetime "deleted_at"
+    t.index ["deleted_at"], name: "index_rules_on_deleted_at"
     t.index ["invite_id"], name: "index_rules_on_invite_id"
   end
 
@@ -128,7 +143,8 @@ ActiveRecord::Schema.define(version: 20170816130021) do
 
   add_foreign_key "account_users", "roles"
   add_foreign_key "account_users", "rules"
-  add_foreign_key "exceeding_requests", "account_users"
+  add_foreign_key "exceeding_requests", "accounts"
+  add_foreign_key "exceeding_requests", "users"
   add_foreign_key "limits", "account_users"
   add_foreign_key "limits", "rules", column: "rules_id"
   add_foreign_key "rules", "invites"

@@ -1,5 +1,3 @@
-# frozen_string_literal: true
-
 class InvitesController < ApplicationController
   before_action :set_invite, only: %i[destroy update]
   # before_action :set_user_to_id, only: :create
@@ -10,17 +8,16 @@ class InvitesController < ApplicationController
 
   def index
     @invites = account.invites
-    @rule = Rule.new
   end
 
   def create
-    invite_parameters = { user_from_id: current_user_id,
-                          user_to_email: invite_params[:email],
-                          account_id: params[:account_id] }
-    if Invite.create_invite_with_rules(invite_params: invite_parameters, rule_params: rule_params)
-      redirect_to account_invites_url, notice: 'Invite have made.'
+    invite_pms = { user_from_id: current_user_id,
+                   user_to_email: invite_params[:email],
+                   account_id: params[:account_id] }
+    if Invite.create_invite_with_rules(invite_params: invite_pms, rule_params: rule_params)
+      redirect_to account_invites_url, notice: 'Invite has made.'
     else
-      redirect_to :account_invites, notice: 'Invite haven\'t been sent'
+      redirect_to :account_invites, alert: 'Invite has not been sent'
     end
   end
 
@@ -41,7 +38,7 @@ class InvitesController < ApplicationController
 
   def destroy
     # TODO: Method will return sent invite.
-    invite.delete && redirect_to(:accounts)
+    invite.destroy && redirect_to(:accounts)
   end
 
   private
@@ -59,7 +56,7 @@ class InvitesController < ApplicationController
   end
 
   def rule_params
-    params.fetch(:rule).permit(:spending_limit)
+    params.dig(:invite, :rule).permit(:spending_limit)
   end
 
   def set_user_to_id
@@ -76,9 +73,5 @@ class InvitesController < ApplicationController
 
   def set_current_user_id
     @current_user_id = current_user.id
-  end
-
-  def rule_params
-    params.dig(:invite, :rule).permit(:spending_limit)
   end
 end

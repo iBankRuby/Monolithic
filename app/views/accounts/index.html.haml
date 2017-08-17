@@ -16,7 +16,7 @@
             %a.nav-link{"data-toggle" => "tab", :href => "#co-user-2", :role => "tab"} Co-User
     / Tab panes
     .tab-content.text-center
-      #owner-2.tab-pane.active{:role => "tabpanel"} 
+      #owner-2.tab-pane.active{:role => "tabpanel"}
         %table.table-responsive
           %thead
             %tr
@@ -42,7 +42,7 @@
                       %td.actions
                         = link_to 'Restore', account, :method => :patch, :class => 'btn btn-sm btn-outline-warning'
                     %td.date Freezed #{account.deleted_at.to_formatted_s(:short)}
-      #co-user-2.tab-pane{:role => "tabpanel"} 
+      #co-user-2.tab-pane{:role => "tabpanel"}
         %table.table-responsive
           %thead
             %tr
@@ -74,7 +74,7 @@
       = f.submit 'New Account', :class => 'btn btn-outline-success btn-round'
 
 %div
--unless @invites.empty?
+-unless @invites.to_a.empty?
   %h3 Invitations
   %table.table-responsive
     %thead
@@ -91,7 +91,8 @@
         %td= link_to 'Submit', account_invite_path(invite.account_id, invite.id, invite: { status: true }), method: :patch, class: 'btn btn-sm btn-outline-success'
         %td= link_to 'Reject', account_invite_path(invite.account_id, invite.id, invite: { status: false }), method: :patch, class: 'btn btn-sm btn-outline-danger'
 %div
--unless @exceeding_request.empty?
+
+-unless @exceeding_request.to_a.empty?
   %h3 Exceeding requests
   %table
     %thead
@@ -109,4 +110,3 @@
         %td
           = link_to 'Accept invite', account_exceeding_request_path(request.account.id, request.id, exceeding_request: { status: true }), method: :patch, class: 'btn btn-sm btn-outline-primary'
           = link_to 'Reject', account_exceeding_request_path(request.account.id, request.id, exceeding_request: { status: false }), method: :patch, class: 'btn btn-sm btn-outline-danger'
-

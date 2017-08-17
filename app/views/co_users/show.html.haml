@@ -40,14 +40,14 @@
           %tr
             %th To:
             %td Summ:
-            %td From_id:
+            %td From:
             %td Created:
         %tbody
         - @unconfirmed.each do |t|
           %tr
             %td= t.remote_account_iban
             %td= t.summ
-            %td= t.account_id
+            %td= t.user.name
             %td= t.created_at.to_formatted_s(:short)
             %td= link_to 'Confirm', account_transaction_ownerapprove_path(@account, t), :method => :patch, :class => 'btn btn-sm btn-outline-success'
             %td= link_to 'Cancel', account_transaction_cancel_path(@account, t), :method => :patch, :class => 'btn btn-sm btn-outline-danger'

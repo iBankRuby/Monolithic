@@ -1,22 +1,22 @@
-%p#notice= notice
-= link_to accounts_url, :class => "waves-effect waves-light link_back" do
-  %i.material-icons keyboard_arrow_left
+-if notice
+  %div.alert.alert-success
+    = notice
+= link_to accounts_url, :class => "link_back" do
+  %i.nc-icon.nc-minimal-left
   Back to Accounts Page
 
-.col.s12
+.col-md-10
   =form_for :invite do |f|
-    .col.s12
-      =f.label 'Enter co-user email'
-      =f.email_field :email, placeholder: 'Enter email'
-    .col.s6
-      =f.label 'Enter limit'
-      =f.number_field 'rule[spending_limit]', within: 1...999
-    .col.s6
+    .col-md-12.form-group
+      =f.email_field :email, class: 'form-control', placeholder: 'Enter email'
+    .col-md-6.form-group
+      =f.number_field 'rule[spending_limit]', within: 1...999, class: 'form-control', placeholder: 'Enter limit'
+    .col-md-6.form-group
       =check_box_tag 'movable', 'true'
       =label_tag 'movable', 'Fixed remainder'
-    .col.s12
-      =f.submit 'Send invite'
-.col.s12
+    .col-md-12.form-group
+      =f.submit 'Send invite', :class => 'btn btn-outline-success btn-round btn-sm'
+.col-md-12
   %ul
     -@invites.each do |invite|
       %li
@@ -25,3 +25,4 @@
         Invited at:
         =invite.created_at
         =link_to 'Delete invite', account_invite_path(invite.account_id, invite), method: :delete, data: { confirm: 'Are you sure?' }
+

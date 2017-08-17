@@ -12,13 +12,13 @@
 //
 //= require jquery
 //= require jquery_ujs
+//= require jquery.turbolinks
 //= require turbolinks
 //= require turbolinks-compatibility
-//= require jquery.turbolinks
-//= require paper-kit
 //= require_tree .
 
 $(document).ready(function(){
 	$('#tabs').tabs();
+	$('.checkbox').checkbox();
 })
 

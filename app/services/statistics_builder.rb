@@ -5,14 +5,14 @@ module StatisticsBuilder
 
   def get_statistics
     account_user
-    build_statistics(role)
+    clean_params
+    build_statistics
   end
 
   private
 
   def clean_params
-    range = created_at
-
+    @range = created_at
     params.except(
       :utf8,
       :authenticity_token,
@@ -23,25 +23,21 @@ module StatisticsBuilder
       :date_from,
       :date_to
     ).delete_if { |key, value| value.blank? }.each do |k, v| #.merge(created_at)
-      range[k] = v
+      @range[k] = v
     end
-    range
+    @range
   end
 
   def created_at
     if params[:date_from] != '' && params[:date_from] != nil 
-      { created_at: params[:date_from].to_time.to_s..params[:date_to].to_time.end_of_day.to_s }
+      { created_at: params[:date_from].to_time..params[:date_to].to_time.end_of_day }
     else
       {}
     end
   end
 
   def account_user
-    @account_user ||= AccountUser.find_by(user_id: current_user, account_id: account_id)
-  end
-
-  def account_id
-    Account.find_by(hash_id: params[:account_id])
+    @account_user ||= AccountUser.find_by(user_id: current_user, account_id: account.id)
   end
 
   def role
@@ -53,11 +49,15 @@ module StatisticsBuilder
   # end
 
   def transactions
-    account_user.account.transactions.where(clean_params)
+    income if role != 'co-user' && @range[:created_at]
+    account_user.account.transactions.where(@range)
   end
 
-  def build_statistics(role_type)
-    @transactions = role_type == "owner" ?  transactions : transactions.where(user_id: current_user.id)
+  def income
+    @income ||= Transaction.where(created_at: @range[:created_at], remote_account_iban: account.iban)
   end
 
+  def build_statistics
+    @transactions = role == "owner" ?  transactions : transactions.where(user_id: current_user.id)
+  end
 end

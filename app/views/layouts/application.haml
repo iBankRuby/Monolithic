@@ -5,7 +5,7 @@
   %title IBank
   = csrf_meta_tags
   = stylesheet_link_tag  'application', media: 'all', 'data-turbolinks-track': 'reload'
-  %link{href: "https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/themes/smoothness/jquery-ui.css" }
+  /%link{href: "https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/themes/smoothness/jquery-ui.css" }
   /%link{href: "https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta/css/bootstrap.min.css", rel: "stylesheet", integrity: "sha384-/Y6pD6FV/Vv2HJnA6t+vslU6fwYXjCFtcEpHbNJ0lyAFsXTsjBbfaDjzALeQsN6M", crossorigin: "anonymous"}
   /%link{href: "assets/bootstrap.min.css", rel: "stylesheet" }
   %link{href: "http://maxcdn.bootstrapcdn.com/font-awesome/latest/css/font-awesome.min.css", rel: "stylesheet" }
@@ -20,7 +20,7 @@
 
 
   %body
-    %nav.navbar.navbar-toggleable-md.bg-success
+    %nav.navbar.navbar-toggleable-md
       .container
         %button.navbar-toggler.navbar-toggler-right{"aria-controls" => "navbarNav", "aria-expanded" => "false", "aria-label" => "Toggle navigation", "data-target" => "#navbar-success", "data-toggle" => "collapse", :type => "button"}
           %span.navbar-toggler-bar
@@ -46,13 +46,6 @@
                 = link_to 'Login', new_user_session_path, :class => 'nav-link'
               %li.nav-item
                 = link_to 'Sign Up', new_user_registration_path, :class => 'nav-link'
-
-
-
-
-                              
-
-
     / %nav.container-fluid.navbar.navbar-toggleable-md
     /   .container
     /     %a.navbar-brand{:href=> "/"} iBank
@@ -66,7 +59,7 @@
     /         %li.nav-item
     /           = link_to 'Login', new_user_session_path, :class => 'nav-link'
     .container
-      .row
+      .row.content
         .col-md-12
           = yield
   / %footer.bd-footer.text-muted

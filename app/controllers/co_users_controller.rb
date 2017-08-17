@@ -1,8 +1,10 @@
+# frozen_string_literal: true
+
 class CoUsersController < ApplicationController
   def show
     account
-    @transactions = Transaction.where(user_id: user_id, account_id: acc_id, status_from: true)
-    @unconfirmed = Transaction.where(user_id: user_id, account_id: acc_id, status_from: false)
+    @transactions = Transaction.where(user_id: user_id, account_id: acc_id)
+    @unconfirmed = Transaction.where(user_id: user_id, account_id: acc_id, status_from: 'in_approval')
     @rule = rule
   end
 

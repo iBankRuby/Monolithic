@@ -1,0 +1,13 @@
+.col-md-12.form_block 
+  = form_for account_statistics_path, method: "GET" do |f|
+    .col-md-2.input-field
+      = label_tag :title, 'Date From'
+      = date_field_tag :date_from
+    .col-md-2.input-field
+      = label_tag :title, 'Date To'
+      = date_field_tag :date_to
+    .col-md-2.input-field
+      /= select_tag "user", options_from_collection_for_select(, "id", "name")
+    = submit_tag 'Send'
+
+= render :partial => "./statistics/list"

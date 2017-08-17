@@ -1,5 +1,6 @@
-module TransactionsHistorian
+# frozen_string_literal: true
 
+module TransactionsHistorian
   def build_responce
     account_user
     transactions_history(role)
@@ -24,6 +25,6 @@ module TransactionsHistorian
   end
 
   def transactions_history(role_type)
-    @transactions = role_type == "owner" ?  transactions : transactions.where(user_id: current_user.id)
+    @transactions = role_type == 'owner' ? transactions : transactions.where(user_id: current_user.id)
   end
 end

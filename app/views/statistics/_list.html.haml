@@ -1,0 +1,52 @@
+%h3 Users
+-if @account_users
+  %table
+    %thead
+      %tr
+        %th Name:
+        %th Role:
+      %tbody
+      - @account_users.each do |t|
+        %tr
+          %td= t.user.name
+          %th= t.role.name
+%h3 Outcome
+-if @transactions
+  %table
+    %thead
+      %tr
+        %th User:
+        %th To:
+        %th Remainder:
+        %th Balance before:
+        %th Summ:
+        %th Balance after outcome:
+        %th Created:
+        %th Status:
+        %th Decision time:
+      %tbody
+      - @transactions.each do |t|
+        %tr
+          %th= t.user.name
+          %td= t.remote_account_iban
+          %th= t.remainder
+          %th= t.balance
+          %th= t.summ
+          %th= t.balance_after
+          %td= t.created_at.to_formatted_s(:short)
+          %th= t.status_from
+          %td= t.updated_at.to_formatted_s(:short)
+%h3 Income
+-if @income
+  %table
+    %thead
+      %tr
+        %th From:
+        %th Summ:
+        %th Balance after income:
+      %tbody
+      - @income.each do |t|
+        %tr
+          %td= t.account.iban
+          %th= t.summ
+          %th= t.remote_balance_after

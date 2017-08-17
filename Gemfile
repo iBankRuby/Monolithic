@@ -6,19 +6,20 @@ git_source(:github) do |repo_name|
   "https://github.com/#{repo_name}.git"
 end
 
-gem 'bootstrap', '~> 4.0.0.alpha6'
+gem 'aasm', '~> 4.12', '>= 4.12.2'
 gem 'cancancan', '~> 2.0'
 gem 'devise'
 gem 'dotenv'
 gem 'forgery'
 gem 'friendly_id'
+gem 'forgery'
 gem 'hamlit'
 gem 'hamlit-rails'
 gem 'ibandit', '~> 0.11.5'
 gem 'jbuilder', '~> 2.5'
 gem 'jquery-rails'
 gem 'jquery-turbolinks'
-gem 'materialize-sass'
+# gem 'materialize-sass'
 gem 'paranoia', '~> 2.3', '>= 2.3.1'
 gem 'pg'
 gem 'puma', '~> 3.7'
@@ -50,10 +51,6 @@ group :development do
   gem 'simplecov', require: false
   gem 'spring'
   gem 'spring-watcher-listen', '~> 2.0.0'
-end
-
-group :development, :test do
-  gem 'forgery'
 end
 
 group :test do

@@ -10,77 +10,64 @@
  * files in this directory. Styles in this file should be added after the last require_* statement.
  * It is generally better to create a new file per style scope.
  *
- *= require_tree .
  *= require_self
+ *= require bootstrap.min
+ *= require nucleo-icons
  */
 
-/* Fonts */
+@import "paper-kit/variables";
+@import "paper-kit/mixins";
 
-@import "https://fonts.googleapis.com/icon?family=Material+Icons";
+@import "paper-kit/typography";
 
-/* Bootstrap Material */
+// Core CSS
+@import "paper-kit/misc";
+@import "paper-kit/buttons";
+@import "paper-kit/inputs";
+@import "paper-kit/progress-bars";
+@import "paper-kit/sliders";
+@import "paper-kit/alerts";
+@import "paper-kit/labels";
+@import "paper-kit/tooltips-and-popovers";
+@import "paper-kit/sections";
+@import "paper-kit/checkbox-radio";
+@import "paper-kit/navbars";
+@import "paper-kit/images";
+@import "paper-kit/cards";
+@import "paper-kit/footers";
 
-@import "bootstrap";
 
-// Mixins
-@import "materialize/components/mixins";
-@import "materialize/components/color";
-$primary-color: #2f333e !default;
-$secondary-color: #503ce9 !default;
+// Bootstrap Switch
+@import "paper-kit/bootstrap-switch";
 
-// Variables;
-@import "materialize/components/variables";
+// Fancy Stuff
+@import "paper-kit/dropdown";
+//
+// icons
+@import "paper-kit/icons";
+//
+@import "paper-kit/tabs-navs-pagination";
+@import "paper-kit/collapse";
+@import "paper-kit/carousel";
+@import "paper-kit/modal";
+//
+@import "paper-kit/responsive";
+@import "paper-kit/plugins/datetimepicker";
+@import "paper-kit/social-buttons";
+@import "paper-kit/examples";
 
-// Reset
-@import "materialize/components/normalize";
 
-// materialize/components
-@import "materialize/components/global";
-@import "materialize/components/badges";
-@import "materialize/components/icons-material-design";
-@import "materialize/components/grid";
-@import "materialize/components/navbar";
-@import "materialize/components/roboto";
-@import "materialize/components/typography";
-@import "materialize/components/transitions";
-@import "materialize/components/cards";
-@import "materialize/components/toast";
-@import "materialize/components/tabs";
-@import "materialize/components/tooltip";
-@import "materialize/components/buttons";
-@import "materialize/components/dropdown";
-@import "materialize/components/waves";
-@import "materialize/components/modal";
-@import "materialize/components/collapsible";
-@import "materialize/components/chips";
-@import "materialize/components/materialbox";
-@import "materialize/components/forms/forms";
-@import "materialize/components/table_of_contents";
-@import "materialize/components/sideNav";
-@import "materialize/components/preloader";
-@import "materialize/components/slider";
-@import "materialize/components/carousel";
-@import "materialize/components/tapTarget";
-@import "materialize/components/pulse";
-@import "materialize/components/date_picker/default";
-@import "materialize/components/date_picker/default.date";
-@import "materialize/components/date_picker/default.time";
+body {
+    display: flex;
+    flex-direction: column;
+    .container {
+        flex: 1 auto;
+    }
+}
 
 /* Nav */
 
-.navbar-right {
-  position: absolute;
-  right: 20px;
-  align-items: center;
-  a.logout {
-    padding: 0 10px;
-    width: 60px;
-    height: 56px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-  }
-}
+
 
 h5.name_user {
   line-height: 56px;
@@ -97,32 +84,17 @@ h5.name_user {
       margin: 0;
       color: #fff;
     }
-    i.material-icons {
-      font-size: 22px;
-      height: 22px;
-      line-height: 22px;
-      text-align: center;
-      color: #fff;
-    }
   }
 }
 
 /* Form Sign Up */
 input#user_password{
-	margin-bottom: 2px;
+  margin-bottom: 2px;
 }
 .input-field em#length_pass{
-	color: rgba(0, 0, 0, 0.15);
+  color: rgba(0, 0, 0, 0.15);
 }
 .form_auth{
-	margin: auto;
+  margin: auto;
 }
 
-/* */
-a.link_back {
-  display: flex;
-  color: #757575;
-  &:hover {
-    color: #424242;
-  }
-}

@@ -1,11 +1,6 @@
-class TransactionCreator
-  # interface
-  # def self.create_transaction(params, user)
-  #   transaction_creator = new(params, user)
-  #   transaction_creator.create_transaction
-  #   transaction_creator.account
-  # end
+# frozen_string_literal: true
 
+class TransactionCreator
   attr_reader :params, :user, :account
 
   def initialize(params, user)
@@ -24,16 +19,23 @@ class TransactionCreator
   def create_transaction
     ActiveRecord::Base.transaction do
       account_user
-      confirmation
       create_transaction_object
-      carry_out
     end
-
     @account = account_from
   end
 
   def confirm
-    prepare_to_confirmation
+    approve_transaction
+    enough_of_money?
+    carry_out
+  end
+
+  def cancel
+    cancel_transaction
+  end
+
+  def approve_from_owner
+    approve_exceeding_limit
     carry_out
   end
 
@@ -41,9 +43,13 @@ class TransactionCreator
 
   # implementation
 
-  def confirmation
-    return @confirmation = check_reminder if role == 'co-user'
-    @confirmation = check_balance
+  def enough_of_money?
+    case role
+    when 'co-user'
+      transaction.need_approval! unless check_reminder
+    when 'owner'
+      transaction.cancel! unless check_balance
+    end
   end
 
   def check_reminder
@@ -55,29 +61,29 @@ class TransactionCreator
   end
 
   def create_transaction_object
-    Transaction.create(remote_account_id: params[:account],
+    Transaction.create(remote_account_iban: params[:account],
                        summ: summ,
-                       status_from: confirmation,
                        status_to: false,
                        user: user,
-                       account: account_from)
+                       account: account_from,
+                       remainder: remainder,
+                       balance: account_from.balance)
   end
 
   def carry_out
-    if @confirmation
-      update_account_from
-      update_account_to
-      update_reminder if @confirming || role == 'co-user'
-    end
+    return transaction.status_from unless transaction.approved?
+    update_account_from
+    update_account_to
+    update_reminder if @confirming && role == 'co-user'
   end
 
   def update_account_from
-    account_from.balance -= summ
+    transaction.update(balance_after: account_from.balance -= summ)
     account_from.save!
   end
 
   def update_account_to
-    account_to.balance += summ
+    transaction.update(remote_balance_after: account_to.balance += summ)
     account_to.save!
   end
 
@@ -86,13 +92,6 @@ class TransactionCreator
     limit.save
   end
 
-  def build_request
-    #later
-  end
-
-  # def user
-  #   @user ||= User.find(current_user.id)
-  # end
   def account_user
     return @account_user ||= AccountUser.find_by(user_id: user.id, account_id: account_from) unless @confirming
     @account_user ||= AccountUser.find_by(user_id: transaction.user_id, account_id: account_from)
@@ -104,7 +103,7 @@ class TransactionCreator
 
   def account_to
     return @account_to ||= Account.find_by(iban: params[:account]) unless @confirming
-    @account_to ||= Account.find_by(iban: transaction.remote_account_id)
+    @account_to ||= Account.find_by(iban: transaction.remote_account_iban)
   end
 
   def summ
@@ -120,15 +119,26 @@ class TransactionCreator
     account_user.limit
   end
 
-  def prepare_to_confirmation
-    transaction
-    @confirmation = true
-    transaction.status_from = @confirmation
-    transaction.save
+  def remainder
+    limit.reminder if role == 'co-user'
+  end
+
+  def approve_transaction
+    transaction.approve!
+    @confirming = true
+  end
+
+  def cancel_transaction
+    transaction.cancel!
+    @confirming = true
+  end
+
+  def approve_exceeding_limit
+    transaction.approve_exceeding!
     @confirming = true
   end
 
   def transaction
-    @transaction ||= Transaction.find(params[:id])
+    @transaction ||= Transaction.find(params[:transaction_id])
   end
 end

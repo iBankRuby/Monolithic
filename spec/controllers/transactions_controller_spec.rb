@@ -108,7 +108,7 @@ RSpec.describe TransactionsController, type: :controller do
     let!(:transaction) { create(:transaction,
                            user_id: user.id,
                            account_id: account_from.id,
-                           remote_account_id: account_to.iban,
+                           remote_account_iban: account_to.iban,
                            summ: 19.9,
                            status_from: false) }
 

@@ -6,14 +6,16 @@
 .col.s12
   =form_for :invite do |f|
     .col.s12
-      =f.text_field :email, placeholder: 'Enter email'
+      =f.label 'Enter co-user email'
+      =f.email_field :email, placeholder: 'Enter email'
     .col.s6
-      =text_field_tag 'rule[spending_limit]', nil, placeholder: 'Enter limit'
+      =f.label 'Enter limit'
+      =f.number_field 'rule[spending_limit]', within: 1...999
     .col.s6
       =check_box_tag 'movable', 'true'
       =label_tag 'movable', 'Fixed remainder'
     .col.s12
-      =f.submit 'Make invite'
+      =f.submit 'Send invite'
 .col.s12
   %ul
     -@invites.each do |invite|

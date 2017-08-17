@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class AccountsController < ApplicationController
   before_action :set_account, only: %i[show destroy]
   attr_reader :accounts, :account, :income
@@ -51,10 +53,12 @@ class AccountsController < ApplicationController
   end
 
   def outgoing_transactions_list
-    @transactions = Transaction.where(user_id: user.id, account_id: account.id, status_from: true)
+    @transactions = Transaction.where(user_id: user.id,
+                                      account_id: account.id)
   end
 
   def incoming_transactions_list
-    @income = Transaction.where(remote_account_id: account.iban.to_s, status_from: true)
+    @income = Transaction.where(remote_account_iban: account.iban.to_s,
+                                status_from: 'approved')
   end
 end

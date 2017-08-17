@@ -56,7 +56,7 @@ Rails.application.configure do
   # routes, locales, etc. This feature depends on the listen gem.
   config.file_watcher = ActiveSupport::EventedFileUpdateChecker
 
-  config.action_mailer.default_url_options = { host: '54.69.43.92', port: 3000 }
+  config.action_mailer.default_url_options = { host: '34.212.78.195', port: 3000 }
 
   config.active_job.queue_adapter = :que
 end

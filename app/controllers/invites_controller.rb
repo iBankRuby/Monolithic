@@ -56,7 +56,7 @@ class InvitesController < ApplicationController
   end
 
   def rule_params
-    params.fetch(:rule).permit(:spending_limit)
+    params.dig(:invite, :rule).permit(:spending_limit)
   end
 
   def set_user_to_id

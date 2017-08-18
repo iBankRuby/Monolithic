@@ -38,7 +38,7 @@ class InvitesController < ApplicationController
 
   def destroy
     # TODO: Method will return sent invite.
-    invite.rule.destroy
+    invite.rule.really_destroy!
     invite.destroy && redirect_to(:accounts)
   end
 

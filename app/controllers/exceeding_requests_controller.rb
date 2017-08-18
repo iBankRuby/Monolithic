@@ -17,8 +17,7 @@ class ExceedingRequestsController < ApplicationController
   def update
     status = exceeding_request_params[:status].eql?('true')
     if exceeding_request.update(status: status)
-      status && exceeding_request.update_rule(account_id: params[:account_id],
-                                              user: current_user)
+      status && exceeding_request.update_rule
       redirect_to accounts_url,
                   notice: (status ? 'Request has successfully confirmed' : 'Request has rejected')
     else

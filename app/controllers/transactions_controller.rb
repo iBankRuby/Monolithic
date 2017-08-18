@@ -28,11 +28,18 @@ class TransactionsController < ApplicationController
   end
 
   def cancel
-    set_transaction.cancel
-    redirect_to account_path(params[:account_id]), notice: 'Transaction was cancelled.'
+    if set_transaction.cancel
+      redirect_to account, notice: 'Transaction was cancelled.'
+    else
+      redirect_to account, notice: 'Transaction transaction already approved.'
+    end
   end
 
   private
+
+  def account
+    account_path(params[:account_id])
+  end
 
   def set_transaction
     TransactionCreator.new(params, current_user)

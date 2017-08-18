@@ -47,9 +47,11 @@ class TransactionCreator
   def enough_of_money?
     case role
     when 'co-user'
-      transaction.need_approval! unless check_reminder
+      return transaction.need_approval! unless check_reminder
+      transaction.approve!
     when 'owner'
-      transaction.cancel! unless check_balance
+      return transaction.cancel! unless check_balance
+      transaction.approve!
     end
   end
 
@@ -125,13 +127,12 @@ class TransactionCreator
   end
 
   def approve_transaction
-    transaction.approve!
+    transaction.process!
     @confirming = true
   end
 
   def cancel_transaction
     transaction.cancel!
-    @confirming = true
   end
 
   def approve_exceeding_limit

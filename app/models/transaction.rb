@@ -11,6 +11,7 @@ class Transaction < ApplicationRecord
     state :approved
     state :canceled
     state :in_approval
+    state :expired
 
     event :process do
       transitions from: %i[pending], to: :in_processing
@@ -32,8 +33,8 @@ class Transaction < ApplicationRecord
       transitions from: %i[in_approval], to: :approved
     end
 
-    event :reset do
-      transitions from: %i[approved canceled in_approval in_processing], to: :pending
+    event :expire do
+      transitions from: %i[pending in_approval], to: :expired
     end
   end
 end

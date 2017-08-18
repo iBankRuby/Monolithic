@@ -14,18 +14,6 @@
     <%= f.email_field :email, autofocus: true, :class=> "validate form-control form-control-success" %>
   </div>
 
-  <div class="field input-field">
-    <%= f.label :password %><br />    
-    <%= f.password_field :password, autocomplete: "off", :class=> "validate field_pass form-control form-control-success" %>
-    <% if @minimum_password_length %>
-    <em id="length_pass">(<%= @minimum_password_length %> characters minimum)</em>
-    <% end %><br />
-  </div>
-
-  <div class="field input-field">
-    <%= f.label :password_confirmation %><br />
-    <%= f.password_field :password_confirmation, autocomplete: "off", :class=> "validate form-control form-control-success" %>
-  </div>
   <div class="actions">
     <%= f.submit "Sign up" %>
   </div>

@@ -13,7 +13,19 @@ Rails.application.routes.draw do
     resources :exceeding_requests, only: %i[create update destroy]
   end
 
-  devise_for :users, :controllers => { registrations: 'registrations', confirmations: 'devise/confirmations' }
+  #devise_scope :user do
+	#  get '/home', to: 'devise/home#new'
+  #end
+
+  as :user do
+      match '/user/confirmation' => 'users/confirmations#update', :via => :put, :as => :update_user_confirmation
+  end
+
+  devise_for :users, controllers: {
+    sessions: 'users/sessions',
+    registrations: 'users/registrations',
+    confirmations: 'users/confirmations'
+  }
 
   resources :limits
 

@@ -14,5 +14,5 @@ Metrics/LineLength:
   Max: 120
 Documentation:
     Enabled: false
-MissingMagicComment:
-    Enabled: false
+Style/FrozenStringLiteralComment:
+  Enabled: false

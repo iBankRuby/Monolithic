@@ -2,5 +2,5 @@
 // All this logic will automatically be available in application.js.
 
 $(document).ready(function(){
-	$('#tabs').tabs();
+	$('#tabs-role').tabs();
 })  

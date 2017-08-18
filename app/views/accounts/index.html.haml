@@ -5,54 +5,78 @@
   %div.alert.alert-danger
     =alert
 
-%h1 Accounts list
 .row
   .col-md-10
-    /%ul.tabs
-    /  %li.tab.col-md-3
-    /    %a.active{:href => "#owner"} Owner
-    /  %li.tab.col-md-3
-    /    %a{:href => "#co-user"} Co-User
-    /  %li.tab.col.s3.disabled
-    /    %a{:href => "#test3"} Disabled Tab
-    /#owner.col-md-12
-    %table.table-responsive
-      %thead
-        %tr
-          %th Role
-          %th Iban
-          %th Balance
-          %th Date created
-          %th Actions
-      %tbody
-      - @accounts.each do |account|
-        %tr
-          %td= account.account_users.with_deleted.find_by(user_id: current_user.id).role.name
-          %td.iban #{account.iban}
-          %td.balance #{account.balance}
-          %td.date #{account.created_at.to_formatted_s(:short)}
-          -if account.deleted_at.nil?
-            %td.actions
-              = link_to 'Show', account, :type => "button", :class => 'btn btn-success'
-              -#= link_to 'Edit', edit_account_path(account), :class => 'btn btn-sm btn-warning'
-              -if can? :manage, account
-                = link_to 'Destroy', account, :method => :delete, :data => { :confirm => 'Are you sure?' }, :class => 'btn btn-sm btn-danger waves-effect'
-          -if account.deleted_at?
-            -#if account.account_users.with_deleted.find_by(user_id: current_user.id).role.name == 'owner'
-            -if can? :manage, account
-              %td.actions
-                = link_to 'Restore', account, :method => :patch, :class => 'btn btn-sm btn-warning waves-effect'
-            %td.date Freezed #{account.deleted_at.to_formatted_s(:short)}
+    .nav-tabs-navigation
+      .nav-tabs-wrapper
+        %ul.nav.nav-tabs{:role => "tablist"}
+          %li.nav-item
+            %a.nav-link.active{"data-toggle" => "tab", :href => "#owner-2", :role => "tab"} Owner
+          %li.nav-item
+            %a.nav-link{"data-toggle" => "tab", :href => "#co-user-2", :role => "tab"} Co-User
+    / Tab panes
+    .tab-content.text-center
+      #owner-2.tab-pane.active{:role => "tabpanel"}
+        %table.table-responsive
+          %thead
+            %tr
+              %th Iban
+              %th Balance
+              %th Date created
+              %th Actions
+          %tbody
+            - @accounts.each do |account|
+              -@rule_acc = account.account_users.with_deleted.find_by(user_id: current_user.id).role.name
+              %tr
+                -if @rule_acc == "owner"
+                  %td.iban #{account.iban}
+                  %td.balance #{account.balance}
+                  %td.date #{account.created_at.to_formatted_s(:short)}
+                  -if account.deleted_at.nil?
+                    %td.actions
+                      = link_to 'Show', account, :class => 'btn btn-outline-primary btn-round btn-sm'
+                      -if can? :manage, account
+                        = link_to 'Delete', account, :method => :delete, :data => { :confirm => 'Are you sure?' }, :class => 'btn btn-outline-danger btn-round btn-sm'
+                  -if account.deleted_at?
+                    -if can? :manage, account
+                      %td.actions
+                        = link_to 'Restore', account, :method => :patch, :class => 'btn btn-sm btn-outline-warning'
+                    %td.date Freezed #{account.deleted_at.to_formatted_s(:short)}
+      #co-user-2.tab-pane{:role => "tabpanel"}
+        %table.table-responsive
+          %thead
+            %tr
+              %th Iban
+              %th Balance
+              %th Date created
+              %th Actions
+          %tbody
+          - @accounts.each do |account|
+            -@rule_acc_co_user = account.account_users.with_deleted.find_by(user_id: current_user.id).role.name
+            %tr
+              -if @rule_acc_co_user == "co-user"
+                %td.iban #{account.iban}
+                %td.balance #{account.balance}
+                %td.date #{account.created_at.to_formatted_s(:short)}
+                -if account.deleted_at.nil?
+                  %td.actions
+                    = link_to 'Show', account, :class => 'btn btn-outline-info btn-round btn-sm'
+                    -if can? :manage, account
+                      = link_to 'Delete', account, :method => :delete, :data => { :confirm => 'Are you sure?' }, :class => 'btn btn-outline-danger btn-round btn-sm'
+                  -if account.deleted_at?
+                    -if can? :manage, account
+                      %td.actions
+                        = link_to 'Restore', account, :method => :patch, :class => 'btn btn-sm btn-warning waves-effect'
+                    %td.date Freezed #{account.deleted_at.to_formatted_s(:short)}
 
   .col-md-2
     = form_for new_account_path do |f|
-      = f.submit 'New Account', :class => 'btn btn-primary'
-/    = link_to 'New Account', new_account_path, :class => 'btn btn-primary'
+      = f.submit 'New Account', :class => 'btn btn-outline-success btn-round'
 
 %div
--unless @invites.empty?
+-unless @invites.to_a.empty?
   %h3 Invitations
-  %table
+  %table.table-responsive
     %thead
       %tr
         %th From user_id:
@@ -64,10 +88,11 @@
       %tr
         %td= invite.user_from_id
         %td= invite.account.iban
-        %td= link_to 'Submit', account_invite_path(invite.account_id, invite.id, invite: { status: true }), method: :patch, class: 'btn btn-sm btn-info waves-effect'
-        %td= link_to 'Reject', account_invite_path(invite.account_id, invite.id, invite: { status: false }), method: :patch, class: 'btn btn-sm btn-danger waves-effect'
+        %td= link_to 'Submit', account_invite_path(invite.account_id, invite.id, invite: { status: true }), method: :patch, class: 'btn btn-sm btn-outline-success'
+        %td= link_to 'Reject', account_invite_path(invite.account_id, invite.id, invite: { status: false }), method: :patch, class: 'btn btn-sm btn-outline-danger'
 %div
--unless @exceeding_request.empty?
+
+-unless @exceeding_request.to_a.empty?
   %h3 Exceeding requests
   %table
     %thead
@@ -83,5 +108,5 @@
         %td= request.user.name
         %td= request.amount
         %td
-          = link_to 'Accept invite', account_exceeding_request_path(request.account.id, request.id, exceeding_request: { status: true }), method: :patch, class: 'btn btn-sm btn-info waves-effect'
-          = link_to 'Reject', account_exceeding_request_path(request.account.id, request.id, exceeding_request: { status: false }), method: :patch, class: 'btn btn-sm btn-danger waves-effect'
+          = link_to 'Accept invite', account_exceeding_request_path(request.account.id, request.id, exceeding_request: { status: true }), method: :patch, class: 'btn btn-sm btn-outline-primary'
+          = link_to 'Reject', account_exceeding_request_path(request.account.id, request.id, exceeding_request: { status: false }), method: :patch, class: 'btn btn-sm btn-outline-danger'

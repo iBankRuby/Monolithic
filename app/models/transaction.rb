@@ -1,5 +1,3 @@
-# frozen_string_literal: true
-
 class Transaction < ApplicationRecord
   include AASM
   belongs_to :user

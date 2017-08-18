@@ -1,89 +1,93 @@
-%p#notice= notice
+-if notice
+  %div.alert.alert-success
+    = notice
 = link_to accounts_path, :class => "waves-effect waves-light link_back" do
-  %i.material-icons keyboard_arrow_left
+  %i.nc-icon.nc-minimal-left
   Back to Accounts Page
-%table
-  %thead
-    %tr
-      %th
+
+-role = @account.account_users.find_by(user_id: current_user.id).role_id
+.row
+  .col-md-10.iban-info
+    .row
+      .col-md-8
         %h5 #{@account.iban}
         %h5= 'Valid THRU: ' + @account.valid_thru.strftime('%m/%d')
-      %th
-        -role = @account.account_users.find_by(user_id: current_user.id).role_id
+        %h5= @account.account_users.find_by(user_id: current_user.id).role.name
+      .col-md-4
         -if  role == 1
           %h5 Balance: #{@account.balance}
         -if role == 2
           %h5 Balance: #{@account.account_users.find_by(user_id: current_user.id).limit.reminder}
-
-
-/= link_to 'Edit', edit_account_path(@account)
-/\|
+  .col-md-2.btn-acc
+    .stat
+      = link_to 'Statistics', account_statistics_path(@account), :class => 'btn btn-outline-primary btn-round btn-sm'
+    .manage
+      = link_to 'Management', account_management_index_path(@account), :class => 'btn btn-outline-primary btn-round btn-sm'
 
 -if role == 2
   =form_tag account_exceeding_requests_url(@account), method: :post, action: :create do
     =text_field_tag 'exceeding_request[amount]'
     =submit_tag 'Request exceeding limit'
-%div
-= link_to 'Statistics', account_statistics_path(@account), :class => 'btn btn-primary'
-= link_to 'Management', account_management_index_path(@account), :class => 'btn btn-primary'
-
 .row
-  #tabs
-    %ul.tabs
-      %li.tab.col-md-4
-        %a.active{:href => "#out_trans"} Outgoing transactions
-      %li.tab.col-md-4
-        %a{:href => "#inc_trans"} Incoming transactions
-      / %li.tab.col.s3.disabled
-      /   %a{:href => "#test3"} Disabled Tab
-  #out_trans.col-md-12
-    %h3 Outgoing transactions
-    -if @transactions
-      %table
-        %thead
-          %tr
-            %th To:
-            %th Summ:
-            %th Created:
-            %th Status:
-        %tbody
-        - @transactions.each do |t|
-          %tr
-            %td= t.remote_account_iban
-            %td= t.summ
-            %td= t.created_at.to_formatted_s(:short)
-            %td= t.status_from
-            -if t.pending?
-              %td.actions
-                = link_to 'Confirm', account_transaction_confirm_path(@account, t), :method => :patch, :class => 'btn btn-sm'
-                = link_to 'Cancel', account_transaction_cancel_path(@account, t), :method => :patch, :class => 'btn btn-sm btn-danger'
-  #inc_trans.col-md-12
-    %h3 Incoming transactions
-    -if @income
-      %table
-        %thead
-          %tr
-            %td From:
-            %td Summ:
-            %td Created:
-        %tbody
-        - @income.each do |t|
-          %tr
-            %td= t.account.iban
-            %td= t.summ
-            %td= t.created_at.to_formatted_s(:short)
-.col.s12
+  .col-md-10
+    .nav-tabs-navigation
+      .nav-tabs-wrapper
+        %ul.nav.nav-tabs{:role => "tablist"}
+          %li.nav-item
+            %a.nav-link.active{"data-toggle" => "tab", :href => "#out_trans", :role => "tab"} Outgoing transactions
+          %li.nav-item
+            %a.nav-link{"data-toggle" => "tab", :href => "#inc_trans", :role => "tab"} Outgoing transactions
+    / Tab panes
+    .tab-content.text-center
+      #out_trans.tab-pane.active{:role => "tabpanel"}
+        -if @transactions
+          %table.table-responsive
+            %thead
+              %tr
+                %th To:
+                %th Summ:
+                %th Created:
+                %th Status:
+            %tbody
+            - @transactions.each do |t|
+              %tr
+              %td= t.remote_account_iban
+              %td= t.summ
+              %td= t.created_at.to_formatted_s(:short)
+              %td= t.status_from
+              -if t.pending?
+                %td.actions
+                  = link_to 'Confirm', account_transaction_confirm_path(@account, t), :method => :patch, :class => 'btn btn-sm btn-outline-success btn-round'
+                  = link_to 'Cancel', account_transaction_cancel_path(@account, t), :method => :patch, :class => 'btn btn-sm btn-outline-danger'
+              -if t.in_approval?
+                %td.actions
+                  = link_to 'Cancel', account_transaction_cancel_path(@account, t), :method => :patch, :class => 'btn btn-sm btn-outline-danger'
+      #inc_trans.tab-pane{:role => "tabpanel"}
+        -if @income
+          %table.table-responsive
+            %thead
+              %tr
+                %th From:
+                %th Summ:
+                %th Created:
+            %tbody
+            - @income.each do |t|
+              %tr
+                %td= t.account.iban
+                %td= t.summ
+                %td= t.created_at.to_formatted_s(:short)
+
+/= button_tag 'New Transaction', :id => 'new-trans', :class => 'btn btn-outline-success btn-round btn-sm'
+.col-md-10
   = form_tag account_transactions_path(@account), method: :post do
-    .col.s8.input-field
-      = label_tag :title, 'Account Iban'
-      = text_field_tag :account
-    .col.s2.input-field
-      = label_tag :title, 'Month'
-      = text_field_tag :month
-    .col.s2.input-field
-      = label_tag :title, 'Day'
-      = text_field_tag :day
-    .col.s12.input-field
-      = label_tag :title, 'Amount'
-      = text_field_tag :summ
-    = submit_tag 'Send'
+    .row
+      .col-md-8.form-group
+        = text_field_tag :account, nil, class: 'form-control', placeholder: 'Account Iban'
+      .col-md-2.form-group
+        = text_field_tag :month, nil, class: 'form-control', placeholder: 'Month'
+      .col-md-2.form-group
+        = text_field_tag :day, nil, class: 'form-control', placeholder: 'Day'
+      .col-md-12.form-group
+        = text_field_tag :summ, nil, class: 'form-control', placeholder: 'Amount'
+      .col-md-12.form-group
+        = submit_tag 'Send', :class => 'btn btn-outline-success btn-round btn-sm'

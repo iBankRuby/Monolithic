@@ -4,7 +4,7 @@ class StatisticsController < ApplicationController
   include StatisticsBuilder
 
   def index
-    users_list
+  	users_list
   	get_statistics if params[:utf8]
   end
 

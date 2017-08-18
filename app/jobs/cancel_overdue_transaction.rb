@@ -5,7 +5,7 @@ class CancelOverdueTransaction < Que::Job
   # Default settings for this job. These are optional - without them, jobs
   # will default to priority 100 and run immediately.
   @priority = 10
-  @run_at = proc { 10.minute.from_now }
+  @run_at = proc { 2.minute.from_now }
 
   def run(id)
     # Do stuff.
@@ -13,7 +13,7 @@ class CancelOverdueTransaction < Que::Job
 
     ActiveRecord::Base.transaction do
       # Write any changes you'd like to the database.
-      transaction.cancel! unless transaction.canceled?
+      transaction.expire! if transaction.may_expire?
       # It's best to destroy the job in the same transaction as any other
       # changes you make. Que will destroy the job for you after the run
       # method if you don't do it yourself, but if your job writes to the

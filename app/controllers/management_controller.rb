@@ -9,7 +9,6 @@ class ManagementController < ApplicationController
   end
 
   def destroy
-    binding.pry
     AccountUser.find_by(id: params[:id]).rule.really_destroy!
     redirect_to account_management_index_path, notice: 'Co-user was successfully deleted.'
   end

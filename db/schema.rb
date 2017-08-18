@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170817082847) do
+ActiveRecord::Schema.define(version: 20170818130017) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -58,7 +58,9 @@ ActiveRecord::Schema.define(version: 20170817082847) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.string "user_to_email", null: false
+    t.bigint "rule_id"
     t.index ["account_id"], name: "index_invites_on_account_id"
+    t.index ["rule_id"], name: "index_invites_on_rule_id"
   end
 
   create_table "limits", force: :cascade do |t|
@@ -93,10 +95,8 @@ ActiveRecord::Schema.define(version: 20170817082847) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.decimal "spending_limit", precision: 10, scale: 4
-    t.bigint "invite_id"
     t.datetime "deleted_at"
     t.index ["deleted_at"], name: "index_rules_on_deleted_at"
-    t.index ["invite_id"], name: "index_rules_on_invite_id"
   end
 
   create_table "transactions", force: :cascade do |t|
@@ -145,7 +145,7 @@ ActiveRecord::Schema.define(version: 20170817082847) do
   add_foreign_key "account_users", "rules"
   add_foreign_key "exceeding_requests", "accounts"
   add_foreign_key "exceeding_requests", "users"
+  add_foreign_key "invites", "rules"
   add_foreign_key "limits", "account_users"
   add_foreign_key "limits", "rules", column: "rules_id"
-  add_foreign_key "rules", "invites"
 end

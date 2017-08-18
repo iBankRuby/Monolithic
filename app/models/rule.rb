@@ -1,5 +1,3 @@
-# frozen_string_literal: true
-
 class Rule < ApplicationRecord
   acts_as_paranoid
   has_one :account_user, dependent: :destroy

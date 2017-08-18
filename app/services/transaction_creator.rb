@@ -19,7 +19,8 @@ class TransactionCreator
   def create_transaction
     ActiveRecord::Base.transaction do
       account_user
-      create_transaction_object
+      transaction = create_transaction_object
+      CancelOverdueTransaction.enqueue(transaction.id)
     end
     @account = account_from
   end

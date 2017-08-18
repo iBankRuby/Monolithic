@@ -16,7 +16,7 @@
             %a.nav-link{"data-toggle" => "tab", :href => "#co-user-2", :role => "tab"} Co-User
     / Tab panes
     .tab-content.text-center
-      #owner-2.tab-pane.active{:role => "tabpanel"} 
+      #owner-2.tab-pane.active{:role => "tabpanel"}
         %table.table-responsive
           %thead
             %tr
@@ -42,7 +42,7 @@
                       %td.actions
                         = link_to 'Restore', account, :method => :patch, :class => 'btn btn-sm btn-outline-warning'
                     %td.date Freezed #{account.deleted_at.to_formatted_s(:short)}
-      #co-user-2.tab-pane{:role => "tabpanel"} 
+      #co-user-2.tab-pane{:role => "tabpanel"}
         %table.table-responsive
           %thead
             %tr
@@ -110,4 +110,3 @@
         %td
           = link_to 'Accept invite', account_exceeding_request_path(request.account.id, request.id, exceeding_request: { status: true }), method: :patch, class: 'btn btn-sm btn-outline-primary'
           = link_to 'Reject', account_exceeding_request_path(request.account.id, request.id, exceeding_request: { status: false }), method: :patch, class: 'btn btn-sm btn-outline-danger'
-

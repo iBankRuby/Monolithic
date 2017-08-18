@@ -29,6 +29,7 @@ gem 'sass-rails', '~> 5.0'
 gem 'sidekiq'
 gem 'turbolinks', '~> 5'
 gem 'uglifier', '>= 1.3.0'
+gem 'que', '~> 0.14.0'
 
 group :assets do
   gem 'coffee-rails'

@@ -39,7 +39,7 @@
             %a.nav-link{"data-toggle" => "tab", :href => "#inc_trans", :role => "tab"} Outgoing transactions
     / Tab panes
     .tab-content.text-center
-      #out_trans.tab-pane.active{:role => "tabpanel"} 
+      #out_trans.tab-pane.active{:role => "tabpanel"}
         -if @transactions
           %table.table-responsive
             %thead
@@ -59,7 +59,10 @@
                 %td.actions
                   = link_to 'Confirm', account_transaction_confirm_path(@account, t), :method => :patch, :class => 'btn btn-sm btn-outline-success btn-round'
                   = link_to 'Cancel', account_transaction_cancel_path(@account, t), :method => :patch, :class => 'btn btn-sm btn-outline-danger'
-      #inc_trans.tab-pane{:role => "tabpanel"} 
+              -if t.in_approval?
+                %td.actions
+                  = link_to 'Cancel', account_transaction_cancel_path(@account, t), :method => :patch, :class => 'btn btn-sm btn-outline-danger'
+      #inc_trans.tab-pane{:role => "tabpanel"}
         -if @income
           %table.table-responsive
             %thead

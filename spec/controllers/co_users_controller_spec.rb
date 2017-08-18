@@ -26,7 +26,6 @@ RSpec.describe CoUsersController, type: :controller do
 
   describe 'PATCH update' do
     it 'has a 302 status code' do
-      binding.pry
       patch :update, params: { account_id: account.id, id: user.id, account_rule: { spending_limit: 20} }
       expect(response).to have_http_status :found
     end

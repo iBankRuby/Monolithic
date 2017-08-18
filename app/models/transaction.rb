@@ -5,22 +5,27 @@ class Transaction < ApplicationRecord
   validates :remote_account_iban, :summ, presence: true
   validates :summ, numericality: { greater_than_or_equal_to: 0.01 }
 
-  aasm column: 'status_from' do
+  aasm column: 'status_from', whiny_transitions: false do
     state :pending, initial: true
+    state :in_processing
     state :approved
     state :canceled
     state :in_approval
 
+    event :process do
+      transitions from: %i[pending], to: :in_processing
+    end
+
     event :approve do
-      transitions from: %i[pending], to: :approved
+      transitions from: %i[in_processing], to: :approved
     end
 
     event :cancel do
-      transitions from: %i[pending approved in_approval], to: :canceled
+      transitions from: %i[pending in_processing in_approval], to: :canceled
     end
 
     event :need_approval do
-      transitions from: %i[pending approved], to: :in_approval
+      transitions from: %i[in_processing], to: :in_approval
     end
 
     event :approve_exceeding do
@@ -28,7 +33,7 @@ class Transaction < ApplicationRecord
     end
 
     event :reset do
-      transitions from: %i[approved canceled in_approval], to: :pending
+      transitions from: %i[approved canceled in_approval in_processing], to: :pending
     end
   end
 end

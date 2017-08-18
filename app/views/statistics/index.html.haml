@@ -9,15 +9,23 @@
         .col-md-3.form-group  
           = date_field_tag :date_to
         .col-md-3.form-group
-          / %select.btn.btn-outline-primary.dropdown-toggle
-          /   - @account_users.each do |t|
-          /     %option.dropdown-item{:onclick => "document.getElementById('user_id').value = '#{t.user_id}'; return !1;"}= t.user.name
-          %button.btn.btn-outline-success.btn-round{:type => "button"}
-            %p All Users
-          .hidden-list
-            - @account_users.each do |t|
-              %a{:onclick => "document.getElementById('user_id').value = '#{t.user_id}'; return !1;"}= t.user.name
-            =hidden_field_tag 'user_id', ''
+          /%select.btn.btn-outline-primary.dropdown-toggle
+          /  - @account_users.each do |t|
+          /      %option.dropdown-item{:onclick => "document.getElementById('user_id').value = '#{t.user_id}'; return !1;"}= t.user.name
+          /    %option.dropdown-item{:onclick => "changeValue();return false;"}= t.user.name
+          /%input{:id => "user_id", :list => "colors", :type => "text", :value => ""}/
+          / %datalist#colors
+          /   - @account_users.each do |t|              
+          /     %option{:name => "user_id", :value => t.user.name}
+
+          %button#users_all.btn.btn-outline-success.btn-round{:type => "button"}
+            %p#txt-btn All Users
+          .hidden-div
+            .hidden-list
+              /%a{:onclick => "document.getElementById('user_id').value = '';"} All Users
+              - @account_users.each do |t|
+                %a{:onclick => "document.getElementById('user_id').value = '#{t.user_id}';"}= t.user.name
+              =hidden_field_tag 'user_id', ''
         .col-md-2.form-group
           /= select_tag "user", options_from_collection_for_select(, "id", "name")
           = submit_tag 'Send', class: 'btn btn-sm btn-outline-primary'
@@ -25,9 +33,26 @@
 = render :partial => "./statistics/list"
 
 :javascript
-  $("button.btn.btn-outline-success.btn-round").click(function(){
-    $(".hidden-list").css({"display": "flex", "flex-direction": "column"});
+  $("button#users_all").click(function(){
+    $(".hidden-div").toggle();
   });
   $(".hidden-list a").click(function(){
-    $(".hidden-list").css({"display": "none"});
+    $(".hidden-div").css({"display": "none"});
+    /* var txt = $(".hidden-list a" ).text(); */
+    /* document.getElementById('txt-btn').innerHTML = txt; */
+
   });
+
+  document.getElementById('date_to').valueAsDate = new Date();
+  var date = new Date();
+
+  var day = date.getDate()-7;
+  var month = date.getMonth()+1;
+  var year = date.getFullYear();
+
+  if (month < 10) month = "0" + month;
+  if (day < 10) day = "0" + day;
+
+  var today = year + "-" + month + "-" + day;       
+  document.getElementById("date_from").value = today;
+    

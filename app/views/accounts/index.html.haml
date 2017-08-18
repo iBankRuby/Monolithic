@@ -60,7 +60,7 @@
                 %td.date #{account.created_at.to_formatted_s(:short)}
                 -if account.deleted_at.nil?
                   %td.actions
-                    = link_to 'Show', account, :class => 'btn btn-outline-info btn-round btn-sm'
+                    = link_to 'Show', account, :class => 'btn btn-outline-primary btn-round btn-sm'
                     -if can? :manage, account
                       = link_to 'Delete', account, :method => :delete, :data => { :confirm => 'Are you sure?' }, :class => 'btn btn-outline-danger btn-round btn-sm'
                   -if account.deleted_at?

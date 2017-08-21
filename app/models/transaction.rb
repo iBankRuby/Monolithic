@@ -2,6 +2,7 @@ class Transaction < ApplicationRecord
   include AASM
   belongs_to :user
   belongs_to :account, -> { with_deleted }
+  has_one :trans_tracker, dependent: :destroy
   validates :remote_account_iban, :summ, presence: true
   validates :summ, numericality: { greater_than_or_equal_to: 0.01 }
 

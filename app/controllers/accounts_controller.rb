@@ -2,6 +2,7 @@
 
 class AccountsController < ApplicationController
   before_action :set_account, only: %i[show destroy]
+  before_action :set_user_role, only: %i[show]
   attr_reader :accounts, :account, :income
 
   def index
@@ -35,6 +36,10 @@ class AccountsController < ApplicationController
   end
 
   private
+
+  def set_user_role
+    user.role_for(account)
+  end
 
   def set_account
     @account ||= Account.friendly.find(params[:id])

@@ -13,7 +13,7 @@ Rails.application.routes.draw do
 
   devise_for :users,
              path: '',
-             controllers: { registrations: 'devise/registrations', confirmations: 'devise/confirmations' }
+             controllers: { registrations: 'registrations', confirmations: 'confirmations' }
 
   root to: 'accounts#index'
 end

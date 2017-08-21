@@ -72,6 +72,7 @@
   .col-md-2
     = form_for new_account_path do |f|
       = f.submit 'New Account', :class => 'btn btn-outline-success btn-round'
+    = link_to 'Change User info', edit_user_registration_path, :class => 'btn btn-sm btn-outline-primary waves-effect'
 
 %div
 -unless @invites.to_a.empty?

@@ -1,5 +1,5 @@
 class Invite < ApplicationRecord
-  belongs_to :rule, dependent: :destroy
+  has_one :rule, dependent: :destroy
   belongs_to :account
 
   validate :user_cannot_send_invites_to_himself

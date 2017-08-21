@@ -57,5 +57,5 @@ Rails.application.configure do
 
   config.action_mailer.default_url_options = { host: '35.165.250.224', port: 3000 }
 
-  config.active_job.queue_adapter = :que
+  config.active_job.queue_adapter = :sidekiq
 end

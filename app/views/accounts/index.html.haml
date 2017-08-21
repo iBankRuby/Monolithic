@@ -59,11 +59,6 @@
                 -if account.deleted_at.nil?
                   %td.actions
                     = link_to 'Show', account, :class => 'btn btn-outline-info btn-round btn-sm'
-                    = link_to 'Delete', account, :method => :delete, :data => { :confirm => 'Are you sure?' }, :class => 'btn btn-outline-danger btn-round btn-sm'
-                  -if account.deleted_at?
-                    %td.actions
-                      = link_to 'Restore', account, :method => :patch, :class => 'btn btn-sm btn-warning waves-effect'
-                    %td.date Freezed #{account.deleted_at.to_formatted_s(:short)}
 
   .col-md-2
     = form_for new_account_path do |f|

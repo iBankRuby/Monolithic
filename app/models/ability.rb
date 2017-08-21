@@ -13,10 +13,13 @@ class Ability
 
   def abilities_to_owner
     can :manage, Account
+    can :check_account_balance, Account
   end
 
   def abilities_to_co_user
     can :read, Account
+    can :check_own_remainder, Account
+    can :do_exceeding_request, Account
   end
 
   def abilities_to_read_only

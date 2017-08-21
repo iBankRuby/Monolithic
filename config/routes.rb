@@ -4,7 +4,9 @@ Rails.application.routes.draw do
     resources :transactions, only: %i[index create] do
       patch :cancel, :confirm, :ownerapprove
     end
-    resources :invites, only: %i[index create destroy update]
+    resources :invites, only: %i[index create destroy update] do
+      patch :confirm, :reject
+    end
     resources :management, only: %i[index destroy]
     resources :co_users, only: %i[show update]
     # resources :rules, except: %i[show destroy]

@@ -49,7 +49,7 @@ class AccountsController < ApplicationController
   end
 
   def invites_list
-    @invites ||= Invite.where(user_to_email: user.email, status: nil)
+    @invites ||= Invite.where(user_to_email: user.email, status: 'pending')
   end
 
   def outgoing_transactions_list

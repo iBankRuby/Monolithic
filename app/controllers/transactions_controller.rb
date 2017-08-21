@@ -14,7 +14,7 @@ class TransactionsController < ApplicationController
       redirect_to transaction_creator.account, notice: 'Transaction was successfully created.'
     else
       redirect_to account_path(params[:account_id]),
-                  notice: 'Oops! Something wrong, try again later or contact administrator'
+                  alert: 'Oops! Something wrong, try again later or contact administrator'
     end
   end
 
@@ -49,7 +49,7 @@ class TransactionsController < ApplicationController
     account = account_path(params[:account_id])
     case transaction.confirm
     when 'canceled'
-      redirect_to account, notice: 'Not enough of money.'
+      redirect_to account, notice: 'Not enough money.'
     when 'in_approval'
       redirect_to account, notice: 'Exceeding the limit. Approve from owner requested.'
     else

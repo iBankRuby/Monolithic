@@ -15,7 +15,7 @@ class InvitesController < ApplicationController
                    user_to_email: invite_params[:email],
                    account_id: params[:account_id] }
     if Invite.create_invite_with_rules(invite_params: invite_pms, rule_params: rule_params)
-      redirect_to account_invites_url, notice: 'Invite has made.'
+      redirect_to account_invites_url, notice: 'Invite has been made.'
     else
       redirect_to :account_invites, alert: 'Invite has not been sent'
     end
@@ -32,7 +32,7 @@ class InvitesController < ApplicationController
       account_user.create_limit(reminder: 0.0)
       redirect_to :accounts
     else
-      redirect_to :accounts, notice: 'Oops... Something went wrong. Try again.'
+      redirect_to :accounts, alert: 'Oops... Something went wrong. Try again.'
     end
   end
 
@@ -63,9 +63,9 @@ class InvitesController < ApplicationController
     email = invite_params[:email]
     user = User.find_by(email: email)
     if email.blank?
-      redirect_to account_invites_url, notice: 'Field should\'t be blank'
+      redirect_to account_invites_url, alert: 'Field should\'t be blank'
     elsif user.nil?
-      redirect_to account_invites_url, notice: '@mail not found'
+      redirect_to account_invites_url, alert: '@mail not found'
     else
       @user_to = user.id
     end

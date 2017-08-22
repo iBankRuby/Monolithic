@@ -88,8 +88,8 @@
       %tr
         %td= invite.user_from_id
         %td= invite.account.iban
-        %td= link_to 'Submit', account_invite_path(invite.account_id, invite.id, invite: { status: true }), method: :patch, class: 'btn btn-sm btn-outline-success'
-        %td= link_to 'Reject', account_invite_path(invite.account_id, invite.id, invite: { status: false }), method: :patch, class: 'btn btn-sm btn-outline-danger'
+        %td= link_to 'Submit', account_invite_confirm_path(invite.account_id, invite.id), method: :patch, class: 'btn btn-sm btn-outline-success'
+        %td= link_to 'Reject', account_invite_reject_path(invite.account_id, invite.id), method: :patch, class: 'btn btn-sm btn-outline-danger'
 %div
 
 -unless @exceeding_request.to_a.empty?

@@ -48,7 +48,7 @@ class AccountsController < ApplicationController
   end
 
   def accounts_list
-    @accounts = user.accounts
+    @accounts = user.accounts.to_a
   end
 
   def invites_list

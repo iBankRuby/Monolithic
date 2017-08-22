@@ -165,6 +165,8 @@ GEM
       coderay (~> 1.1.0)
       method_source (~> 0.8.1)
       slop (~> 3.4)
+    pry-rails (0.3.6)
+      pry (>= 0.10.4)
     public_suffix (2.0.5)
     puma (3.9.1)
     que (0.14.0)
@@ -343,6 +345,7 @@ DEPENDENCIES
   paranoia (~> 2.3, >= 2.3.1)
   pg
   pry
+  pry-rails (~> 0.3.6)
   puma (~> 3.7)
   que (~> 0.14.0)
   railroady

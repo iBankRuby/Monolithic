@@ -1,5 +1,4 @@
 # app/jobs/cancel_overdue_transaction.rb
-# frozen_string_literal: true
 
 class CancelOverdueTransaction < Que::Job
   # Default settings for this job. These are optional - without them, jobs

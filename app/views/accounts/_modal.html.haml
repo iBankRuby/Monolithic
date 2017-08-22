@@ -1,0 +1,25 @@
+%button.btn.btn-outline-info.btn-round.btn-sm{ type: 'button', 'data-toggle': 'modal', 'data-target': '#myModal' }
+  Replenish
+
+%div.modal.fade#myModal{ tabindex: '-1', role: 'dialog', 'aria-labelledby': 'exampleModalLabel', 'aria-hidden': true }
+  %div.modal-dialog{ role: 'document' }
+    %div.modal-content
+      %div.modal-header
+        %h5.modal-title.text-center#exampleModalLabel Send money from account
+        %button.close{ type: 'button', 'data-dismiss': 'modal', 'aria-label': 'Close' }
+          %span{ 'aria-hidden': true }
+
+      %div.modal-body
+        - accounts = @accounts.dup
+        - accounts.delete(locals[:acc])
+        = form_for account_transaction_exchange_path(locals[:acc]), method: :patch do |f|
+          - accounts.each do |account|
+            %div.row
+              %div.col-md-6
+                %input{ type: 'radio', name: 'refillable_account', value: account.id }
+                  = account.iban
+          %div.row
+            %div.col-md-6
+              %div.form-group
+                %input.form-control{ placeholder: 'Amount', name: 'amount' }
+          = f.submit 'Send', class: 'btn btn-outline-success btn-round btn-sm'

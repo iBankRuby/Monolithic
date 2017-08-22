@@ -13,9 +13,9 @@
         %h5= 'Valid THRU: ' + @account.valid_thru.strftime('%m/%d')
         %h5= @account.account_users.find_by(user_id: current_user.id).role.name
       .col-md-4
-        -if  @role == 1
+        -if can? :check_account_balance, @account
           %h5 Balance: #{@account.balance}
-        -if @role == 2
+        -elsif can? :check_own_remainder, @account
           %h5 Balance: #{@account.account_users.find_by(user_id: current_user.id).limit.reminder}
   .col-md-2.btn-acc
     .stat
@@ -23,7 +23,7 @@
     .manage
       = link_to 'Management', account_management_index_path(@account), :class => 'btn btn-outline-primary btn-round btn-sm'
 
--if @role == 2
+-if can? :do_exceeding_request, @account
   =form_tag account_exceeding_requests_url(@account), method: :post, action: :create do
     =text_field_tag 'exceeding_request[amount]'
     =submit_tag 'Request exceeding limit'

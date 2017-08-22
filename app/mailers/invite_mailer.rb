@@ -1,5 +1,3 @@
-# frozen_string_literal: true
-
 class InviteMailer < ApplicationMailer
   def invite(email)
     mail(to: email, subject: 'Invite')

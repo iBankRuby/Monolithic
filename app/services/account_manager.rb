@@ -1,5 +1,3 @@
-# frozen_string_literal: true
-
 class AccountManager
   attr_reader :account_id, :user, :account_users, :role
 

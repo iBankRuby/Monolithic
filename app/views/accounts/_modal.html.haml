@@ -12,14 +12,14 @@
       %div.modal-body
         - accounts = @accounts.dup
         - accounts.delete(locals[:acc])
-        = form_for account_transaction_exchange_path(locals[:acc]), method: :patch do |f|
+        = form_tag exchange_account_transactions_path(locals[:acc]), method: :post do
           - accounts.each do |account|
             %div.row
               %div.col-md-6
-                %input{ type: 'radio', name: 'refillable_account', value: account.id }
+                %input{ type: 'radio', name: 'refillable_account', value: account.iban }
                   = account.iban
           %div.row
             %div.col-md-6
               %div.form-group
-                %input.form-control{ placeholder: 'Amount', name: 'amount' }
-          = f.submit 'Send', class: 'btn btn-outline-success btn-round btn-sm'
+                %input.form-control{ placeholder: 'Amount', name: 'summ' }
+          = submit_tag 'Send', class: 'btn btn-outline-success btn-round btn-sm'

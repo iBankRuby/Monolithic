@@ -35,6 +35,16 @@ class TransactionsController < ApplicationController
     end
   end
 
+  def exchange
+    transaction_creator = set_exchange
+    case transaction_creator.exchange
+    when 'canceled'
+      redirect_to account, notice: 'Not enough of money.'
+    else
+      redirect_to account, notice: 'Transaction completed successfully.'
+    end
+  end
+
   private
 
   def account
@@ -42,6 +52,12 @@ class TransactionsController < ApplicationController
   end
 
   def set_transaction
+    TransactionCreator.new(params, current_user)
+  end
+
+  def set_exchange
+    params[:account] = Account.friendly.find(params[:account_id]).iban
+    params[:account_id] = Account.find_by(iban: params[:refillable_account]).id
     TransactionCreator.new(params, current_user)
   end
 

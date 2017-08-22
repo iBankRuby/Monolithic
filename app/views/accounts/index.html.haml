@@ -35,7 +35,7 @@
                   -if account.deleted_at.nil?
                     %td.actions
                       = link_to 'Show', account, :class => 'btn btn-outline-primary btn-round btn-sm'
-                      = render 'modal', locals: {acc: account}
+                      = render 'modal', locals: {acc: Account.find(2)}
                       = link_to 'Delete', account, :method => :delete, :data => { :confirm => 'Are you sure?' }, :class => 'btn btn-outline-danger btn-round btn-sm'
                   -if account.deleted_at?
                     %td.actions

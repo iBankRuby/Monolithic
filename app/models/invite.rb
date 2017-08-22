@@ -33,6 +33,7 @@ class Invite < ApplicationRecord
   private
 
   def user_cannot_send_invites_to_himself
-    user_from_id == User.find_by(email: user_to_email).id && errors.add(:user_from_id, 'You cannot send invites to yourself')
+    user = User.find_by(email: user_to_email)
+    user && user_from_id == user.id && errors.add(:user_from_id, 'You cannot send invites to yourself')
   end
 end

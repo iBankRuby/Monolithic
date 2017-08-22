@@ -1,6 +1,8 @@
 # frozen_string_literal: true
 
 class TransactionCreator
+  include TransTracking
+
   attr_reader :params, :user, :account
 
   def initialize(params, user)
@@ -19,8 +21,10 @@ class TransactionCreator
   def create_transaction
     ActiveRecord::Base.transaction do
       account_user
-      transaction = create_transaction_object
-      CancelOverdueTransaction.enqueue(transaction.id)
+      trans = create_transaction_object
+      create_trans_tracker(trans)
+      # CancelOverdueTransaction.enqueue(transaction.id)
+      #ExpireTransactionsWorker.perform_in(2.minutes, transaction.id)
     end
     @account = account_from
   end
@@ -47,9 +51,20 @@ class TransactionCreator
   def enough_of_money?
     case role
     when 'co-user'
-      transaction.need_approval! unless check_reminder
+      if check_reminder
+        transaction.approve!
+        set_total_time
+      else
+        transaction.need_approval!
+        track_in_approve
+      end
     when 'owner'
-      transaction.cancel! unless check_balance
+      if check_balance
+        transaction.approve!
+      else
+        transaction.cancel!
+      end
+      set_total_time
     end
   end
 
@@ -125,21 +140,27 @@ class TransactionCreator
   end
 
   def approve_transaction
-    transaction.approve!
+    transaction.process!
+    track_process
     @confirming = true
   end
 
   def cancel_transaction
     transaction.cancel!
-    @confirming = true
+    set_total_time
   end
 
   def approve_exceeding_limit
     transaction.approve_exceeding!
+    track_approve_exceeding
     @confirming = true
   end
 
   def transaction
     @transaction ||= Transaction.find(params[:transaction_id])
+  end
+
+  def create_trans_tracker(trans)
+    TransTracker.create!(transaction_id: trans.id, pending_time: trans.created_at)
   end
 end

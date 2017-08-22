@@ -1,7 +1,7 @@
 class CreateTransTrackers < ActiveRecord::Migration[5.1]
   def change
     create_table :trans_trackers do |t|
-      t.belongs_to :transactions, index: true
+      t.belongs_to :transaction, index: true
       t.datetime :pending_time
       t.float :time_in_pending
       t.datetime :in_process_time

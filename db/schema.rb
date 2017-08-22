@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170818131448) do
+ActiveRecord::Schema.define(version: 20170818121254) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -100,7 +100,7 @@ ActiveRecord::Schema.define(version: 20170818131448) do
   end
 
   create_table "trans_trackers", force: :cascade do |t|
-    t.bigint "transactions_id"
+    t.bigint "transaction_id"
     t.datetime "pending_time"
     t.float "time_in_pending"
     t.datetime "in_process_time"
@@ -110,7 +110,7 @@ ActiveRecord::Schema.define(version: 20170818131448) do
     t.float "total_time"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.index ["transactions_id"], name: "index_trans_trackers_on_transactions_id"
+    t.index ["transaction_id"], name: "index_trans_trackers_on_transaction_id"
   end
 
   create_table "transactions", force: :cascade do |t|
@@ -126,9 +126,7 @@ ActiveRecord::Schema.define(version: 20170818131448) do
     t.float "balance"
     t.float "balance_after"
     t.float "remote_balance_after"
-    t.bigint "trans_tracker_id"
     t.index ["account_id"], name: "index_transactions_on_account_id"
-    t.index ["trans_tracker_id"], name: "index_transactions_on_trans_tracker_id"
     t.index ["user_id"], name: "index_transactions_on_user_id"
   end
 
@@ -164,5 +162,4 @@ ActiveRecord::Schema.define(version: 20170818131448) do
   add_foreign_key "limits", "account_users"
   add_foreign_key "limits", "rules", column: "rules_id"
   add_foreign_key "rules", "invites"
-  add_foreign_key "transactions", "trans_trackers"
 end

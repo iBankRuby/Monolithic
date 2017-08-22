@@ -4,14 +4,14 @@ class StatisticsController < ApplicationController
   include StatisticsBuilder
 
   def index
-  	users_list
-  	get_statistics if params[:utf8]
+    users_list
+    get_statistics if params[:utf8]
   end
 
-  def create  	
+  def create
     redirect_to account_statistics_path(@transactions)
   end
-  
+
   private
 
   def set_account

@@ -10,7 +10,7 @@ class CoUsersController < ApplicationController
 
   def update
     rule.update!(co_user_params)
-    rule.limit.update!(reminder: co_user_params[:spending_limit])
+    limit.update!(reminder: co_user_params[:spending_limit])
     redirect_to :account_co_user, notice: 'Rules have updated.'
   end
 

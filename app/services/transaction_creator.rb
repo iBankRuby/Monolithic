@@ -20,8 +20,8 @@ class TransactionCreator
     ActiveRecord::Base.transaction do
       account_user
       transaction = create_transaction_object
-      # CancelOverdueTransaction.enqueue(transaction.id)
-      ExpireTransactionsWorker.perform_in(2.minutes, transaction.id)
+      CancelOverdueTransaction.enqueue(transaction.id)
+      #ExpireTransactionsWorker.perform_in(2.minutes, transaction.id)
     end
     @account = account_from
   end

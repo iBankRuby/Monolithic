@@ -4,7 +4,9 @@ class StatisticsController < ApplicationController
   include StatisticsBuilder
 
   def index
+    binding.pry
     users_list
+    current_acc_user
     get_statistics if params[:utf8]
   end
 
@@ -20,5 +22,9 @@ class StatisticsController < ApplicationController
 
   def users_list
     @account_users = account.account_users
+  end
+
+  def current_acc_user
+    @curr_user = account.account_users.find_by(user_id: current_user.id)
   end
 end

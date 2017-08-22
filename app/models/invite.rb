@@ -47,6 +47,20 @@ class Invite < ApplicationRecord
     end
   end
 
+  # TODO: Do sending with using background jobs.
+  def send_email
+    user = User.find_by(email: user_to_email)
+    if user
+      InviteMailer.invite(user).deliver
+    else
+      # creating user account and send confirmation letter
+      @user = User.find_or_create_by(email: user_to_email)
+      @user.send_confirmation_instructions
+      user_from = User.find_by(id: user_from_id)
+      InviteMailer.invite(@user, user_from).deliver
+    end
+  end
+
   def confirm_invite(current_user, account_id)
     return false unless may_confirm?
     confirm!
@@ -61,16 +75,6 @@ class Invite < ApplicationRecord
     return false unless may_reject?
     rule.really_destroy!
     reject!
-  end
-
-  # TODO: Do sending with using background jobs.
-  def send_email
-    user = User.find_by(email: user_to_email)
-    if user
-      InviteMailer.invite_for_existing_user(user).deliver
-    else
-      InviteMailer.invite(user_to_email).deliver
-    end
   end
 
   private

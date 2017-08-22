@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+
 class ManagementController < ApplicationController
   before_action :account
 

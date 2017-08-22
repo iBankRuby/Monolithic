@@ -1,1 +1,5 @@
-= link_to 'Sign Up to IBank website', new_user_registration_url
+%p
+  Welcome #{@user.email}!
+%p You invited to account owned by #{@user_from.name} #{(@user_from.email)}
+%p Please Sign In to consider an invitation:
+= link_to 'Sign In to IBank website', new_user_session_url

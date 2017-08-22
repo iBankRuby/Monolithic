@@ -1,11 +1,10 @@
 # frozen_string_literal: true
 
 class InviteMailer < ApplicationMailer
-  def invite(email)
-    mail(to: email, subject: 'Invite')
-  end
-
-  def invite_for_existing_user(user)
+  def invite(user, user_from)
+    @user = user
+    @user_from = user_from
     mail(to: user.email, subject: 'Invite')
   end
+
 end

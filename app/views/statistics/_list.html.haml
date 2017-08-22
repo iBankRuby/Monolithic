@@ -11,7 +11,6 @@
 /           %td= t.user.name
 /           %th= t.role.name
 
-
 %h3 Outcome
 -if @transactions
   %table#grid
@@ -20,9 +19,10 @@
         %th{"data-type" => "string"}  User:
         %th{"data-type" => "string"}  To:
         %th Remainder:
-        %th{"data-type" => "numder"}  Balance before:
         %th{"data-type" => "number"}  Summ:
-        %th Balance after outcome:
+        -if @curr_user.role_id == 1
+          %th{"data-type" => "numder"}  Balance before:
+          %th Balance after outcome:
         %th Created:
         %th Status:
         %th Decision time:
@@ -33,9 +33,10 @@
           %th= t.user.name
           %td= t.remote_account_iban
           %th= t.remainder
-          %th= t.balance
           %th= t.summ
-          %th= t.balance_after
+          -if @curr_user.role_id == 1
+            %th= t.balance
+            %th= t.balance_after
           %td= t.created_at.to_formatted_s(:short)
           %th= t.status_from
           %td= t.updated_at.to_formatted_s(:short)
@@ -92,3 +93,4 @@
   /   grid.appendChild(tbody);
 
   / } */
+

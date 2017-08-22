@@ -9,6 +9,13 @@
           = date_field_tag :date_from
         .col-md-2.form-group  
           = date_field_tag :date_to
+        .col-md-3.form-group
+          %select#status.btn.btn-outline-primary.dropdown-toggle{:onchange => "run()"}
+            %option.dropdown-item{:value => ''} Transaction status
+            %option.dropdown-item{:value => 'pending'} Pending
+            %option.dropdown-item{:value => 'canceled'} Canceled
+            %option.dropdown-item{:value => 'approved'} Approved
+          =hidden_field_tag 'status_from', ''
         -if @curr_user.role_id == 1
           .col-md-2.form-group
             %select#use_id.btn.btn-outline-primary.dropdown-toggle{:onchange => "run()"}
@@ -37,9 +44,11 @@
   document.getElementById("date_from").value = today;
 
   function run() {
+    document.getElementById("status_from").value = document.getElementById("status").value;
     document.getElementById("user_id").value = document.getElementById("use_id").value;
   }
 
   function up() {
+    var dop = document.getElementById("status_from").value;
     var dop = document.getElementById("user_id").value;
   }

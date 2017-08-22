@@ -12,7 +12,7 @@
       %div.modal-body
         - accounts = @accounts.dup
         - accounts.delete(locals[:acc])
-        = form_for account_transaction_exchange_path(locals[:acc]), method: :patch do |f|
+        = form_for account_transactions_path(locals[:acc]), method: :patch do |f|
           - accounts.each do |account|
             %div.row
               %div.col-md-6

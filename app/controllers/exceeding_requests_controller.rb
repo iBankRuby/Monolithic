@@ -8,9 +8,9 @@ class ExceedingRequestsController < ApplicationController
     exceeding_request.account = Account.friendly.find(params[:account_id])
     exceeding_request.user = current_user
     if exceeding_request.save
-      redirect_to accounts_url, notice: 'Request has sent successfully.'
+      redirect_to accounts_url, notice: 'Request has been sent successfully.'
     else
-      redirect_to accounts_url, notice: 'Oops... Request have not sent.'
+      redirect_to accounts_url, alert: 'Oops... Request has not been sent.'
     end
   end
 
@@ -19,7 +19,7 @@ class ExceedingRequestsController < ApplicationController
     if exceeding_request.update(status: status)
       status && exceeding_request.update_rule
       redirect_to accounts_url,
-                  notice: (status ? 'Request has successfully confirmed' : 'Request has rejected')
+                  notice: (status ? 'Request has been successfully confirmed' : 'Request has been rejected')
     else
       redirect_to accounts_url, alert: 'Invalid params'
     end

@@ -1,5 +1,3 @@
-# frozen_string_literal: true
-
 class AccountsController < ApplicationController
   before_action :set_account, only: %i[show destroy]
   before_action :set_user_role, only: %i[show]

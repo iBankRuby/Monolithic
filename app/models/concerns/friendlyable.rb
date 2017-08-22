@@ -1,5 +1,3 @@
-# frozen_string_literal: true
-
 module Friendlyable
   extend ActiveSupport::Concern
   included do

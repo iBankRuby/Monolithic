@@ -4,7 +4,6 @@ class StatisticsController < ApplicationController
   include StatisticsBuilder
 
   def index
-    binding.pry
     users_list
     current_acc_user
     get_statistics if params[:utf8]

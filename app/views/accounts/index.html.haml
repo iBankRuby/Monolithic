@@ -56,7 +56,7 @@
             %tr
               -if @rule_acc_co_user == "co-user"
                 %td.iban #{account.iban}
-                %td.balance #{account.balance}
+                %td.balance #{account.account_users.find_by(user_id: current_user.id).limit.reminder}
                 %td.date #{account.created_at.to_formatted_s(:short)}
                 -if account.deleted_at.nil?
                   %td.actions

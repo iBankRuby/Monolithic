@@ -7,7 +7,7 @@ class InvitesController < ApplicationController
   attr_reader :invite, :user_to, :current_user_id, :account
 
   def index
-    @invites = account.invites
+    @invites = account.invites.where(status: 'pending')
   end
 
   def create
@@ -39,7 +39,7 @@ class InvitesController < ApplicationController
 
   def destroy
     # TODO: Method will return sent invite.
-    invite.destroy && redirect_to(:accounts)
+    invite.rule.really_destroy! && invite.destroy && redirect_to(:accounts)
   end
 
   private

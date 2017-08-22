@@ -59,7 +59,7 @@ class Invite < ApplicationRecord
 
   def reject_invite
     return false unless may_reject?
-    rule.destroy
+    rule.really_destroy!
     reject!
   end
 

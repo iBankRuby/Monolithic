@@ -21,4 +21,3 @@ $(document).ready(function(){
 	$('#tabs').tabs();
 	$('.checkbox').checkbox();
 })
-

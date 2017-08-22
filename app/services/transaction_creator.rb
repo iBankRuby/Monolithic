@@ -20,7 +20,8 @@ class TransactionCreator
     ActiveRecord::Base.transaction do
       account_user
       transaction = create_transaction_object
-      CancelOverdueTransaction.enqueue(transaction.id)
+      # CancelOverdueTransaction.enqueue(transaction.id)
+      ExpireTransactionsWorker.perform_in(2.minutes, transaction.id)
     end
     @account = account_from
   end
@@ -47,9 +48,11 @@ class TransactionCreator
   def enough_of_money?
     case role
     when 'co-user'
-      transaction.need_approval! unless check_reminder
+      return transaction.need_approval! unless check_reminder
+      transaction.approve!
     when 'owner'
-      transaction.cancel! unless check_balance
+      return transaction.cancel! unless check_balance
+      transaction.approve!
     end
   end
 
@@ -125,13 +128,12 @@ class TransactionCreator
   end
 
   def approve_transaction
-    transaction.approve!
+    transaction.process!
     @confirming = true
   end
 
   def cancel_transaction
     transaction.cancel!
-    @confirming = true
   end
 
   def approve_exceeding_limit

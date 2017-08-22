@@ -2,14 +2,14 @@ Rails.application.routes.draw do
   resources :accounts, except: %i[edit] do
     resources :statistics, only: %i[index create update]
     resources :transactions, only: %i[index create] do
-      patch :cancel
-      patch :confirm
-      patch :ownerapprove
+      patch :cancel, :confirm, :ownerapprove
     end
-    resources :invites, only: %i[index create destroy update]
-    resources :management
-    resources :co_users
-    resources :rules, except: %i[show destroy]
+    resources :invites, only: %i[index create destroy update] do
+      patch :confirm, :reject
+    end
+    resources :management, only: %i[index destroy]
+    resources :co_users, only: %i[show update]
+    # resources :rules, except: %i[show destroy]
     resources :exceeding_requests, only: %i[create update destroy]
   end
 
@@ -22,13 +22,13 @@ Rails.application.routes.draw do
   end
 
   devise_for :users, controllers: {
+    path: '',
     sessions: 'users/sessions',
     registrations: 'users/registrations',
     confirmations: 'users/confirmations'
   }
 
   resources :limits
-
   resources :profile
 
   root to: 'accounts#index'

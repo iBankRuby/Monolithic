@@ -1,4 +1,5 @@
 class Invite < ApplicationRecord
+  include AASM
   has_one :rule, dependent: :destroy
   belongs_to :account
 
@@ -10,14 +11,56 @@ class Invite < ApplicationRecord
   validates :user_from_id, numericality: true, presence: true
   # TODO: Sends invite to account once with that validation
   # validates :account_id, uniqueness: { scope: :user_to_id, message: 'You cannot send invite twice' }
-  validates :status, inclusion: { in: [true, false] }, on: :update
+  # validates :status, inclusion: { in: [true, false] }, on: :update
+
+  aasm column: 'status' do
+    state :pending, initial: true
+    state :confirmed
+    state :rejected
+    state :closed
+    state :expired
+
+    event :confirm do
+      transitions from: :pending, to: :confirmed
+    end
+
+    event :reject do
+      transitions from: :pending, to: :rejected
+    end
+
+    event :close do
+      transitions from: :confirmed, to: :closed
+    end
+
+    event :expire do
+      transitions from: :pending, to: :expired
+    end
+  end
 
   def self.create_invite_with_rules(args)
-    invite = new(args[:invite_params])
-    invite.account = Account.friendly.find(args.dig(:invite_params, :account_id))
-    invite.create_rule(args[:rule_params])
+    ActiveRecord::Base.transaction do
+      invite = new(args[:invite_params])
+      invite.account = Account.friendly.find(args.dig(:invite_params, :account_id))
+      invite.create_rule(args[:rule_params])
+      invite.save && invite.send_email
+      ExpireInvitesWorker.perform_in(2.minutes, invite.id)
+    end
+  end
 
-    invite.save && invite.send_email
+  def confirm_invite(current_user, account_id)
+    return false unless may_confirm?
+    confirm!
+    account_user = AccountUser.create(user: current_user,
+                                      account_id: account_id,
+                                      rule_id: rule.id,
+                                      role_id: 2)
+    account_user.create_limit(reminder: 0.0)
+  end
+
+  def reject_invite
+    return false unless may_reject?
+    rule.destroy
+    reject!
   end
 
   # TODO: Do sending with using background jobs.
@@ -33,6 +76,7 @@ class Invite < ApplicationRecord
   private
 
   def user_cannot_send_invites_to_himself
-    user_from_id == User.find_by(email: user_to_email).id && errors.add(:user_from_id, 'You cannot send invites to yourself')
+    user = User.find_by(email: user_to_email)
+    user && user_from_id == user.id && errors.add(:user_from_id, 'You cannot send invites to yourself')
   end
 end

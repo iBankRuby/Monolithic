@@ -12,9 +12,8 @@ class ExceedingRequest < ApplicationRecord
     joins(account: :roles).where(roles: { name: 'owner' }, account_users: { user_id: user.id }, status: nil)
   end
 
-  def update_rule(args)
-    account = Account.friendly.find(args[:account_id])
-    acc_user = AccountUser.find_by(account_id: account.id, user_id: args[:user].id)
+  def update_rule
+    acc_user = AccountUser.find_by(account_id: account_id, user_id: user_id, role_id: 2)
     acc_user.rule.update(spending_limit: amount)
   end
 

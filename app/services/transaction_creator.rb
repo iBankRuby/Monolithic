@@ -53,16 +53,20 @@ class TransactionCreator
     when 'co-user'
       if check_reminder
         transaction.approve!
+        approve_cause
         set_total_time
       else
         transaction.need_approval!
+        short_of_remainder
         track_in_approve
       end
     when 'owner'
       if check_balance
         transaction.approve!
+        approve_cause
       else
         transaction.cancel!
+        short_of_balance
       end
       set_total_time
     end
@@ -147,6 +151,7 @@ class TransactionCreator
 
   def cancel_transaction
     transaction.cancel!
+    cancel_cause
     set_total_time
   end
 

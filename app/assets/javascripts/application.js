@@ -10,14 +10,11 @@
 // Read Sprockets README (https://github.com/rails/sprockets#sprockets-directives) for details
 // about supported directives.
 //
-//= require jquery
+//= require jquery3
 //= require jquery_ujs
 //= require jquery.turbolinks
 //= require turbolinks
 //= require turbolinks-compatibility
+//= require popper
+//= require bootstrap
 //= require_tree .
-
-$(document).ready(function(){
-	$('#tabs').tabs();
-	$('.checkbox').checkbox();
-})

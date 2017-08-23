@@ -60,6 +60,9 @@
                 %td= t.trans_tracker.updated_at.strftime("%e %b %T") 
                 %td
               %tr
+                %td Cause 
+                %td= t.trans_tracker.cause
+              %tr
                 %td Total time 
                 %td 
                 -if t.trans_tracker.total_time != nil
@@ -86,7 +89,7 @@
 
 
 :javascript
-  
+
   
   /* var grid = document.getElementById('grid');
   / grid.onclick = function(e) {

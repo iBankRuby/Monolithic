@@ -9,8 +9,8 @@ class Invite < ApplicationRecord
     message: 'Email should be valid'
   }
   validates :user_from_id, numericality: true, presence: true
-  # TODO: Sends invite to account once with that validation
-  # validates :account_id, uniqueness: { scope: :user_to_id, message: 'You cannot send invite twice' }
+  # Sends invite to account once with that validation
+  validates :account_id, uniqueness: { scope: :user_to_email, conditions: -> {where(status: 'pending' || 'active')}, message: 'You cannot send invite twice' }
   # validates :status, inclusion: { in: [true, false] }, on: :update
 
   aasm column: 'status' do

@@ -1,33 +1,54 @@
+/- role = @account_user.role_id
 .col-md-12.form_block 
   .row
     = form_for account_statistics_path, method: "GET" do |f|
       .row
         .col-md-1.form-group
           %p Date:
-        .col-md-3.form-group
+        .col-md-2.form-group
           = date_field_tag :date_from
-        .col-md-3.form-group  
+        .col-md-2.form-group  
           = date_field_tag :date_to
         .col-md-3.form-group
-          / %select.btn.btn-outline-primary.dropdown-toggle
-          /   - @account_users.each do |t|
-          /     %option.dropdown-item{:onclick => "document.getElementById('user_id').value = '#{t.user_id}'; return !1;"}= t.user.name
-          %button.btn.btn-outline-success.btn-round{:type => "button"}
-            %p All Users
-          .hidden-list
-            - @account_users.each do |t|
-              %a{:onclick => "document.getElementById('user_id').value = '#{t.user_id}'; return !1;"}= t.user.name
+          %select#status.btn.btn-outline-primary.dropdown-toggle{:onchange => "run()"}
+            %option.dropdown-item{:value => ''} Transaction status
+            %option.dropdown-item{:value => 'pending'} Pending
+            %option.dropdown-item{:value => 'canceled'} Canceled
+            %option.dropdown-item{:value => 'approved'} Approved
+          =hidden_field_tag 'status_from', ''
+        -if @curr_user.role_id == 1
+          .col-md-2.form-group
+            %select#use_id.btn.btn-outline-primary.dropdown-toggle{:onchange => "run()"}
+              %option.dropdown-item{:value => ''} All Users
+              - @account_users.each do |t|
+                %option.dropdown-item{:value => t.user_id}= t.user.name
             =hidden_field_tag 'user_id', ''
         .col-md-2.form-group
-          /= select_tag "user", options_from_collection_for_select(, "id", "name")
+          /= select_tag "user", options_from_cllection_for_select(, "id", "name")
           = submit_tag 'Send', class: 'btn btn-sm btn-outline-primary'
 
 = render :partial => "./statistics/list"
 
 :javascript
-  $("button.btn.btn-outline-success.btn-round").click(function(){
-    $(".hidden-list").css({"display": "flex", "flex-direction": "column"});
-  });
-  $(".hidden-list a").click(function(){
-    $(".hidden-list").css({"display": "none"});
-  });
+  document.getElementById('date_to').valueAsDate = new Date();
+  var date = new Date();
+
+  var day = date.getDate()-7;
+  var month = date.getMonth()+1;
+  var year = date.getFullYear();
+
+  if (month < 10) month = "0" + month;
+  if (day < 10) day = "0" + day;
+
+  var today = year + "-" + month + "-" + day;       
+  document.getElementById("date_from").value = today;
+
+  function run() {
+    document.getElementById("status_from").value = document.getElementById("status").value;
+    document.getElementById("user_id").value = document.getElementById("use_id").value;
+  }
+
+  function up() {
+    var dop = document.getElementById("status_from").value;
+    var dop = document.getElementById("user_id").value;
+  }

@@ -19,6 +19,7 @@ class AccountsController < ApplicationController
   end
 
   def show
+    accounts_list
     outgoing_transactions_list
     incoming_transactions_list
   end

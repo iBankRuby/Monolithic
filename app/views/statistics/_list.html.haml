@@ -11,7 +11,6 @@
 /           %td= t.user.name
 /           %th= t.role.name
 
-
 %h3 Outcome
 -if @transactions
   %table#grid
@@ -20,26 +19,58 @@
         %th{"data-type" => "string"}  User:
         %th{"data-type" => "string"}  To:
         %th Remainder:
-        %th{"data-type" => "numder"}  Balance before:
         %th{"data-type" => "number"}  Summ:
-        %th Balance after outcome:
+        -if @curr_user.role_id == 1
+          %th{"data-type" => "numder"}  Balance before:
+          %th Balance after outcome:
         %th Created:
         %th Status:
         %th Decision time:
+        %th
       %tbody
+      - i = 1
       - @transactions.each do |t|
-        - i = 1
         %tr{"id" => i}
           %th= t.user.name
           %td= t.remote_account_iban
           %th= t.remainder
-          %th= t.balance
           %th= t.summ
-          %th= t.balance_after
+          -if @curr_user.role_id == 1
+            %th= t.balance
+            %th= t.balance_after
           %td= t.created_at.to_formatted_s(:short)
           %th= t.status_from
           %td= t.updated_at.to_formatted_s(:short)
-          - i+= 1
+          %td
+            %button#details_s.btn.btn-outline-primary.btn-round.btn-sm{:onclick => "show_details();"} Details
+        %tr.details_all 
+          %td{:colspan => "4"}
+            %table{"id" => "details_#{i}"}   
+              %tr
+                %td Created
+                %td= t.trans_tracker.created_at.strftime("%e %b %T") 
+                %td
+              %tr
+                %td Status "pending" 
+                %td= t.trans_tracker.pending_time.strftime("%e %b %T") 
+                -if t.trans_tracker.time_in_pending != nil
+                  %td #{(t.trans_tracker.time_in_pending * 100).to_i.to_f / 100} s
+              %tr
+                %td Status "approved" 
+                %td= t.trans_tracker.updated_at.strftime("%e %b %T") 
+                %td
+              %tr
+                %td Cause 
+                %td= t.trans_tracker.cause
+              %tr
+                %td Total time 
+                %td 
+                -if t.trans_tracker.total_time != nil
+                  %td #{(t.trans_tracker.total_time * 100).to_i.to_f / 100} s
+        - i+= 1
+            
+
+        
 %h3 Income
 -if @income
   %table
@@ -58,7 +89,9 @@
 
 
 :javascript
-  / var grid = document.getElementById('grid');
+
+  
+  /* var grid = document.getElementById('grid');
   / grid.onclick = function(e) {
   /   if (e.target.tagName != 'TH') return;
   /   sortGrid(e.target.cellIndex, e.target.getAttribute('data-type'));
@@ -91,4 +124,5 @@
 
   /   grid.appendChild(tbody);
 
-  / }
+  / } */
+

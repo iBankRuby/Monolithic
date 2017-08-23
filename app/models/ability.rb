@@ -2,6 +2,7 @@ class Ability
   include CanCan::Ability
 
   def initialize(user)
+    alias_action :read, :create, :update, :destroy, to: :crud
     @current_user ||= user
 
     abilities_to_owner     if user.has_role? :owner
@@ -12,7 +13,7 @@ class Ability
   private
 
   def abilities_to_owner
-    can :manage, Account
+    can :crud, Account
     can :check_account_balance, Account
   end
 
@@ -27,3 +28,4 @@ class Ability
     can :check_account_balance, Account
   end
 end
+

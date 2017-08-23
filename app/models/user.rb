@@ -11,9 +11,8 @@ class User < ApplicationRecord
   attr_reader :role
 
   def role_for(account)
-    @role = account_users.find_by(account_id: account.id).role
-  rescue NoMethodError
-    redirect_to accounts_url
+    raise RecordNotFound if (record = account_users.find_by(account_id: account.id)).nil?
+    @role = record.role
   end
 
   def has_role?(rol)

@@ -37,6 +37,8 @@ class AccountsController < ApplicationController
 
   def set_user_role
     user.role_for(account)
+  rescue RecordNotFound
+    redirect_to accounts_path
   end
 
   def set_account

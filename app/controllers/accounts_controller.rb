@@ -1,7 +1,6 @@
-# frozen_string_literal: true
-
 class AccountsController < ApplicationController
   before_action :set_account, only: %i[show destroy]
+  before_action :set_user_role, only: %i[show]
   attr_reader :accounts, :account, :income
 
   def index
@@ -37,6 +36,12 @@ class AccountsController < ApplicationController
 
   private
 
+  def set_user_role
+    user.role_for(account)
+  rescue RecordNotFound
+    redirect_to accounts_path
+  end
+
   def set_account
     @account ||= Account.friendly.find(params[:id])
   end
@@ -46,11 +51,11 @@ class AccountsController < ApplicationController
   end
 
   def accounts_list
-    @accounts = user.accounts
+    @accounts = user.accounts.to_a
   end
 
   def invites_list
-    @invites ||= Invite.where(user_to_email: user.email, status: nil)
+    @invites ||= Invite.where(user_to_email: user.email, status: 'pending')
   end
 
   def outgoing_transactions_list
@@ -61,5 +66,11 @@ class AccountsController < ApplicationController
   def incoming_transactions_list
     @income = Transaction.where(remote_account_iban: account.iban.to_s,
                                 status_from: 'approved')
+  end
+
+  def set_role
+    @role ||= @account.account_users.find_by(user_id: current_user.id).role_id
+  rescue NoMethodError
+    redirect_to accounts_url
   end
 end

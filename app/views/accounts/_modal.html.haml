@@ -1,0 +1,26 @@
+%button.btn.btn-outline-primary.btn-round.btn-sm{ type: 'button', 'data-toggle': 'modal', 'data-target': '#myModal' }
+  Replenish
+
+%div.modal.fade#myModal{ tabindex: '-1', role: 'dialog', 'aria-labelledby': 'exampleModalLabel', 'aria-hidden': true }
+  %div.modal-dialog{ role: 'document' }
+    %div.modal-content
+      %div.modal-header
+        %h5.modal-title.text-center#exampleModalLabel Send money from account
+        %button.close{ type: 'button', 'data-dismiss': 'modal', 'aria-label': 'Close' }
+          %span{ 'aria-hidden': true } x
+
+      %div.modal-body
+        = form_tag exchange_account_transactions_path(active_account), method: :post do |f|
+          - accounts = accs
+          - (accounts-[active_account]).each do |account|
+            %div.row
+              %div.col-md-6
+                %input{ type: 'radio', name: 'refillable_account', value: account.iban }
+                  = account.iban
+                  |
+                  = account.balance
+          %div.row
+            %div.col-md-6
+              %div.form-group
+                %input.form-control{ placeholder: 'Amount', name: 'summ' }
+          = submit_tag 'Send', class: 'btn btn-outline-success btn-round btn-sm'

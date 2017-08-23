@@ -21,8 +21,9 @@ class TransactionCreator
   def create_transaction
     ActiveRecord::Base.transaction do
       account_user
-      trans = create_transaction_object
-      create_trans_tracker(trans)
+      #trans = create_transaction_object
+      @transaction = create_transaction_object
+      create_trans_tracker(@transaction)
       #CancelOverdueTransaction.enqueue(transaction.id)
       #ExpireTransactionsWorker.perform_in(2.minutes, transaction.id)
     end
@@ -41,6 +42,14 @@ class TransactionCreator
 
   def approve_from_owner
     approve_exceeding_limit
+    carry_out
+  end
+
+  def exchange
+    create_transaction
+    @account_from = Account.find(params[:account_id])
+    transaction.process!
+    enough_of_money?
     carry_out
   end
 

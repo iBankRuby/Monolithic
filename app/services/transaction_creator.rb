@@ -44,10 +44,8 @@ class TransactionCreator
   def exchange
     create_transaction
     @account_from = Account.find(params[:account_id])
-    @account = account_to
     transaction.process!
     enough_of_money?
-    # return false until transaction.approved?
     carry_out
   end
 

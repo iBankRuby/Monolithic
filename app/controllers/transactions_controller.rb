@@ -39,9 +39,9 @@ class TransactionsController < ApplicationController
     transaction_creator = set_exchange
     case transaction_creator.exchange
     when 'canceled'
-      redirect_to account, notice: 'Not enough of money.'
+      redirect_to exchange_account, notice: 'Not enough of money.'
     else
-      redirect_to account, notice: 'Transaction completed successfully.'
+      redirect_to exchange_account, notice: 'Transaction completed successfully.'
     end
   end
 
@@ -49,6 +49,10 @@ class TransactionsController < ApplicationController
 
   def account
     account_path(params[:account_id])
+  end
+
+  def exchange_account
+    account_path(Account.find_by(iban: params[:account]))
   end
 
   def set_transaction

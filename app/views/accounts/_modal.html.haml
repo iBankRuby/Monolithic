@@ -10,7 +10,7 @@
           %span{ 'aria-hidden': true } x
 
       %div.modal-body
-        = form_for account_transactions_path(active_account), method: :patch do |f|
+        = form_tag exchange_account_transactions_path(active_account), method: :post do |f|
           - accounts = accs
           - (accounts-[active_account]).each do |account|
             %div.row

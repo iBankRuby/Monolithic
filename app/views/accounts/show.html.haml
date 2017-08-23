@@ -50,7 +50,7 @@
                 %th Created:
                 %th Status:
             %tbody
-            - @transactions.each do |t|
+            - @transactions.reverse_each do |t|
               %tr
               %td= t.remote_account_iban
               %td= t.summ

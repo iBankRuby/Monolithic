@@ -24,8 +24,9 @@
               %th Balance
               %th Date created
               %th Actions
+              %th Status
           %tbody
-            - @accounts.each do |account|
+            - @accounts.reverse_each do |account|
               -@rule_acc = account.account_users.with_deleted.find_by(user_id: current_user.id).role.name
               %tr
                 -if @rule_acc == "owner"
@@ -36,6 +37,8 @@
                     %td.actions
                       = link_to 'Show', account, :class => 'btn btn-outline-primary btn-round btn-sm'
                       = link_to 'Delete', account, :method => :delete, :data => { :confirm => 'Are you sure?' }, :class => 'btn btn-outline-danger btn-round btn-sm'
+                    %td.status
+                      Active
                   -if account.deleted_at?
                     %td.actions
                       = link_to 'Restore', account, :method => :patch, :class => 'btn btn-sm btn-outline-warning'

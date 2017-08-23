@@ -49,16 +49,11 @@ class Invite < ApplicationRecord
 
   # TODO: Do sending with using background jobs.
   def send_email
-    user = User.find_by(email: user_to_email)
-    if user
-      InviteMailer.invite(user).deliver
-    else
-      # creating user account and send confirmation letter
-      @user = User.find_or_create_by(email: user_to_email)
-      @user.send_confirmation_instructions
-      user_from = User.find_by(id: user_from_id)
-      InviteMailer.invite(@user, user_from).deliver
-    end
+    user = User.find_or_create_by(email: user_to_email)
+    user_from = User.find_by(id: user_from_id)
+    # creating user account and send confirmation letter
+    user.send_confirmation_instructions
+    InviteMailer.invite(user, user_from).deliver
   end
 
   def confirm_invite(current_user, account_id)

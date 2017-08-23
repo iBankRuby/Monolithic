@@ -4,5 +4,4 @@ class InviteMailer < ApplicationMailer
     @user_from = user_from
     mail(to: user.email, subject: 'Invite')
   end
-
 end

@@ -20,6 +20,6 @@ Invite.create(
   user_to_email: user2.email
 )
 
-%w[owner co-user].each do |el|
+%w[owner co-user read_only].each do |el|
   Role.create!(name: el)
 end

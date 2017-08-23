@@ -1,6 +1,4 @@
 class User < ApplicationRecord
-  # Include default devise modules. Others available are:
-  # :confirmable, :lockable, :timeoutable and :omniauthable
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :trackable, :validatable, :confirmable
 
@@ -8,6 +6,7 @@ class User < ApplicationRecord
   has_many :account_users
   has_many :accounts, through: :account_users
   has_many :roles, through: :account_users
+  attr_reader :role
 
   def password_required?
     super if confirmed_at?
@@ -40,4 +39,13 @@ class User < ApplicationRecord
     pending_any_confirmation { yield }
   end
 
+
+  def role_for(account)
+    raise RecordNotFound if (record = account_users.find_by(account_id: account.id)).nil?
+    @role = record.role
+  end
+
+  def has_role?(rol)
+    role.name.to_sym == rol
+  end
 end

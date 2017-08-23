@@ -3,6 +3,7 @@ Rails.application.routes.draw do
     resources :statistics, only: %i[index create update]
     resources :transactions, only: %i[index create] do
       patch :cancel, :confirm, :ownerapprove
+      post :exchange, on: :collection
     end
     resources :invites, only: %i[index create destroy update] do
       patch :confirm, :reject
@@ -21,8 +22,7 @@ Rails.application.routes.draw do
       match '/user/confirmation' => 'users/confirmations#update', :via => :put, :as => :update_user_confirmation
   end
 
-  devise_for :users, controllers: {
-    path: '',
+  devise_for :users, path: '', controllers: {
     sessions: 'users/sessions',
     registrations: 'users/registrations',
     confirmations: 'users/confirmations'

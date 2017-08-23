@@ -33,4 +33,6 @@ module TransTracking
   def tracker
     transaction.trans_tracker
   end
+
+  
 end

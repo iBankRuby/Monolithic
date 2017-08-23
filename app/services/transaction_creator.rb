@@ -23,7 +23,7 @@ class TransactionCreator
       account_user
       trans = create_transaction_object
       create_trans_tracker(trans)
-      CancelOverdueTransaction.enqueue(transaction.id)
+      #CancelOverdueTransaction.enqueue(transaction.id)
       #ExpireTransactionsWorker.perform_in(2.minutes, transaction.id)
     end
     @account = account_from

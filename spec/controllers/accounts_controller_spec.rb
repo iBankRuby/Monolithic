@@ -54,14 +54,14 @@ RSpec.describe AccountsController, type: :controller do
   end
 
   describe 'POST create' do
-    it 'redirect to account' do
-      post :create, params: { account: account }
-      expect(response).to redirect_to Account.last
-    end
-
     it 'creates a new account' do
-      post :create, params: { account: account }
+      post :create, params: {}
       expect(Account.exists?(account.id)).to be_truthy
+    end
+    it 'redirect to account' do
+      post :create, params: {}
+      expect(response).to redirect_to(account_path(Account.last))
+      binding.pry
     end
   end
 

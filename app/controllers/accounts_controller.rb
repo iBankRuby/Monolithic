@@ -11,6 +11,7 @@ class AccountsController < ApplicationController
   end
 
   def create
+    binding.pry
     iban = Ibandit::IBAN.new(country_code: 'BE',
                              account_number: Forgery('credit_card').number)
     account = Account.create!(iban: iban.iban,

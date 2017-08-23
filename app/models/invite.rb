@@ -18,6 +18,7 @@ class Invite < ApplicationRecord
     state :confirmed
     state :rejected
     state :closed
+    state :canceled
     state :expired
 
     event :confirm do
@@ -32,6 +33,10 @@ class Invite < ApplicationRecord
       transitions from: :confirmed, to: :closed
     end
 
+    event :cancel do
+      transitions from: :pending, to: :canceled
+    end
+
     event :expire do
       transitions from: :pending, to: :expired
     end
@@ -43,7 +48,7 @@ class Invite < ApplicationRecord
       invite.account = Account.friendly.find(args.dig(:invite_params, :account_id))
       invite.create_rule(args[:rule_params])
       invite.save && invite.send_email
-      ExpireInvitesWorker.perform_in(2.minutes, invite.id)
+      # ExpireInvitesWorker.perform_in(2.minutes, invite.id)
     end
   end
 

@@ -39,7 +39,7 @@ class TransactionsController < ApplicationController
     transaction_creator = set_exchange
     case transaction_creator.exchange
     when 'canceled'
-      redirect_to exchange_account, notice: 'Not enough of money.'
+      redirect_to exchange_account, alert: 'Not enough money.'
     else
       redirect_to exchange_account, notice: 'Transaction completed successfully.'
     end
@@ -69,7 +69,7 @@ class TransactionsController < ApplicationController
     account = account_path(params[:account_id])
     case transaction.confirm
     when 'canceled'
-      redirect_to account, notice: 'Not enough money.'
+      redirect_to account, alert: 'Not enough money.'
     when 'in_approval'
       redirect_to account, notice: 'Exceeding the limit. Approve from owner requested.'
     else

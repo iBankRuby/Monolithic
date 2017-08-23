@@ -82,7 +82,7 @@
       %tr
         %td= invite.user_from_id
         %td= invite.account.iban
-        %td= link_to 'Submit', account_invite_confirm_path(invite.account_id, invite.id), method: :patch, class: 'btn btn-sm btn-outline-success'
+        %td= link_to 'Accept invite', account_invite_confirm_path(invite.account_id, invite.id), method: :patch, class: 'btn btn-sm btn-outline-success'
         %td= link_to 'Reject', account_invite_reject_path(invite.account_id, invite.id), method: :patch, class: 'btn btn-sm btn-outline-danger'
 %div
 
@@ -102,5 +102,5 @@
         %td= request.user.name
         %td= request.amount
         %td
-          = link_to 'Accept invite', account_exceeding_request_path(request.account.id, request.id, exceeding_request: { status: true }), method: :patch, class: 'btn btn-sm btn-outline-primary'
+          = link_to 'Confirm exceeding', account_exceeding_request_path(request.account.id, request.id, exceeding_request: { status: true }), method: :patch, class: 'btn btn-sm btn-outline-primary'
           = link_to 'Reject', account_exceeding_request_path(request.account.id, request.id, exceeding_request: { status: false }), method: :patch, class: 'btn btn-sm btn-outline-danger'

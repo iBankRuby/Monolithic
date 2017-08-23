@@ -1,6 +1,7 @@
 class AccountsController < ApplicationController
   before_action :set_account, only: %i[show destroy]
   before_action :set_user_role, only: %i[show]
+  before_action :set_couser_remainder, only: %i[show]
   attr_reader :accounts, :account, :income
 
   def index
@@ -37,7 +38,7 @@ class AccountsController < ApplicationController
   private
 
   def set_user_role
-    user.role_for(account)
+    @role = user.role_for(account).name
   rescue RecordNotFound
     redirect_to accounts_path
   end
@@ -72,5 +73,13 @@ class AccountsController < ApplicationController
     @role ||= @account.account_users.find_by(user_id: current_user.id).role_id
   rescue NoMethodError
     redirect_to accounts_url
+  end
+
+  def set_couser_remainder
+    @couser_remainder = if @role == "co-user"
+      @account.account_users.find_by(user_id: current_user.id).limit.reminder
+    else
+      nil
+    end
   end
 end

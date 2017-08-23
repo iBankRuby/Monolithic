@@ -11,7 +11,7 @@
       .col-md-8
         %h5 #{@account.iban}
         %h5= 'Valid THRU: ' + @account.valid_thru.strftime('%m/%d')
-        %h5= @account.account_users.find_by(user_id: current_user.id).role.name
+        %h5= @couser_remainder
       .col-md-4
         -if can? :check_account_balance, @account
           %h5 Balance: #{@account.balance}

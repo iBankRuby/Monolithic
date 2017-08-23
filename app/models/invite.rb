@@ -72,7 +72,7 @@ class Invite < ApplicationRecord
   def send_email
     user = User.find_by(email: user_to_email)
     if user
-      InviteMailer.invite_for_existing_user(user).deliver
+      #InviteMailer.invite_for_existing_user(user).deliver
     else
       InviteMailer.invite(user_to_email).deliver
     end

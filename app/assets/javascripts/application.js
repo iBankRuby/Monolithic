@@ -17,3 +17,7 @@
 //= require turbolinks-compatibility
 //= require_tree .
 
+$(document).ready(function(){
+	$('#tabs').tabs();
+	$('.checkbox').checkbox();
+})

@@ -78,8 +78,6 @@ class AccountsController < ApplicationController
   def set_couser_remainder
     @couser_remainder = if @role == "co-user"
       @account.account_users.find_by(user_id: current_user.id).limit.reminder
-    else
-      nil
     end
   end
 end

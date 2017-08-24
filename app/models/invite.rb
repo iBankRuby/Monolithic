@@ -41,8 +41,10 @@ class Invite < ApplicationRecord
     ActiveRecord::Base.transaction do
       invite = new(args[:invite_params])
       invite.account = Account.friendly.find(args.dig(:invite_params, :account_id))
-      invite.create_rule(args[:rule_params])
-      invite.save && invite.send_email && ExpireInvitesWorker.perform_in(2.minutes, invite.id)
+      if invite.save && invite.create_rule(args[:rule_params])
+        invite.send_email
+        # ExpireInvitesWorker.perform_in(2.minutes, invite.id)
+      end
     end
   end
 
@@ -80,7 +82,7 @@ class Invite < ApplicationRecord
   end
 
   def cannot_create_two_same_pending_invites
-    inv = find_by(user_to_email: user_to_email, user_from_id: user_from_id, account_id: account_id)
-    inv || errors.add(:user_from_id, 'You cannot send invite twice')
+    inv = self.class.find_by(user_to_email: user_to_email, user_from_id: user_from_id, account_id: account_id)
+    inv && errors.add(:user_from_id, 'You cannot send invite twice')
   end
 end

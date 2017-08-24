@@ -26,7 +26,7 @@ module InvitesTracking
 
   def track_closing
     @invite.total_time
-    @invite.tracker.cause = 'Owner deleted user from account'
+    @invite.tracker.cause = @role == 'owner' ? 'Owner deleted user from account' : 'User left the account'
     @invite.tracker.save
   end
 

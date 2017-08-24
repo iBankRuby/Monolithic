@@ -33,14 +33,17 @@ class Invite < ApplicationRecord
 
     event :close do
       transitions from: :confirmed, to: :closed
+      track_closing
     end
 
     event :cancel do
       transitions from: :pending, to: :canceled
+      track_cancel
     end
 
     event :expire do
       transitions from: :pending, to: :expired
+      track_expired
     end
   end
 

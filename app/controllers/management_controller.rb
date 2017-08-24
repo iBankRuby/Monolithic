@@ -1,5 +1,6 @@
-# frozen_string_literal: true
 class ManagementController < ApplicationController
+  include InvitesTracking
+
   before_action :account
 
   def index
@@ -11,6 +12,7 @@ class ManagementController < ApplicationController
   def destroy
     rule = AccountUser.find_by(id: params[:id]).rule
     Invite.find(rule.invite_id).close!
+    track_closing
     rule.really_destroy!
     redirect_to account_management_index_path, notice: 'Co-user was successfully deleted.'
   end

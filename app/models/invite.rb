@@ -5,7 +5,7 @@ class Invite < ApplicationRecord
   has_one :invites_tracker, dependent: :destroy
   belongs_to :account
 
-  validate :user_cannot_send_invites_to_himself
+  validate :user_cannot_send_invites_to_himself, :cannot_create_two_same_pending_invites
   validates :user_to_email, format: {
     with: /\A([A-Z|a-z|0-9](\.|_){0,1})+[A-Z|a-z|0-9]\@([A-Z|a-z|0-9])+((\.){0,1}[A-Z|a-z|0-9]){2}\.[a-z]{2,3}\z/,
     message: 'Email should be valid'
@@ -33,17 +33,14 @@ class Invite < ApplicationRecord
 
     event :close do
       transitions from: :confirmed, to: :closed
-      track_closing
     end
 
     event :cancel do
       transitions from: :pending, to: :canceled
-      track_cancel
     end
 
     event :expire do
       transitions from: :pending, to: :expired
-      track_expired
     end
   end
 
@@ -91,5 +88,10 @@ class Invite < ApplicationRecord
   def user_cannot_send_invites_to_himself
     user = User.find_by(email: user_to_email)
     user && user_from_id == user.id && errors.add(:user_from_id, 'You cannot send invites to yourself')
+  end
+
+  def cannot_create_two_same_pending_invites
+    inv = self.class.find_by(user_to_email: user_to_email, user_from_id: user_from_id, account_id: account_id)
+    inv && errors.add(:user_from_id, 'You cannot send invite twice')
   end
 end

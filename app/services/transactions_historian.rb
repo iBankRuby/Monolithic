@@ -1,5 +1,3 @@
-# frozen_string_literal: true
-
 module TransactionsHistorian
   def build_responce
     account_user

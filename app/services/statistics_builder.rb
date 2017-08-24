@@ -22,14 +22,14 @@ module StatisticsBuilder
       :action,
       :date_from,
       :date_to
-    ).delete_if { |key, value| value.blank? }.each do |k, v| #.merge(created_at)
+    ).delete_if { |_key, value| value.blank? }.each do |k, v| # .merge(created_at)
       @range[k] = v
     end
     @range
   end
 
   def created_at
-    if params[:date_from] != '' && params[:date_from] != nil 
+    if params[:date_from] != '' && !params[:date_from].nil?
       { created_at: params[:date_from].to_time..params[:date_to].to_time.end_of_day }
     else
       {}
@@ -58,6 +58,6 @@ module StatisticsBuilder
   end
 
   def build_statistics
-    @transactions = role == "owner" ?  transactions : transactions.where(user_id: current_user.id)
+    @transactions = role == 'owner' ? transactions : transactions.where(user_id: current_user.id)
   end
 end

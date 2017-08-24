@@ -11,8 +11,9 @@ class ManagementController < ApplicationController
 
   def destroy
     rule = AccountUser.find_by(id: params[:id]).rule
-    Invite.find(rule.invite_id).close!
+    @invite = Invite.find(rule.invite_id)
     track_closing
+    @invite.close!
     rule.really_destroy!
     redirect_to account_management_index_path, notice: 'Co-user was successfully deleted.'
   end

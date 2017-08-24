@@ -21,6 +21,9 @@
 
 @import "bootstrap/functions";
 @import "bootstrap/variables";
+$success-color: #7eae04 !default;
+$bg-success: darken($success-color, 5%) !default;
+$warning-color: #fb9701;
 @import "bootstrap/mixins";
 @import "bootstrap/print";
 @import "bootstrap/reboot";
@@ -126,6 +129,40 @@ h5.name_user {
       color: #fff;
     }
   }
+}
+
+@media (min-width: 992px) {
+.navbar-toggleable-md .navbar-collapse {
+    display: -webkit-box!important;
+    display: -webkit-flex!important;
+    display: -ms-flexbox!important;
+    display: flex!important;
+    width: 100%;
+}
+.navbar-toggleable-md {
+    -webkit-box-orient: horizontal;
+    -webkit-box-direction: normal;
+    -webkit-flex-direction: row;
+    -ms-flex-direction: row;
+    flex-direction: row;
+    -webkit-flex-wrap: nowrap;
+    -ms-flex-wrap: nowrap;
+    flex-wrap: nowrap;
+    -webkit-box-align: center;
+    -webkit-align-items: center;
+    -ms-flex-align: center;
+    align-items: center;
+}
+.navbar-toggleable-md .navbar-nav {
+    -webkit-box-orient: horizontal;
+    -webkit-box-direction: normal;
+    -webkit-flex-direction: row;
+    -ms-flex-direction: row;
+    flex-direction: row;
+}
+.navbar-toggleable-md .navbar-toggler {
+    display: none;
+}
 }
 
 /* Form Sign Up */

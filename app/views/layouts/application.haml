@@ -10,32 +10,31 @@
   = javascript_include_tag 'application', 'data-turbolinks-track': 'reload'
 
   %body
-    %nav.navbar.navbar-toggleable-md.bg-primary
-      .container
-        %a.navbar-brand.mb-0{:href => "/"} iBank
-        %button.navbar-toggler.navbar-toggler-right.mt-0{"aria-controls" => "navbarNav", "aria-expanded" => "false", "aria-label" => "Toggle navigation", "data-target" => "#navbar-success", "data-toggle" => "collapse", :type => "button"}
-          %span.navbar-toggler-bar
-          %span.navbar-toggler-bar
-          %span.navbar-toggler-bar
-        #navbar-success.collapse.navbar-collapse
-          %ul.navbar-nav.ml-auto
-            - if user_signed_in?
-              %li.nav-item
-                .nav-link.disabled
-                  %i.nc-icon.nc-bell-55{"aria-hidden" => "true"}
-              %li.nav-item
-                .nav-link
-                  %i.nc-icon.nc-single-02{"aria-hidden" => "true"}
-                    #{current_user.name || current_user.email}
-              %li.nav-item
-                = link_to destroy_user_session_path, method: :delete, :class => 'nav-link logout' do
-                  %i.nc-icon.nc-user-run{"aria-hidden" => "true"}
-                  Logout
-            - else
-              %li.nav-item
-                = link_to 'Login', new_user_session_path, :class => 'nav-link'
-              %li.nav-item
-                = link_to 'Sign Up', new_user_registration_path, :class => 'nav-link'
+    %nav.navbar.navbar-toggleable-md.bg-success
+      %a.navbar-brand{:href => "/"} iBank
+      %button.navbar-toggler.navbar-toggler-right.mt-0{"aria-controls" => "navbarNav", "aria-expanded" => "false", "aria-label" => "Toggle navigation", "data-target" => "#navbar-success", "data-toggle" => "collapse", :type => "button"}
+        %span.navbar-toggler-bar
+        %span.navbar-toggler-bar
+        %span.navbar-toggler-bar
+      #navbar-success.collapse.navbar-collapse
+        %ul.navbar-nav.ml-auto
+          - if user_signed_in?
+            %li.nav-item
+              .nav-link.disabled
+                %i.nc-icon.nc-bell-55{"aria-hidden" => "true"}
+            %li.nav-item
+              .nav-link
+                %i.nc-icon.nc-single-02{"aria-hidden" => "true"}
+                  #{current_user.name || current_user.email}
+            %li.nav-item
+              = link_to destroy_user_session_path, method: :delete, :class => 'nav-link logout' do
+                %i.nc-icon.nc-user-run{"aria-hidden" => "true"}
+                Logout
+          - else
+            %li.nav-item
+              = link_to 'Login', new_user_session_path, :class => 'nav-link'
+            %li.nav-item
+              = link_to 'Sign Up', new_user_registration_path, :class => 'nav-link'
     .container
       .row.content
         .col-md-12

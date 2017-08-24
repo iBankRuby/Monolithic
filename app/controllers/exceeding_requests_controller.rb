@@ -15,13 +15,14 @@ class ExceedingRequestsController < ApplicationController
   end
 
   def update
-    status = exceeding_request_params[:status].eql?('true')
-    if exceeding_request.update(status: status)
-      status && exceeding_request.update_rule
-      redirect_to accounts_url,
-                  notice: (status ? 'Request has successfully confirmed' : 'Request has rejected')
-    else
-      redirect_to accounts_url, alert: 'Invalid params'
+    case exceeding_request_params[:status].eql?('true')
+    when true
+      invalid_redirect unless exceeding_request.may_confirm?
+      exceeding_request.confirm! && exceeding_request.update_rule
+      redirect_to accounts_url, notice: 'Request has successfully confirmed'
+    when false
+      invalid_redirect unless exceeding_request.may_reject?
+      exceeding_request.reject! && redirect_to(accounts_url, notice: 'Request has been rejected')
     end
   end
 
@@ -30,6 +31,10 @@ class ExceedingRequestsController < ApplicationController
   end
 
   private
+
+  def invalid_redirect
+    redirect_to accounts_url, alert: 'Invalid params'
+  end
 
   def set_exceeding_request
     @exceeding_request = ExceedingRequest.find(params[:id])

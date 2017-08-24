@@ -17,7 +17,7 @@
       %tbody
       - i = 1
       - @transactions.each do |t|
-        %tr{"id" => i}
+        %tr.trans{"id" => i}
           %th= t.user.name
           %td= t.remote_account_iban
           %th= t.remainder
@@ -25,14 +25,19 @@
           -if @curr_user.role_id == 1
             %th= t.balance
             %th= t.balance_after
-          %td= t.created_at.to_formatted_s(:short)
+          %td.time_one= t.created_at.to_formatted_s(:short)
           %th= t.status_from
-          %td= t.updated_at.to_formatted_s(:short)
+          %td.time_two= t.updated_at.to_formatted_s(:short)
           %td
-            %button#details_s.btn.btn-outline-primary.btn-round.btn-sm{:onclick => "show_details_#{i}();"} Details
+            %button.btn.btn-outline-primary.btn-round.btn-sm{"id" => "details_s_#{i}", :onclick => "show_details_#{i}();"} Details
+            %button.details_btn_none.btn.btn-outline-primary.btn-round.btn-sm{"id" => "details_btn_2_#{i}", :onclick => "show_details_2_#{i}();"} Details
         %tr.details_all{"id" => "details-#{i}"} 
           %td{:colspan => "6"}
             %table   
+              %tr
+                %th Status
+                %th Created time
+                %th Total time
               %tr
                 %td Created
                 %td= t.trans_tracker.created_at.strftime("%e %b %T") 
@@ -54,9 +59,18 @@
                 %td 
                 -if t.trans_tracker.total_time != nil
                   %td #{(t.trans_tracker.total_time * 100).to_i.to_f / 100} 
-        :javascript 
+        :javascript
           function show_details_#{i}(){
-            $('#details-#{i}').toggle();
+            $('#details-#{i}').css({"display":"table-row"});
+            $('#details_s_#{i}').css({"display":"none"});
+            $('#details_btn_2_#{i}').css({"display":"block"});
+            console.log(1);
+          };
+          function show_details_2_#{i}(){
+            $('#details-#{i}').css({"display":"none"});
+            $('#details_btn_2_#{i}').css({"display":"none"});
+            $('#details_s_#{i}').css({"display":"block"});
+            console.log(1);
           }
         - i+= 1         
 %h3 Income

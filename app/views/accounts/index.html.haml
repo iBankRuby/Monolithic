@@ -58,7 +58,7 @@
                   %td.balance #{account.account_users.find_by(user_id: current_user.id).limit.reminder}
                   %td.date #{account.created_at.to_formatted_s(:short)}
                   %td.actions
-                    = link_to 'Show', account, :class => 'btn btn-outline-info btn-round btn-sm'
+                    = link_to 'Show', account, :class => 'btn btn-outline-primary btn-round btn-sm'
                 / %td.actions
                 /   = link_to 'Show', account, :class => 'btn btn-outline-info btn-round btn-sm'
                 / -if account.deleted_at.nil?

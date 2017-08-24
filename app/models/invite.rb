@@ -1,6 +1,8 @@
 class Invite < ApplicationRecord
+  include InvitesTracking
   include AASM
   has_one :rule, dependent: :destroy
+  has_one :invites_tracker, dependent: :destroy
   belongs_to :account
 
   validate :user_cannot_send_invites_to_himself
@@ -18,6 +20,7 @@ class Invite < ApplicationRecord
     state :confirmed
     state :rejected
     state :closed
+    state :canceled
     state :expired
 
     event :confirm do
@@ -30,10 +33,17 @@ class Invite < ApplicationRecord
 
     event :close do
       transitions from: :confirmed, to: :closed
+      #track_closing
+    end
+
+    event :cancel do
+      transitions from: :pending, to: :canceled
+      #track_cancel
     end
 
     event :expire do
       transitions from: :pending, to: :expired
+      #track_expired
     end
   end
 
@@ -42,7 +52,8 @@ class Invite < ApplicationRecord
       invite = new(args[:invite_params])
       invite.account = Account.friendly.find(args.dig(:invite_params, :account_id))
       invite.create_rule(args[:rule_params])
-      invite.save && invite.send_email
+      invite.create_invites_tracker(invite_id: invite.id, limit: invite.rule.spending_limit)
+      invite.send_email && invite.save
       #ExpireInvitesWorker.perform_in(2.minutes, invite.id)
     end
   end
@@ -50,6 +61,7 @@ class Invite < ApplicationRecord
   def confirm_invite(current_user, account_id)
     return false unless may_confirm?
     confirm!
+    track_confirming
     account_user = AccountUser.create(user: current_user,
                                       account_id: account_id,
                                       rule_id: rule.id,
@@ -61,6 +73,7 @@ class Invite < ApplicationRecord
     return false unless may_reject?
     rule.really_destroy!
     reject!
+    track_rejecting
   end
 
   # TODO: Do sending with using background jobs.

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170822151040) do
+ActiveRecord::Schema.define(version: 20170823130152) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -59,6 +59,18 @@ ActiveRecord::Schema.define(version: 20170822151040) do
     t.datetime "updated_at", null: false
     t.string "user_to_email", null: false
     t.index ["account_id"], name: "index_invites_on_account_id"
+  end
+
+  create_table "invites_trackers", force: :cascade do |t|
+    t.bigint "invite_id"
+    t.float "limit"
+    t.datetime "pending_time"
+    t.float "time_in_pending"
+    t.float "total_time"
+    t.string "cause"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["invite_id"], name: "index_invites_trackers_on_invite_id"
   end
 
   create_table "limits", force: :cascade do |t|

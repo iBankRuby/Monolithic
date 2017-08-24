@@ -39,7 +39,13 @@ class InvitesController < ApplicationController
 
   def destroy
     # TODO: Method will return sent invite.
-    invite.rule.really_destroy! && invite.destroy && redirect_to(:accounts)
+    if invite.may_cancel?
+      invite.rule.really_destroy!
+      invite.cancel!
+      redirect_to :account_invites, notice: 'Invite has been canceled.'
+    else
+      redirect_to :account_invites, alert: 'Invite already has been confirmed.'
+    end
   end
 
   private

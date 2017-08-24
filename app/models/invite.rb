@@ -20,6 +20,7 @@ class Invite < ApplicationRecord
     state :confirmed
     state :rejected
     state :closed
+    state :canceled
     state :expired
 
     event :confirm do
@@ -32,6 +33,10 @@ class Invite < ApplicationRecord
 
     event :close do
       transitions from: :confirmed, to: :closed
+    end
+
+    event :cancel do
+      transitions from: :pending, to: :canceled
     end
 
     event :expire do

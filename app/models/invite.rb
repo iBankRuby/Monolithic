@@ -3,7 +3,7 @@ class Invite < ApplicationRecord
   has_one :rule, dependent: :destroy
   belongs_to :account
 
-  validate :user_cannot_send_invites_to_himself
+  validate :user_cannot_send_invites_to_himself, :cannot_create_two_same_pending_invites
   validates :user_to_email, format: {
     with: /\A([A-Z|a-z|0-9](\.|_){0,1})+[A-Z|a-z|0-9]\@([A-Z|a-z|0-9])+((\.){0,1}[A-Z|a-z|0-9]){2}\.[a-z]{2,3}\z/,
     message: 'Email should be valid'
@@ -42,8 +42,7 @@ class Invite < ApplicationRecord
       invite = new(args[:invite_params])
       invite.account = Account.friendly.find(args.dig(:invite_params, :account_id))
       invite.create_rule(args[:rule_params])
-      invite.save && invite.send_email
-      ExpireInvitesWorker.perform_in(2.minutes, invite.id)
+      invite.save && invite.send_email && ExpireInvitesWorker.perform_in(2.minutes, invite.id)
     end
   end
 
@@ -78,5 +77,10 @@ class Invite < ApplicationRecord
   def user_cannot_send_invites_to_himself
     user = User.find_by(email: user_to_email)
     user && user_from_id == user.id && errors.add(:user_from_id, 'You cannot send invites to yourself')
+  end
+
+  def cannot_create_two_same_pending_invites
+    inv = find_by(user_to_email: user_to_email, user_from_id: user_from_id, account_id: account_id)
+    inv || errors.add(:user_from_id, 'You cannot send invite twice')
   end
 end

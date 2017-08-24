@@ -21,3 +21,4 @@ database.yml
 .idea/
 /doc
 /coverage/
+*.rdb

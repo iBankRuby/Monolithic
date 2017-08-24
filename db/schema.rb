@@ -54,7 +54,7 @@ ActiveRecord::Schema.define(version: 20170817082847) do
   create_table "invites", force: :cascade do |t|
     t.bigint "account_id"
     t.integer "user_from_id", null: false
-    t.boolean "status"
+    t.string "status"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.string "user_to_email", null: false

@@ -54,7 +54,7 @@ class AccountsController < ApplicationController
   end
 
   def invites_list
-    @invites ||= Invite.where(user_to_email: user.email, status: nil)
+    @invites ||= Invite.where(user_to_email: user.email, status: 'pending')
   end
 
   def outgoing_transactions_list
@@ -65,5 +65,11 @@ class AccountsController < ApplicationController
   def incoming_transactions_list
     @income = Transaction.where(remote_account_iban: account.iban.to_s,
                                 status_from: 'approved')
+  end
+
+  def set_role
+    @role ||= @account.account_users.find_by(user_id: current_user.id).role_id
+  rescue NoMethodError
+    redirect_to accounts_url
   end
 end

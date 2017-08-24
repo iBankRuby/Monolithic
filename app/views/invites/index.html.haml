@@ -1,6 +1,10 @@
 -if notice
-  %div.alert.alert-success
+  .alert.alert-success
     = notice
+-if alert
+  .alert.alert-danger
+    = alert
+
 = link_to accounts_url, :class => "link_back" do
   %i.nc-icon.nc-minimal-left
   Back to Accounts Page

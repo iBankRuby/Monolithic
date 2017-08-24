@@ -15,7 +15,7 @@ class InvitesController < ApplicationController
                    user_to_email: invite_params[:email],
                    account_id: params[:account_id] }
     if Invite.create_invite_with_rules(invite_params: invite_pms, rule_params: rule_params)
-      redirect_to account_invites_url, notice: 'Invite has made.'
+      redirect_to :account_invites, notice: 'Invite has made.'
     else
       redirect_to :account_invites, alert: 'Invite has not been sent'
     end

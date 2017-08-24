@@ -43,7 +43,7 @@ class Invite < ApplicationRecord
       invite.account = Account.friendly.find(args.dig(:invite_params, :account_id))
       invite.create_rule(args[:rule_params])
       invite.save && invite.send_email
-      ExpireInvitesWorker.perform_in(2.minutes, invite.id)
+      #ExpireInvitesWorker.perform_in(2.minutes, invite.id)
     end
   end
 

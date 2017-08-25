@@ -1,9 +1,11 @@
 class Invite < ApplicationRecord
+  include InvitesTracking
   include AASM
   has_one :rule, dependent: :destroy
+  has_one :invites_tracker, dependent: :destroy
   belongs_to :account
 
-  validate :user_cannot_send_invites_to_himself, :cannot_create_two_same_pending_invites
+  #validate :user_cannot_send_invites_to_himself, :cannot_create_two_same_pending_invites, on: :create
   validates :user_to_email, format: {
     with: /\A([A-Z|a-z|0-9](\.|_){0,1})+[A-Z|a-z|0-9]\@([A-Z|a-z|0-9])+((\.){0,1}[A-Z|a-z|0-9]){2}\.[a-z]{2,3}\z/,
     message: 'Email should be valid'
@@ -18,6 +20,7 @@ class Invite < ApplicationRecord
     state :confirmed
     state :rejected
     state :closed
+    state :canceled
     state :expired
 
     event :confirm do
@@ -32,6 +35,10 @@ class Invite < ApplicationRecord
       transitions from: :confirmed, to: :closed
     end
 
+    event :cancel do
+      transitions from: :pending, to: :canceled
+    end
+
     event :expire do
       transitions from: :pending, to: :expired
     end
@@ -41,10 +48,10 @@ class Invite < ApplicationRecord
     ActiveRecord::Base.transaction do
       invite = new(args[:invite_params])
       invite.account = Account.friendly.find(args.dig(:invite_params, :account_id))
-      if invite.save && invite.create_rule(args[:rule_params])
-        invite.send_email
-        # ExpireInvitesWorker.perform_in(2.minutes, invite.id)
-      end
+      invite.create_rule(args[:rule_params])
+      invite.create_invites_tracker(invite_id: invite.id, limit: invite.rule.spending_limit)
+      invite.send_email && invite.save
+      ExpireInvitesWorker.perform_in(2.minutes, invite.id)
     end
   end
 
@@ -60,6 +67,7 @@ class Invite < ApplicationRecord
   def confirm_invite(current_user, account_id)
     return false unless may_confirm?
     confirm!
+    track_confirming
     account_user = AccountUser.create(user: current_user,
                                       account_id: account_id,
                                       rule_id: rule.id,
@@ -71,6 +79,7 @@ class Invite < ApplicationRecord
     return false unless may_reject?
     rule.really_destroy!
     reject!
+    track_rejecting
   end
 
   private

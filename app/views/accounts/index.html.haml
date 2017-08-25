@@ -42,7 +42,7 @@
                   -if account.deleted_at?
                     %td.actions
                       = link_to 'Restore', account, :method => :patch, :class => 'btn btn-sm btn-outline-warning'
-                    %td.date Freezed #{account.deleted_at.to_formatted_s(:short)}
+                    %td.date Frozen #{account.deleted_at.to_formatted_s(:short)}
       #co-user-2.tab-pane{:role => "tabpanel"}
         %table.table-responsive
           %thead
@@ -56,16 +56,23 @@
             -@rule_acc_co_user = account.account_users.with_deleted.find_by(user_id: current_user.id).role.name
             %tr
               -if @rule_acc_co_user == "co-user"
-                %td.iban #{account.iban}
-                %td.balance #{account.balance}
-                %td.date #{account.created_at.to_formatted_s(:short)}
                 -if account.deleted_at.nil?
+                  %td.iban #{account.iban}
+                  %td.balance #{account.account_users.find_by(user_id: current_user.id).limit.reminder}
+                  %td.date #{account.created_at.to_formatted_s(:short)}
                   %td.actions
-                    = link_to 'Show', account, :class => 'btn btn-outline-info btn-round btn-sm'
+                    = link_to 'Show', account, :class => 'btn btn-outline-primary btn-round btn-sm'
+                / %td.actions
+                /   = link_to 'Show', account, :class => 'btn btn-outline-info btn-round btn-sm'
+                / -if account.deleted_at.nil?
+                /   %td.date Freezed #{account.deleted_at.to_formatted_s(:short)}
+
+
 
   .col-md-2
     = form_for new_account_path do |f|
       = f.submit 'New Account', :class => 'btn btn-outline-success btn-round'
+    = link_to 'Change User info', edit_user_registration_path, :class => 'btn btn-sm btn-outline-primary waves-effect'
 
 %div
 -unless @invites.to_a.empty?

@@ -1,4 +1,6 @@
 class InvitesController < ApplicationController
+  include InvitesTracking
+
   before_action :set_invite, only: %i[destroy confirm reject]
   # before_action :set_user_to_id, only: :create
   before_action :set_current_user_id, only: :create
@@ -15,7 +17,8 @@ class InvitesController < ApplicationController
                    user_to_email: invite_params[:email],
                    account_id: params[:account_id] }
     if Invite.create_invite_with_rules(invite_params: invite_pms, rule_params: rule_params)
-      redirect_to account_invites_url, notice: 'Invite has been made.'
+      #redirect_to account_invites_url, notice: 'Invite has been made.'
+      redirect_to :account_invites, notice: 'Invite has made.'
     else
       redirect_to :account_invites, alert: 'Invite has not been sent'
     end
@@ -42,6 +45,7 @@ class InvitesController < ApplicationController
     if invite.may_cancel?
       invite.rule.really_destroy!
       invite.cancel!
+      track_cancel
       redirect_to :account_invites, notice: 'Invite has been canceled.'
     else
       redirect_to :account_invites, alert: 'Invite already has been confirmed.'

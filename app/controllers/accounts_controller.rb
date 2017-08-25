@@ -67,10 +67,4 @@ class AccountsController < ApplicationController
     @income = Transaction.where(remote_account_iban: account.iban.to_s,
                                 status_from: 'approved')
   end
-
-  def set_role
-    @role ||= @account.account_users.find_by(user_id: current_user.id).role_id
-  rescue NoMethodError
-    redirect_to accounts_url
-  end
 end

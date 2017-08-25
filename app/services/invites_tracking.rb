@@ -13,25 +13,25 @@ module InvitesTracking
   end
 
   def track_cancel
-    time_in_pending
-    tracker.cause = 'Owner canceled invitation'
-    tracker.save
+    invite.time_in_pending
+    invite.tracker.cause = 'Owner canceled invitation'
+    invite.tracker.save
   end
 
   def track_expired
-    time_in_pending
-    tracker.cause = 'I waited long enough'
-    tracker.save
+    invite.total_time
+    invite.tracker.cause = 'I waited long enough'
+    invite.tracker.save
   end
 
   def track_closing
-    total_time
-    tracker.cause = 'Owner deleted user from account'
-    tracker.save
+    @invite.total_time
+    @invite.tracker.cause = @role == 'owner' ? 'Owner deleted user from account' : 'User left the account'
+    @invite.tracker.save
   end
 
   def time_in_pending
-    tracker.time_in_pending = updated_at - created_at
+    tracker.time_in_pending = Time.now - created_at
   end
 
   def total_time

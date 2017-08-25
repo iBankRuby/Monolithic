@@ -44,6 +44,8 @@ GEM
       public_suffix (~> 2.0, >= 2.0.2)
     arel (8.0.0)
     ast (2.3.0)
+    autoprefixer-rails (7.1.2.4)
+      execjs
     axiom-types (0.1.1)
       descendants_tracker (~> 0.0.4)
       ice_nine (~> 0.11.0)
@@ -56,6 +58,10 @@ GEM
     bindex (0.5.0)
     binding_of_caller (0.7.2)
       debug_inspector (>= 0.0.1)
+    bootstrap (4.0.0.beta)
+      autoprefixer-rails (>= 6.0.3)
+      popper_js (~> 1.11.1)
+      sass (>= 3.4.19)
     builder (3.2.3)
     byebug (9.0.6)
     cancancan (2.0.0)
@@ -160,6 +166,7 @@ GEM
     parser (2.4.0.0)
       ast (~> 2.2)
     pg (0.21.0)
+    popper_js (1.11.1)
     powerpack (0.1.1)
     pry (0.10.4)
       coderay (~> 1.1.0)
@@ -324,6 +331,7 @@ DEPENDENCIES
   aasm (~> 4.12, >= 4.12.2)
   better_errors
   binding_of_caller
+  bootstrap (~> 4.0.0.beta)
   byebug
   cancancan (~> 2.0)
   capybara (~> 2.13)

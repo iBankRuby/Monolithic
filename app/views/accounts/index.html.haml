@@ -24,8 +24,9 @@
               %th Balance
               %th Date created
               %th Actions
+              %th Status
           %tbody
-            - @accounts.each do |account|
+            - @accounts.reverse_each do |account|
               -@rule_acc = account.account_users.with_deleted.find_by(user_id: current_user.id).role.name
               %tr
                 -if @rule_acc == "owner"
@@ -36,6 +37,8 @@
                     %td.actions
                       = link_to 'Show', account, :class => 'btn btn-outline-primary btn-round btn-sm'
                       = link_to 'Delete', account, :method => :delete, :data => { :confirm => 'Are you sure?' }, :class => 'btn btn-outline-danger btn-round btn-sm'
+                    %td.status
+                      Active
                   -if account.deleted_at?
                     %td.actions
                       = link_to 'Restore', account, :method => :patch, :class => 'btn btn-sm btn-outline-warning'
@@ -86,7 +89,7 @@
       %tr
         %td= invite.user_from_id
         %td= invite.account.iban
-        %td= link_to 'Submit', account_invite_confirm_path(invite.account_id, invite.id), method: :patch, class: 'btn btn-sm btn-outline-success'
+        %td= link_to 'Accept invite', account_invite_confirm_path(invite.account_id, invite.id), method: :patch, class: 'btn btn-sm btn-outline-success'
         %td= link_to 'Reject', account_invite_reject_path(invite.account_id, invite.id), method: :patch, class: 'btn btn-sm btn-outline-danger'
 %div
 
@@ -106,5 +109,5 @@
         %td= request.user.name
         %td= request.amount
         %td
-          = link_to 'Accept invite', account_exceeding_request_path(request.account.id, request.id, exceeding_request: { status: true }), method: :patch, class: 'btn btn-sm btn-outline-primary'
+          = link_to 'Confirm exceeding', account_exceeding_request_path(request.account.id, request.id, exceeding_request: { status: true }), method: :patch, class: 'btn btn-sm btn-outline-primary'
           = link_to 'Reject', account_exceeding_request_path(request.account.id, request.id, exceeding_request: { status: false }), method: :patch, class: 'btn btn-sm btn-outline-danger'

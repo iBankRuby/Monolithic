@@ -111,21 +111,6 @@ ActiveRecord::Schema.define(version: 20170824072549) do
     t.index ["invite_id"], name: "index_rules_on_invite_id"
   end
 
-  create_table "trans_trackers", force: :cascade do |t|
-    t.bigint "transaction_id"
-    t.datetime "pending_time"
-    t.float "time_in_pending"
-    t.datetime "in_process_time"
-    t.float "time_in_process"
-    t.datetime "in_approve_time"
-    t.float "time_in_approve"
-    t.float "total_time"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.string "cause"
-    t.index ["transaction_id"], name: "index_trans_trackers_on_transaction_id"
-  end
-
   create_table "transactions", force: :cascade do |t|
     t.bigint "user_id"
     t.bigint "account_id"

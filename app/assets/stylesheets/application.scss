@@ -11,13 +11,53 @@
  * It is generally better to create a new file per style scope.
  *
  *= require_self
- *= require bootstrap.min
  *= require nucleo-icons
  *= require jquery-ui.min
  *= require jquery-ui.theme.min
  *= require accounts
  */
 
+// Import bootstrap
+
+@import "bootstrap/functions";
+@import "bootstrap/variables";
+$success-color: #7eae04 !default;
+$bg-success: darken($success-color, 5%) !default;
+$warning-color: #fb9701;
+@import "bootstrap/mixins";
+@import "bootstrap/print";
+@import "bootstrap/reboot";
+@import "bootstrap/type";
+@import "bootstrap/images";
+@import "bootstrap/code";
+@import "bootstrap/grid";
+@import "bootstrap/tables";
+@import "bootstrap/forms";
+@import "bootstrap/buttons";
+@import "bootstrap/transitions";
+@import "bootstrap/dropdown";
+@import "bootstrap/button-group";
+@import "bootstrap/input-group";
+@import "bootstrap/custom-forms";
+@import "bootstrap/nav";
+@import "bootstrap/navbar";
+@import "bootstrap/card";
+@import "bootstrap/breadcrumb";
+@import "bootstrap/pagination";
+@import "bootstrap/badge";
+@import "bootstrap/jumbotron";
+@import "bootstrap/alert";
+@import "bootstrap/progress";
+@import "bootstrap/media";
+@import "bootstrap/list-group";
+@import "bootstrap/close";
+@import "bootstrap/modal";
+@import "bootstrap/tooltip";
+@import "bootstrap/popover";
+@import "bootstrap/carousel";
+@import "bootstrap/utilities";
+
+// Import paper-kit
 
 @import "paper-kit/variables";
 @import "paper-kit/mixins";
@@ -89,6 +129,40 @@ h5.name_user {
       color: #fff;
     }
   }
+}
+
+@media (min-width: 992px) {
+.navbar-toggleable-md .navbar-collapse {
+    display: -webkit-box!important;
+    display: -webkit-flex!important;
+    display: -ms-flexbox!important;
+    display: flex!important;
+    width: 100%;
+}
+.navbar-toggleable-md {
+    -webkit-box-orient: horizontal;
+    -webkit-box-direction: normal;
+    -webkit-flex-direction: row;
+    -ms-flex-direction: row;
+    flex-direction: row;
+    -webkit-flex-wrap: nowrap;
+    -ms-flex-wrap: nowrap;
+    flex-wrap: nowrap;
+    -webkit-box-align: center;
+    -webkit-align-items: center;
+    -ms-flex-align: center;
+    align-items: center;
+}
+.navbar-toggleable-md .navbar-nav {
+    -webkit-box-orient: horizontal;
+    -webkit-box-direction: normal;
+    -webkit-flex-direction: row;
+    -ms-flex-direction: row;
+    flex-direction: row;
+}
+.navbar-toggleable-md .navbar-toggler {
+    display: none;
+}
 }
 
 /* Form Sign Up */

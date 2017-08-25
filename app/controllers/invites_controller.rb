@@ -42,14 +42,7 @@ class InvitesController < ApplicationController
 
   def destroy
     # TODO: Method will return sent invite.
-    if invite.may_cancel?
-      invite.rule.really_destroy!
-      invite.cancel!
-      track_cancel
-      redirect_to :account_invites, notice: 'Invite has been canceled.'
-    else
-      redirect_to :account_invites, alert: 'Invite already has been confirmed.'
-    end
+    invite.rule.really_destroy! && invite.destroy && redirect_to(:account_invites)
   end
 
   private
@@ -70,17 +63,17 @@ class InvitesController < ApplicationController
     params.dig(:invite, :rule).permit(:spending_limit)
   end
 
-  def set_user_to_id
-    email = invite_params[:email]
-    user = User.find_by(email: email)
-    if email.blank?
-      redirect_to account_invites_url, alert: 'Field should\'t be blank'
-    elsif user.nil?
-      redirect_to account_invites_url, alert: '@mail not found'
-    else
-      @user_to = user.id
-    end
-  end
+  # def set_user_to_id
+  #   email = invite_params[:email]
+  #   user = User.find_by(email: email)
+  #   if email.blank?
+  #     redirect_to account_invites_url, notice: 'Field should\'t be blank'
+  #   elsif user.nil?
+  #     redirect_to account_invites_url, notice: '@mail not found'
+  #   else
+  #     @user_to = user.id
+  #   end
+  # end
 
   def set_current_user_id
     @current_user_id = current_user.id

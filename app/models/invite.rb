@@ -11,8 +11,8 @@ class Invite < ApplicationRecord
     message: 'Email should be valid'
   }
   validates :user_from_id, numericality: true, presence: true
-  # TODO: Sends invite to account once with that validation
-  # validates :account_id, uniqueness: { scope: :user_to_id, message: 'You cannot send invite twice' }
+  # Sends invite to account once with that validation
+  validates :account_id, uniqueness: { scope: :user_to_email, conditions: -> {where(status: 'pending' || 'active')}, message: 'You cannot send invite twice' }
   # validates :status, inclusion: { in: [true, false] }, on: :update
 
   aasm column: 'status' do
@@ -55,6 +55,15 @@ class Invite < ApplicationRecord
     end
   end
 
+  # TODO: Do sending with using background jobs.
+  def send_email
+    user = User.find_or_create_by(email: user_to_email)
+    user_from = User.find_by(id: user_from_id)
+    # creating user account and send confirmation letter
+    user.send_confirmation_instructions
+    InviteMailer.invite(user, user_from).deliver
+  end
+
   def confirm_invite(current_user, account_id)
     return false unless may_confirm?
     confirm!
@@ -71,16 +80,6 @@ class Invite < ApplicationRecord
     rule.really_destroy!
     reject!
     track_rejecting
-  end
-
-  # TODO: Do sending with using background jobs.
-  def send_email
-    user = User.find_by(email: user_to_email)
-    if user
-      InviteMailer.invite_for_existing_user(user).deliver
-    else
-      InviteMailer.invite(user_to_email).deliver
-    end
   end
 
   private

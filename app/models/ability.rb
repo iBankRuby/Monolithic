@@ -15,6 +15,7 @@ class Ability
   def abilities_to_owner
     can :crud, Account
     can :check_account_balance, Account
+    can :can_replenish, Account
   end
 
   def abilities_to_co_user

@@ -22,8 +22,9 @@
       = link_to 'Statistics', account_statistics_path(@account), :class => 'btn btn-outline-primary btn-round btn-sm'
     .manage
       = link_to 'Management', account_management_index_path(@account), :class => 'btn btn-outline-primary btn-round btn-sm'
-    .replenishment
-      = render partial: 'modal', object: @account, as: :active_account
+    -if can? :can_replenish, @account
+      .replenishment
+        = render partial: 'modal', object: @account, as: :active_account
 
 -if can? :do_exceeding_request, @account
   =form_tag account_exceeding_requests_url(@account), method: :post, action: :create do

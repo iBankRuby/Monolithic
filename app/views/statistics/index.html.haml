@@ -1,3 +1,9 @@
+-if notice
+  %div.alert.alert-success
+    = notice
+= link_to account_url(@account), :class => "link_back" do
+  %i.nc-icon.nc-minimal-left
+  Back to Account
 /- role = @account_user.role_id
 .col-md-12.form_block 
   .row

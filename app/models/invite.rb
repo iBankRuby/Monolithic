@@ -51,7 +51,7 @@ class Invite < ApplicationRecord
       invite.create_rule(args[:rule_params])
       invite.create_invites_tracker(invite_id: invite.id, limit: invite.rule.spending_limit)
       invite.send_email && invite.save
-      #ExpireInvitesWorker.perform_in(2.minutes, invite.id)
+      ExpireInvitesWorker.perform_in(2.minutes, invite.id)
     end
   end
 

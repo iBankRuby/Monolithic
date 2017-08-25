@@ -7,6 +7,6 @@ class ExpireInvitesWorker
     invite = Invite.find(id)
     invite.rule.really_destroy! if invite
     invite.expire! if invite.may_expire?
-    track_expired
+    # track_expired
   end
 end

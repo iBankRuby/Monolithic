@@ -40,7 +40,11 @@
       / Tab panes
       .tab-content
         #transaction.tab-pane.active{:role => "tabpanel"}
-          = render :partial => "./statistics/list"
+          -if @transactions.empty? && @income.empty?
+            %h5 Transactions on the specified parameters are not present
+          -else
+            = render :partial => "./statistics/list"
+            = render :partial => "./statistics/income"
         #invites.tab-pane{:role => "tabpanel"}
           = render :partial => "./statistics/invites"
 

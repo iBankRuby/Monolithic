@@ -4,68 +4,24 @@
 -if alert
   %div.alert.alert-danger
     =alert
-
 .row
   .col-md-10
     .nav-tabs-navigation
       .nav-tabs-wrapper
-        %ul.nav.nav-tabs{:role => "tablist"}
-          %li.nav-item
-            %a.nav-link.active{"data-toggle" => "tab", :href => "#owner-2", :role => "tab"} Owner
-          %li.nav-item
-            %a.nav-link{"data-toggle" => "tab", :href => "#co-user-2", :role => "tab"} Co-User
+        = render :partial => "./accounts/tabs"            
     / Tab panes
     .tab-content.text-center
-      #owner-2.tab-pane.active{:role => "tabpanel"}
-        %table.table-responsive
-          %thead
-            %tr
-              %th Iban
-              %th Balance
-              %th Date created
-              %th Actions
-          %tbody
-            - @accounts.each do |account|
-              -@rule_acc = account.account_users.with_deleted.find_by(user_id: current_user.id).role.name
-              %tr
-                -if @rule_acc == "owner"
-                  %td.iban #{account.iban}
-                  %td.balance #{account.balance}
-                  %td.date #{account.created_at.to_formatted_s(:short)}
-                  -unless account.deleted_at
-                    %td.actions
-                      = link_to 'Show', account, :class => 'btn btn-outline-primary btn-round btn-sm'
-                      = link_to 'Delete', account, :method => :delete, :data => { :confirm => 'Are you sure?' }, :class => 'btn btn-outline-danger btn-round btn-sm'
-                  -if account.deleted_at?
-                    %td.actions
-                      = link_to 'Restore', account, :method => :patch, :class => 'btn btn-sm btn-outline-warning'
-                    %td.date Frozen #{account.deleted_at.to_formatted_s(:short)}
-
-      #co-user-2.tab-pane{:role => "tabpanel"}
-        %table.table-responsive
-          %thead
-            %tr
-              %th Iban
-              %th Balance
-              %th Date created
-              %th Actions
-          %tbody
-          - @accounts.each do |account|
-            -@rule_acc_co_user = account.account_users.with_deleted.find_by(user_id: current_user.id).role.name
-            %tr
-              -if @rule_acc_co_user == "co-user"
-                -if account.deleted_at.nil?
-                  %td.iban #{account.iban}
-                  %td.balance #{account.account_users.find_by(user_id: current_user.id).limit.reminder}
-                  %td.date #{account.created_at.to_formatted_s(:short)}
-                  %td.actions
-                    = link_to 'Show', account, :class => 'btn btn-outline-primary btn-round btn-sm'
-                / %td.actions
-                /   = link_to 'Show', account, :class => 'btn btn-outline-info btn-round btn-sm'
-                / -if account.deleted_at.nil?
-                /   %td.date Freezed #{account.deleted_at.to_formatted_s(:short)}
-
-
+      -if @tab_owner == 1
+        #owner-2.tab-pane.active{:role => "tabpanel"}
+          = render :partial => "./accounts/owner"
+      -if @tab_owner == 1 && @tab_cu == 2
+        #co-user-2.tab-pane{:role => "tabpanel"}
+          = render :partial => "./accounts/co-user"      
+      -if @tab_owner == 0 && @tab_cu == 2
+        #co-user-2.tab-pane.active{:role => "tabpanel"}
+        = render :partial => "./accounts/co-user"
+      -if @tab_owner == 0 && @tab_cu == 0
+        %h5 You don't have any accounts
 
   .col-md-2
     = form_for new_account_path do |f|

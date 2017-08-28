@@ -1,0 +1,19 @@
+- @tab_owner = 0
+- @tab_cu = 0
+- @accounts.each do |account|
+  -@rule_acc = account.account_users.with_deleted.find_by(user_id: current_user.id).role.name
+  -if @rule_acc == "owner"
+    - @tab_owner = 1
+  -if @rule_acc == "co-user"
+    - @tab_cu = 2
+%ul.nav.nav-tabs{:role => "tablist"}
+  -if @tab_owner == 1
+    %li.nav-item
+      %a.nav-link.active{"data-toggle" => "tab", :href => "#owner-2", :role => "tab"} Owner
+  -if @tab_owner == 1 && @tab_cu == 2  
+    %li.nav-item
+      %a.nav-link{"data-toggle" => "tab", :href => "#co-user-2", :role => "tab"} Co-User
+  -if @tab_owner == 0 && @tab_cu == 2
+    %li.nav-item
+      %a.nav-link.active{"data-toggle" => "tab", :href => "#co-user-2", :role => "tab"} Co-User
+ 

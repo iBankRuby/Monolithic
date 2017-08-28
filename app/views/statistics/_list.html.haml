@@ -1,93 +1,81 @@
 -if @transactions
   %h3 Outcome
-  %table#grid
-    %thead
-      %tr
-        %th User:
-        %th To:
-        %th Remainder:
-        %th Summ:
-        -if @curr_user.role_id == 1
-          %th{"data-type" => "numder"}  Balance before:
-          %th Balance after outcome:
-        %th Created:
-        %th Status:
-        %th Decision time:
-        %th
-      %tbody
-      - i = 1
-      - @transactions.each do |t|
-        %tr.trans{"id" => i}
-          %th= t.user.name
-          %td= t.remote_account_iban
-          %th= t.remainder
-          %th= t.summ
-          -if @curr_user.role_id == 1
-            %th= t.balance
-            %th= t.balance_after
-          %td.time_one= t.created_at.to_formatted_s(:short)
-          %th= t.status_from
-          %td.time_two= t.updated_at.to_formatted_s(:short)
-          %td
-            %button.btn.btn-outline-primary.btn-round.btn-sm{"id" => "details_s_#{i}", :onclick => "show_details_#{i}();"} Details
-            %button.details_btn_none.btn.btn-outline-primary.btn-round.btn-sm{"id" => "details_btn_2_#{i}", :onclick => "show_details_2_#{i}();"} Details
-        %tr.details_all{"id" => "details-#{i}"} 
-          %td{:colspan => "6"}
-            %table   
-              %tr
-                %th Status
-                %th Created time
-                %th Total time
-              %tr
-                %td Created
-                %td= t.trans_tracker.created_at.strftime("%e %b %T") 
-                %td
-              %tr
-                %td Status "pending" 
-                %td= t.trans_tracker.pending_time.strftime("%e %b %T") 
-                -if t.trans_tracker.time_in_pending != nil
-                  %td #{(t.trans_tracker.time_in_pending * 100).to_i.to_f / 100} s
-              %tr
-                %td Status "#{t.status_from}" 
-                %td= t.trans_tracker.updated_at.strftime("%e %b %T") 
-                %td
-              %tr
-                %td Cause 
-                %td= t.trans_tracker.cause
-              %tr
-                %td Total time 
-                %td 
-                -if t.trans_tracker.total_time != nil
-                  %td #{(t.trans_tracker.total_time * 100).to_i.to_f / 100} 
-        :javascript
-          function show_details_#{i}(){
-            $('#details-#{i}').css({"display":"table-row"});
-            $('#details_s_#{i}').css({"display":"none"});
-            $('#details_btn_2_#{i}').css({"display":"block"});
-            console.log(1);
-          };
-          function show_details_2_#{i}(){
-            $('#details-#{i}').css({"display":"none"});
-            $('#details_btn_2_#{i}').css({"display":"none"});
-            $('#details_s_#{i}').css({"display":"block"});
-            console.log(1);
-          }
-        - i+= 1 
-
--if @income
-  %h3 Income
-  %table
-    %thead
-      %tr
-        %th From:
-        %th Summ:
-        %th Balance after income:
-      %tbody
-      - @income.each do |t|
+  -if @transactions.empty?
+    %h5 Transactions on the specified parameters are not present
+  -else
+    %table#grid
+      %thead
         %tr
-          %td= t.account.iban
-          %th= t.summ
-          %th= t.remote_balance_after
+          %th User:
+          %th To:
+          %th Remainder:
+          %th Summ:
+          -if @curr_user.role_id == 1
+            %th{"data-type" => "numder"}  Balance before:
+            %th Balance after outcome:
+          %th Created:
+          %th Status:
+          %th Decision time:
+          %th
+        %tbody
+        - i = 1
+        - @transactions.each do |t|
+          %tr.trans{"id" => i}
+            %th= t.user.name
+            %td= t.remote_account_iban
+            %th= t.remainder
+            %th= t.summ
+            -if @curr_user.role_id == 1
+              %th= t.balance
+              %th= t.balance_after
+            %td.time_one= t.created_at.to_formatted_s(:short)
+            %th= t.status_from
+            %td.time_two= t.updated_at.to_formatted_s(:short)
+            %td
+              %button.btn.btn-outline-primary.btn-round.btn-sm{"id" => "details_s_#{i}", :onclick => "show_details_#{i}();"} Details
+              %button.details_btn_none.btn.btn-outline-primary.btn-round.btn-sm{"id" => "details_btn_2_#{i}", :onclick => "show_details_2_#{i}();"} Details
+          %tr.details_all{"id" => "details-#{i}"} 
+            %td{:colspan => "6"}
+              %table   
+                %tr
+                  %th Status
+                  %th Created time
+                  %th Total time
+                %tr
+                  %td Created
+                  %td= t.trans_tracker.created_at.strftime("%e %b %T") 
+                  %td
+                %tr
+                  %td Status "pending" 
+                  %td= t.trans_tracker.pending_time.strftime("%e %b %T") 
+                  -if t.trans_tracker.time_in_pending != nil
+                    %td #{(t.trans_tracker.time_in_pending * 100).to_i.to_f / 100} s
+                %tr
+                  %td Status "#{t.status_from}" 
+                  %td= t.trans_tracker.updated_at.strftime("%e %b %T") 
+                  %td
+                %tr
+                  %td Cause 
+                  %td= t.trans_tracker.cause
+                %tr
+                  %td Total time 
+                  %td 
+                  -if t.trans_tracker.total_time != nil
+                    %td #{(t.trans_tracker.total_time * 100).to_i.to_f / 100} 
+          :javascript
+            function show_details_#{i}(){
+              $('#details-#{i}').css({"display":"table-row"});
+              $('#details_s_#{i}').css({"display":"none"});
+              $('#details_btn_2_#{i}').css({"display":"block"});
+              console.log(1);
+            };
+            function show_details_2_#{i}(){
+              $('#details-#{i}').css({"display":"none"});
+              $('#details_btn_2_#{i}').css({"display":"none"});
+              $('#details_s_#{i}').css({"display":"block"});
+              console.log(1);
+            }
+          - i+= 1 
 
   
   /* var grid = document.getElementById('grid');

@@ -1,12 +1,12 @@
-%h3 Outcome
 -if @transactions
+  %h3 Outcome
   %table#grid
     %thead
       %tr
-        %th{"data-type" => "string"}  User:
-        %th{"data-type" => "string"}  To:
+        %th User:
+        %th To:
         %th Remainder:
-        %th{"data-type" => "number"}  Summ:
+        %th Summ:
         -if @curr_user.role_id == 1
           %th{"data-type" => "numder"}  Balance before:
           %th Balance after outcome:
@@ -72,9 +72,10 @@
             $('#details_s_#{i}').css({"display":"block"});
             console.log(1);
           }
-        - i+= 1         
-%h3 Income
+        - i+= 1 
+
 -if @income
+  %h3 Income
   %table
     %thead
       %tr

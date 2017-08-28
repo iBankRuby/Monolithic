@@ -27,7 +27,22 @@
           /= select_tag "user", options_from_cllection_for_select(, "id", "name")
           = submit_tag 'Send', class: 'btn btn-sm btn-outline-primary'
 
-= render :partial => "./statistics/list"
+-if @transactions
+  .col-md-12
+    .row.statistics-list
+      .nav-tabs-navigation
+        .nav-tabs-wrapper
+          %ul.nav.nav-tabs{:role => "tablist"}
+            %li.nav-item
+              %a.nav-link.active{"data-toggle" => "tab", :href => "#transaction", :role => "tab"} Transactions
+            %li.nav-item
+              %a.nav-link{"data-toggle" => "tab", :href => "#invites", :role => "tab"} Invites History
+      / Tab panes
+      .tab-content
+        #transaction.tab-pane.active{:role => "tabpanel"}
+          = render :partial => "./statistics/list"
+        #invites.tab-pane{:role => "tabpanel"}
+          = render :partial => "./statistics/invites"
 
 :javascript
   document.getElementById('date_to').valueAsDate = new Date();

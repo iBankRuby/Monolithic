@@ -7,6 +7,7 @@ module StatisticsBuilder
     account_user
     clean_params
     build_statistics
+    invite_statistics
   end
 
   private
@@ -59,5 +60,9 @@ module StatisticsBuilder
 
   def build_statistics
     @transactions = role == 'owner' ? transactions : transactions.where(user_id: current_user.id)
+  end
+
+  def invite_statistics
+    @invites = Invite.where(account_id: @account.id, user_from_id: current_user.id)
   end
 end

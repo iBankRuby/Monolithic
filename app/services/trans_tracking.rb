@@ -37,7 +37,6 @@ module TransTracking
   end
 
   def approve_cause
-    binding.pry
     tracker.cause = "Approved by #{username}"
   end
 

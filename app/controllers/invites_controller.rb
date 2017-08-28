@@ -1,4 +1,6 @@
 class InvitesController < ApplicationController
+  include InvitesTracking
+
   before_action :set_invite, only: %i[destroy confirm reject]
   # before_action :set_user_to_id, only: :create
   before_action :set_current_user_id, only: :create
@@ -15,6 +17,7 @@ class InvitesController < ApplicationController
                    user_to_email: invite_params[:email],
                    account_id: params[:account_id] }
     if Invite.create_invite_with_rules(invite_params: invite_pms, rule_params: rule_params)
+      #redirect_to account_invites_url, notice: 'Invite has been made.'
       redirect_to :account_invites, notice: 'Invite has made.'
     else
       redirect_to :account_invites, alert: 'Invite has not been sent'
@@ -33,13 +36,20 @@ class InvitesController < ApplicationController
     if invite.reject_invite
       redirect_to :accounts
     else
-      redirect_to :accounts, notice: 'Oops... Something went wrong. Try again.'
+      redirect_to :accounts, alert: 'Oops... Something went wrong. Try again.'
     end
   end
 
   def destroy
     # TODO: Method will return sent invite.
-    invite.rule.really_destroy! && invite.destroy && redirect_to(:accounts)
+    if invite.may_cancel?
+      invite.rule.really_destroy!
+      invite.cancel!
+      track_cancel
+      redirect_to :account_invites, notice: 'Invite has been canceled.'
+    else
+      redirect_to :account_invites, alert: 'Invite already has been confirmed.'
+    end
   end
 
   private
@@ -64,9 +74,9 @@ class InvitesController < ApplicationController
     email = invite_params[:email]
     user = User.find_by(email: email)
     if email.blank?
-      redirect_to account_invites_url, notice: 'Field should\'t be blank'
+      redirect_to account_invites_url, alert: 'Field should\'t be blank'
     elsif user.nil?
-      redirect_to account_invites_url, notice: '@mail not found'
+      redirect_to account_invites_url, alert: '@mail not found'
     else
       @user_to = user.id
     end

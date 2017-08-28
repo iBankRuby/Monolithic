@@ -61,6 +61,18 @@ ActiveRecord::Schema.define(version: 20170824072549) do
     t.index ["account_id"], name: "index_invites_on_account_id"
   end
 
+  create_table "invites_trackers", force: :cascade do |t|
+    t.bigint "invite_id"
+    t.float "limit"
+    t.datetime "pending_time"
+    t.float "time_in_pending"
+    t.float "total_time"
+    t.string "cause"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["invite_id"], name: "index_invites_trackers_on_invite_id"
+  end
+
   create_table "limits", force: :cascade do |t|
     t.integer "reminder", default: 50
     t.boolean "movable", default: false

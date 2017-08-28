@@ -121,8 +121,12 @@ table,
 .form_block form {
   width: 100%;
 }
-.hidden-list{
+.hidden-div{
   display: none;
+}
+.hidden-list{
+  display: flex;
+  flex-direction: column;
 }
 button.btn.btn-outline-success.btn-round p{
   margin-bottom: 0;

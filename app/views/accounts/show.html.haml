@@ -65,7 +65,7 @@
                 %td.actions
                   = link_to 'Cancel', account_transaction_cancel_path(@account, t), :method => :patch, :class => 'btn btn-sm btn-outline-danger'
       #inc_trans.tab-pane{:role => "tabpanel"}
-        -if @income
+        -if can? :can_income, @income.last
           %table.table-responsive
             %thead
               %tr

@@ -6,10 +6,10 @@
     %table#grid
       %thead
         %tr
-          %th User:
-          %th To:
+          %th{"data-type" => "string"}  User:
+          %th{"data-type" => "string"}  To:
           %th Remainder:
-          %th Summ:
+          %th{"data-type" => "number"}  Summ:
           -if @curr_user.role_id == 1
             %th{"data-type" => "numder"}  Balance before:
             %th Balance after outcome:
@@ -40,7 +40,7 @@
                 %tr
                   %th Status
                   %th Created time
-                  %th Total time
+                  %th Time
                 %tr
                   %td Created
                   %td= t.trans_tracker.created_at.strftime("%e %b %T") 
@@ -50,6 +50,11 @@
                   %td= t.trans_tracker.pending_time.strftime("%e %b %T") 
                   -if t.trans_tracker.time_in_pending != nil
                     %td #{(t.trans_tracker.time_in_pending * 100).to_i.to_f / 100} s
+                -if t.trans_tracker.in_approve_time != nil
+                  %tr
+                    %td Status "in approve"
+                    %td= t.trans_tracker.in_approve_time
+                    %td #{(t.trans_tracker.time_in_approve * 100).to_i.to_f / 100}
                 %tr
                   %td Status "#{t.status_from}" 
                   %td= t.trans_tracker.updated_at.strftime("%e %b %T") 
@@ -58,7 +63,7 @@
                   %td Cause 
                   %td= t.trans_tracker.cause
                 %tr
-                  %td Total time 
+                  %td Total time
                   %td 
                   -if t.trans_tracker.total_time != nil
                     %td #{(t.trans_tracker.total_time * 100).to_i.to_f / 100} 
@@ -67,15 +72,13 @@
               $('#details-#{i}').css({"display":"table-row"});
               $('#details_s_#{i}').css({"display":"none"});
               $('#details_btn_2_#{i}').css({"display":"block"});
-              console.log(1);
             };
             function show_details_2_#{i}(){
               $('#details-#{i}').css({"display":"none"});
               $('#details_btn_2_#{i}').css({"display":"none"});
               $('#details_s_#{i}').css({"display":"block"});
-              console.log(1);
             }
-          - i+= 1 
+          - i+= 1         
 
   
   /* var grid = document.getElementById('grid');

@@ -5,7 +5,7 @@ class Invite < ApplicationRecord
   has_one :invites_tracker, dependent: :destroy
   belongs_to :account
 
-  #validate :user_cannot_send_invites_to_himself, :cannot_create_two_same_pending_invites, on: :create
+  # validate :user_cannot_send_invites_to_himself, :cannot_create_two_same_pending_invites, on: :create
   validates :user_to_email, format: {
     with: /\A([A-Z|a-z|0-9](\.|_){0,1})+[A-Z|a-z|0-9]\@([A-Z|a-z|0-9])+((\.){0,1}[A-Z|a-z|0-9]){2}\.[a-z]{2,3}\z/,
     message: 'Email should be valid'
@@ -91,7 +91,7 @@ class Invite < ApplicationRecord
   end
 
   def cannot_create_two_same_pending_invites
-    inv = self.class.find_by(user_to_email: user_to_email, user_from_id: user_from_id, account_id: account_id)
+    inv = self.class.find_by(user_to_email: user_to_email, user_from_id: user_from_id, account_id: account_id, status: 'pending')
     inv && errors.add(:user_from_id, 'You cannot send invite twice')
   end
 end

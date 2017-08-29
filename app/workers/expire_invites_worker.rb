@@ -5,8 +5,8 @@ class ExpireInvitesWorker
   def perform(id)
     # Do something
     invite = Invite.find(id)
-    invite.rule.really_destroy! if invite
-    invite.expire! if invite.may_expire?
-    track_expired
+    return unless invite
+    invite.expire! && invite.rule.really_destroy! if invite.may_expire?
+    # track_expired
   end
 end

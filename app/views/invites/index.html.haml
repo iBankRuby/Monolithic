@@ -11,13 +11,11 @@
 
 .col-md-10
   =form_for :invite do |f|
-    .col-md-12.form-group
-      =f.email_field :email, class: 'form-control', placeholder: 'Enter email'
-    .col-md-6.form-group
-      =f.number_field 'rule[spending_limit]', within: 1...999, class: 'form-control', placeholder: 'Enter limit'
-    .col-md-6.form-group
-      =check_box_tag 'movable', 'true'
-      =label_tag 'movable', 'Fixed remainder'
+    .row
+      .col-md-8.form-group
+        =f.email_field :email, class: 'form-control', placeholder: 'Enter email'
+      .col-md-4.form-group
+        =f.number_field 'rule[spending_limit]', class: 'form-control', value: 0, placeholder: 'Enter limit'
     .col-md-12.form-group
       =f.submit 'Send invite', :class => 'btn btn-outline-success btn-round btn-sm'
 .col-md-12

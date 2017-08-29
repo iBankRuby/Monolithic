@@ -16,6 +16,7 @@ class Ability
     can :crud, Account
     can :check_account_balance, Account
     can :can_replenish, Account
+    can :can_income, Transaction
   end
 
   def abilities_to_co_user
@@ -28,4 +29,3 @@ class Ability
     can :read, Account
   end
 end
-

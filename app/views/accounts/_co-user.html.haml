@@ -1,0 +1,22 @@
+%table.table-responsive
+  %thead
+    %tr
+      %th Iban
+      %th Balance
+      %th Date created
+      %th Actions
+  %tbody
+  - @accounts.each do |account|
+    -@rule_acc_co_user = account.account_users.with_deleted.find_by(user_id: current_user.id).role.name
+    %tr
+      -if @rule_acc_co_user == "co-user"
+        -if account.deleted_at.nil?
+          %td.iban #{account.iban}
+          %td.balance #{account.account_users.find_by(user_id: current_user.id).limit.reminder}
+          %td.date #{account.created_at.to_formatted_s(:short)}
+          %td.actions
+            = link_to 'Show', account, :class => 'btn btn-outline-primary btn-round btn-sm'
+          / %td.actions
+          /   = link_to 'Show', account, :class => 'btn btn-outline-info btn-round btn-sm'
+          / -if account.deleted_at.nil?
+          /   %td.date Freezed #{account.deleted_at.to_formatted_s(:short)}

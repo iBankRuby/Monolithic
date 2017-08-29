@@ -1,0 +1,18 @@
+-if @income
+  %h3 Income
+  -if @income.empty?
+    %h5 Transactions on the specified parameters are not present
+  -else
+    %table
+      %thead
+        %tr
+          %th From:
+          %th Summ:
+          %th Balance after income:
+        %tbody
+        - @income.each do |t|
+          %tr
+            %td= t.account.iban
+            %th= t.summ
+            %th= t.remote_balance_after
+

@@ -1,0 +1,24 @@
+-if @invites 
+  -if @invites.empty?
+    %h5 Invites on the specified parameters are not present  
+  -else
+    %table#invite_table
+      %thead
+        %tr
+          %th Email:
+          %th Status:
+          %th Created_at:
+          %th Time in pending:
+          %th Decision time:
+          %th Cause: 
+          %th Total time:
+        %tbody
+        - @invites.each do |i|
+          %tr.trans
+            %th= i.user_to_email
+            %td= i.status
+            %td= i.invites_tracker.created_at.strftime("%e %b %T")
+            %td= i.invites_tracker.time_in_pending
+            %td= i.invites_tracker.updated_at.strftime("%e %b %T")
+            %td= i.invites_tracker.cause 
+            %td= i.invites_tracker.total_time

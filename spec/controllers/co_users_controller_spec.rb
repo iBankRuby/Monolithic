@@ -9,7 +9,7 @@ RSpec.describe CoUsersController, type: :controller do
                           account_id: account.id,
                           rule_id: rule.id,
                           role_id: 2) }
-  let(:limit) { create(:limit, account_user_id: usr_acc.id, reminder: rule.spending_limit) }
+  let!(:limit) { create(:limit, account_user_id: usr_acc.id, reminder: rule.spending_limit) }
   before { sign_in user }
 
   describe 'GET show' do
@@ -26,7 +26,7 @@ RSpec.describe CoUsersController, type: :controller do
 
   describe 'PATCH update' do
     it 'has a 302 status code' do
-      patch :update, params: { account_id: account.id, id: user.id, account_rule: { spending_limit: 20} }
+      patch :update, params: { account_id: account.hash_id, id: user.id, account_rule: { spending_limit: 20} }
       expect(response).to have_http_status :found
     end
 

@@ -1,5 +1,4 @@
 FactoryGirl.define do
-  factory :invite do
-    user_from_id 1
+  factory :invite, class: Invite do
   end
 end

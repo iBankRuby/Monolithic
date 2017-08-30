@@ -4,7 +4,10 @@ RSpec.describe InvitesController, type: :controller do
   let!(:user) { create :user }
   let!(:another_user) { create :another_user }
   let!(:account) { create :account }
-  let!(:invite) { create :invite }
+  let!(:invite) { create :invite,
+                    account_id: account.id,
+                    user_from_id: user.id,
+                    user_to_email: another_user.email}
   let!(:rule) { create(:rule, invite_id: invite.id) }
 
   before { sign_in user }
@@ -25,16 +28,16 @@ RSpec.describe InvitesController, type: :controller do
     context 'with valid params' do
       it 'creates a new invite' do
         post :create, params: { account_id: account.id,
-                                invite: { email: 'user@mail.com' },
-                                rule: { spending_limit: 1 } }
-        invite = Invite.find_by(user_to_id: another_user.id)
+                                invite: { email: 'user@mail.com',
+                                rule: { spending_limit: 1 } } }
+        invite = Invite.find_by(user_to_email: another_user.email)
         expect(Invite.exists?(invite.id)).to be_truthy
       end
 
       it 'redirect to invites' do
         post :create, params: { account_id: account.id,
-                                invite: { email: 'user@mail.com' },
-                                rule: { spending_limit: 1 } }
+                                invite: { email: 'user@mail.com',
+                                rule: { spending_limit: 1 } } }
         expect(response).to redirect_to account_invites_url
       end
     end
@@ -42,32 +45,32 @@ RSpec.describe InvitesController, type: :controller do
     context 'with invalid params' do
       it 'does not create invite without email' do
         post :create, params: { account_id: account.id,
-                                invite: { email: '' },
-                                rule: { spending_limit: 1 } }
+                                invite: { email: '' ,
+                                rule: { spending_limit: 1 } } }
         expect(Invite.count).to eq(0)
       end
 
       it 'does not create invite to same user' do
         post :create, params: { account_id: account.id,
-                                invite: { email: 'me@example.com' },
-                                rule: { spending_limit: 1 } }
-        expect(Invite.find_by(user_from_id: user.id, user_to_id: another_user.id)).to be_nil
+                                invite: { email: 'user@mail.com' ,
+                                rule: { spending_limit: 1 } } }
+        expect(Invite.find_by(user_from_id: user.id, user_to_email: another_user.email)).to be_nil
       end
 
       it 'does not create invite twice' do
         post :create, params: { account_id: account.id,
-                                invite: { email: 'user@mail.com' },
-                                rule: { spending_limit: 1 } }
+                                invite: { email: 'user@mail.com',
+                                rule: { spending_limit: 1 } } }
         post :create, params: { account_id: account.id,
-                                invite: { email: 'user@mail.com' },
-                                rule: { spending_limit: 1 } }
-        expect(Invite.where(user_to_id: another_user.id).count).to eq(1)
+                                invite: { email: 'user@mail.com',
+                                rule: { spending_limit: 1 } } }
+        expect(Invite.where(user_to_email: another_user.email).count).to eq(1)
       end
 
       it 'will redirect to invites if user is nonexist' do
         post :create, params: { account_id: account.id,
-                                invite: { email: 'user123@mail.com' },
-                                rule: { spending_limit: 1 } }
+                                invite: { email: 'user123@mail.com',
+                                rule: { spending_limit: 1 } } }
         expect(response).to redirect_to account_invites_url
       end
     end
@@ -127,7 +130,7 @@ RSpec.describe InvitesController, type: :controller do
 
   describe 'DELETE destroy' do
     it 'removes an invitation' do
-      invite = Invite.create(user_from_id: user.id, user_to_id: another_user.id, account_id: account.id)
+      invite = Invite.create(user_from_id: user.id, user_to_email: another_user.email, account_id: account.id)
       delete :destroy, params: { account_id: account.id, id: invite.id }
       expect(Invite.exists?(invite.id)).to be_falsey
     end

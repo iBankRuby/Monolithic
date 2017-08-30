@@ -152,7 +152,7 @@ RSpec.describe InvitesController, type: :controller do
   let!(:invites_tracker) { create(:invites_tracker, 
                             invite_id: invite.id, 
                             limit: invite.rule.spending_limit) }
-  before { sign_in another_user }
+  before { sign_in user }
   context 'DELETE destroy' do    
     it 'redirect to account_invites with error' do      
       delete :destroy, params: { account_id: account.id, id: invite.id }
@@ -197,7 +197,7 @@ RSpec.describe InvitesController, type: :controller do
                             limit: invite.rule.spending_limit) }
   before { sign_in another_user }
   context 'PATCH confirm' do    
-    it 'redirect to account error' do      
+    it 'redirect to account with error' do      
       patch :confirm, params: { account_id: account.id, invite_id: invite.id }
       expect(response).to redirect_to :accounts
     end

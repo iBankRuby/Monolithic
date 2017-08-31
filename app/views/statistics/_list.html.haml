@@ -21,7 +21,10 @@
         - i = 1
         - @transactions.each do |t|
           %tr.trans{"id" => i}
-            %th= t.user.name
+            -if t.user.name.empty?
+              %th= t.user.email  
+            -else
+              %th= t.user.name
             %td= t.remote_account_iban
             %th= t.remainder
             %th= t.summ

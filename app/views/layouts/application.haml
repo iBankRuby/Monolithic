@@ -30,7 +30,10 @@
               %li.nav-item
                 .nav-link
                   %i.nc-icon.nc-single-02{"aria-hidden" => "true"}
-                  #{current_user.name}
+                  -if current_user.name != ''
+                    #{current_user.name}
+                  -else
+                    #{current_user.email}
               %li.nav-item
                 = link_to destroy_user_session_path, method: :delete, :class => 'nav-link logout' do
                   %i.nc-icon.nc-user-run{"aria-hidden" => "true"}

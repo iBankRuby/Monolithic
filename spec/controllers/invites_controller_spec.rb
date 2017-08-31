@@ -7,12 +7,11 @@ RSpec.describe InvitesController, type: :controller do
   let!(:invite) { create :invite,
                     account_id: account.id,
                     user_from_id: user.id,
-                    user_to_email: another_user.email}
+                    user_to_email: another_user.email }
   let!(:rule) { create(:rule, invite_id: invite.id) }
   let!(:invites_tracker) { create(:invites_tracker, 
                             invite_id: invite.id, 
                             limit: invite.rule.spending_limit) }
-
   before { sign_in user }
 
   describe 'GET index' do
@@ -79,58 +78,6 @@ RSpec.describe InvitesController, type: :controller do
     end
   end
 
-  describe 'PATCH update' do
-    let! :user do
-      create :user
-    end
-
-    before :each do
-      FactoryGirl.create :user, id: 1, email: 'me55@mail.ru'
-      @user2 = FactoryGirl.create :user, id: 2, email: 'me3@mail.ru'
-      @account = FactoryGirl.create :account
-      @invite = FactoryGirl.create :invite, account_id: @account.id
-    end
-
-    before do
-      Timecop.freeze(Date.today + 10)
-    end
-
-    after do
-      Timecop.return
-    end
-
-    #context 'with valid params' do
-    #  it 'redirect to account' do
-    #    patch :update, params: { id: @invite.id, account_id: @account.id, invite: { status: true } }
-    #    expect(response).to redirect_to :accounts
-    #  end
-
-    #  it 'set invite status to true' do
-    #    patch :update, params: { id: @invite.id, account_id: @account.id, invite: { status: true } }
-    #    expect(Invite.find(@invite.id).status).to be_truthy
-    #  end
-
-    #  it 'set invite status to false' do
-    #    patch :update, params: { id: @invite.id, account_id: @account.id, invite: { status: false } }
-    #    expect(Invite.find(@invite.id).status).to be_falsey
-    #  end
-
-    #  it 'will be updated later than created' do
-    #    patch :update, params: { id: @invite.id, account_id: @account.id, invite: { status: true } }
-    #    invite = Invite.find(@invite.id)
-    #    expect(invite.updated_at).not_to eq(invite.created_at)
-    #  end
-    #end
-
-    #context 'with invalid params' do
-    #  it 'won\'t update invite status' do
-    #    patch :update, params: { id: @invite.id, account_id: @account.id, invite: { status: nil } }
-    #    invite = Invite.find(@invite.id)
-    #    expect(invite.updated_at).to eq(invite.created_at)
-    #  end
-    #end
-  end
-
   describe 'DELETE destroy' do
     it 'removes an invitation' do
       delete :destroy, params: { account_id: account.id, id: invite.id }
@@ -161,6 +108,61 @@ RSpec.describe InvitesController, type: :controller do
   end
 end
 
+
+# describe 'PATCH update' do
+#   let! :user do
+#     create :user
+#   end
+#
+#   before :each do
+#     FactoryGirl.create :user, id: 1, email: 'me55@mail.ru'
+#     @user2 = FactoryGirl.create :user, id: 2, email: 'me3@mail.ru'
+#     @account = FactoryGirl.create :account
+#     @invite = FactoryGirl.create :invite, account_id: @account.id
+#   end
+#
+#   before do
+#     Timecop.freeze(Date.today + 10)
+#   end
+#
+#   after do
+#     Timecop.return
+#   end
+#
+#   context 'with valid params' do
+#     it 'redirect to account' do
+#       patch :update, params: { id: @invite.id, account_id: @account.id, invite: { status: true } }
+#       expect(response).to redirect_to :accounts
+#     end
+#
+#     it 'set invite status to true' do
+#       patch :update, params: { id: @invite.id, account_id: @account.id, invite: { status: true } }
+#       expect(Invite.find(@invite.id).status).to be_truthy
+#     end
+#
+#     it 'set invite status to false' do
+#       patch :update, params: { id: @invite.id, account_id: @account.id, invite: { status: false } }
+#       expect(Invite.find(@invite.id).status).to be_falsey
+#     end
+#
+#     it 'will be updated later than created' do
+#       patch :update, params: { id: @invite.id, account_id: @account.id, invite: { status: true } }
+#       invite = Invite.find(@invite.id)
+#       expect(invite.updated_at).not_to eq(invite.created_at)
+#     end
+#   end
+#
+#   context 'with invalid params' do
+#     it 'won\'t update invite status' do
+#       patch :update, params: { id: @invite.id, account_id: @account.id, invite: { status: nil } }
+#       invite = Invite.find(@invite.id)
+#       expect(invite.updated_at).to eq(invite.created_at)
+#     end
+#   end
+# end
+
+  
+
 RSpec.describe InvitesController, type: :controller do
   let!(:user) { create :user }
   let!(:another_user) { create :another_user }
@@ -177,6 +179,13 @@ RSpec.describe InvitesController, type: :controller do
   context 'PATCH confirm' do
     it 'redirect to account' do
       patch :confirm, params: { account_id: account.id, invite_id: invite.id }
+      expect(response).to redirect_to :accounts
+    end
+  end
+
+  describe 'PATCH reject' do
+    it 'changes invite status to rejected' do
+      patch :reject, params: { account_id: account.id, invite_id: invite.id }
       expect(response).to redirect_to :accounts
     end
   end
@@ -199,6 +208,12 @@ RSpec.describe InvitesController, type: :controller do
   context 'PATCH confirm' do    
     it 'redirect to account with error' do      
       patch :confirm, params: { account_id: account.id, invite_id: invite.id }
+      expect(response).to redirect_to :accounts
+    end
+  end
+  context 'PATCH reject' do    
+    it 'redirect to account with error' do      
+      patch :reject, params: { account_id: account.id, invite_id: invite.id }
       expect(response).to redirect_to :accounts
     end
   end

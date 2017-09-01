@@ -1,4 +1,4 @@
-= form_for :account_rule, url: { action: 'update' }, method: 'patch' do |f|
+= form_for account_co_user_path(@rule), method: 'patch' do |f|
   - if @rule.errors.any?
     #error_explanation
       %h2= "#{pluralize(@rule.errors.count, "error")} prohibited this account from being saved:"
@@ -8,5 +8,5 @@
 
   .actions
     %fieldset.toggleable{disabled: true}
-      = f.text_field :spending_limit, value: @rule.spending_limit
+      = text_field_tag 'account_rule[spending_limit]', @rule.spending_limit
       = f.submit 'Save'

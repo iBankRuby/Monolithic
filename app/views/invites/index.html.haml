@@ -1,14 +1,29 @@
-=notice
+-if notice
+  .alert.alert-success
+    = notice
+-if alert
+  .alert.alert-danger
+    = alert
 
-=form_for :invite do |f|
-  =f.text_field :email, placeholder: 'Enter email'
-  =f.submit 'Make invite'
+= link_to accounts_url, :class => "link_back" do
+  %i.nc-icon.nc-minimal-left
+  Back to Accounts Page
 
-%ul
-  -@invites.each do |invite|
-    %li
-      User name:
-      =User.find(invite.user_to_id).name
-      Invited at:
-      =invite.created_at
-      =link_to 'Delete invite', account_invite_path(invite.account_id, invite), method: :delete, data: { confirm: 'Are you sure?' }
+.col-md-10
+  =form_for :invite do |f|
+    .row
+      .col-md-8.form-group
+        =f.email_field :email, class: 'form-control', placeholder: 'Enter email'
+      .col-md-4.form-group
+        =f.number_field 'rule[spending_limit]', class: 'form-control', value: 0, placeholder: 'Enter limit'
+    .col-md-12.form-group
+      =f.submit 'Send invite', :class => 'btn btn-outline-success btn-round btn-sm'
+.col-md-12
+  %ul
+    -@invites.each do |invite|
+      %li
+        User email:
+        =invite.user_to_email
+        Invited at:
+        =invite.created_at
+        =link_to 'Delete invite', account_invite_path(invite.account_id, invite), method: :delete, data: { confirm: 'Are you sure?' }

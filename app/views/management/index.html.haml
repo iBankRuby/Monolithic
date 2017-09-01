@@ -1,0 +1,38 @@
+-if notice
+  %div.alert.alert-success
+    = notice
+= link_to account_url(@account), :class => "link_back" do
+  %i.nc-icon.nc-minimal-left
+  Back to Accounts Management
+
+- role = @account_users[:role]
+%h1 #{role}
+
+.row
+  .col-md-10
+    %h3 Account users
+    -if @account_users[:account_users]
+      %table.table-responsive
+        %thead
+          %tr
+          %th Email:
+          %th Role type:
+          %th Limit:
+          %th Reminder:
+        %tbody
+        - @account_users[:account_users].each do |t|
+          %tr
+            %td= t.user.email
+            %td= t.role.name
+            %td= t.rule.spending_limit
+            %td= t.limit.reminder
+            %td= link_to 'Destroy', account_management_path(@account, t), method: :delete, class: 'btn btn-sm btn-outline-danger'
+            -if role.eql? 'owner'
+              %td= link_to 'Manage', account_co_user_path(@account, t.user), class: 'btn btn-sm btn-outline-primary'
+  .col-md-2
+    -if role.eql? 'owner'
+      %div
+        = link_to account_invites_path(@account), class: 'btn btn-outline-success btn-round btn-sm' do
+          %i.nc-icon.nc-simple-add
+          Invite co-user
+

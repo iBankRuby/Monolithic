@@ -1,0 +1,53 @@
+-if notice
+  %div.alert.alert-success
+    = notice
+= link_to account_management_index_url, :class => "link_back" do
+  %i.nc-icon.nc-minimal-left
+  Back to List Co-Users
+
+.row
+  .col-md-10
+    %h1 Edit co-user's rules
+    .checkbox
+      %input#checkbox1{:type => "checkbox"}/
+      %label{:for => "checkbox1"}
+        Edit
+    .form-edit
+      =render 'rules/edit_form'
+
+.row
+  .col-md-10
+    %h3 Outgoing transactions
+    -if @transactions
+      %table.table-responsive
+        %thead
+          %tr
+            %th To:
+            %th Summ:
+            %th Status:
+            %th Created:
+        %tbody
+        - @transactions.each do |t|
+          %tr
+            %td= t.remote_account_iban
+            %td= t.summ
+            %td= t.status_from
+            %td= t.created_at.to_formatted_s(:short)
+    %h3 Unconfirmed transactions
+    -if @unconfirmed
+      %table.table-responsive
+        %thead
+          %tr
+            %th To:
+            %td Summ:
+            %td From:
+            %td Created:
+        %tbody
+        - @unconfirmed.each do |t|
+          %tr
+            %td= t.remote_account_iban
+            %td= t.summ
+            %td= t.user.name
+            %td= t.created_at.to_formatted_s(:short)
+            %td= link_to 'Confirm', account_transaction_ownerapprove_path(@account, t), :method => :patch, :class => 'btn btn-sm btn-outline-success'
+            %td= link_to 'Cancel', account_transaction_cancel_path(@account, t), :method => :patch, :class => 'btn btn-sm btn-outline-danger'

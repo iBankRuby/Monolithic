@@ -1,0 +1,23 @@
+%table.table-responsive
+  %thead
+    %tr
+      %th Iban
+      %th Balance
+      %th Date created
+      %th Actions
+  %tbody
+    - @accounts.each do |account|
+      -@rule_acc = account.account_users.with_deleted.find_by(user_id: current_user.id).role.name
+      %tr
+        -if @rule_acc == "owner"
+          %td.iban #{account.iban}
+          %td.balance #{account.balance}
+          %td.date #{account.created_at.to_formatted_s(:short)}
+          -unless account.deleted_at
+            %td.actions
+              = link_to 'Show', account, :class => 'btn btn-outline-primary btn-round btn-sm'
+              = link_to 'Delete', account, :method => :delete, :data => { :confirm => 'Are you sure?' }, :class => 'btn btn-outline-danger btn-round btn-sm'
+          -if account.deleted_at?
+            %td.actions
+              = link_to 'Restore', account, :method => :patch, :class => 'btn btn-sm btn-outline-warning'
+            %td.date Frozen #{account.deleted_at.to_formatted_s(:short)}

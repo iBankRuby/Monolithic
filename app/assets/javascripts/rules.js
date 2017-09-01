@@ -1,8 +1,8 @@
-document.addEventListener('DOMContentLoaded', function() {
-    var checkbox = document.querySelector('#editable');
-    var fieldset = document.querySelector('.toggleable');
+$(document).ready(function(){
+	var checkbox = document.querySelector('#checkbox1');
+  var fieldset = document.querySelector('.toggleable');
 
-    checkbox.addEventListener('click', function() {
-        fieldset.disabled = !checkbox.checked;
-    });
-});
+  $(checkbox).click(function() {
+		fieldset.disabled = !checkbox.checked;
+	});
+})

@@ -1,29 +1,37 @@
-%h1 Accounts list
+-if notice
+  %div.alert.alert-success
+    = notice
+-if alert
+  %div.alert.alert-danger
+    =alert
+.row
+  .col-md-10
+    .nav-tabs-navigation
+      .nav-tabs-wrapper
+        = render :partial => "./accounts/tabs"            
+    / Tab panes
+    .tab-content.text-center
+      -if @tab_owner == 1
+        #owner-2.tab-pane.active{:role => "tabpanel"}
+          = render :partial => "./accounts/owner"
+      -if @tab_owner == 1 && @tab_cu == 2
+        #co-user-2.tab-pane{:role => "tabpanel"}
+          = render :partial => "./accounts/co-user"      
+      -if @tab_owner == 0 && @tab_cu == 2
+        #co-user-2.tab-pane.active{:role => "tabpanel"}
+        = render :partial => "./accounts/co-user"
+      -if @tab_owner == 0 && @tab_cu == 0
+        %h5 You don't have any accounts
 
-%table.table-responsive
-  %thead
-    %tr
-      %th Iban
-      %th Balance
-      %th Date created
-      %th Actions
+  .col-md-2
+    = form_for new_account_path do |f|
+      = f.submit 'New Account', :class => 'btn btn-outline-success btn-round'
+    = link_to 'Change User info', edit_user_registration_path, :class => 'btn btn-sm btn-outline-primary waves-effect'
 
-  %tbody
-    - @accounts.each do |account|
-      %tr
-        %td.iban #{account.iban}
-        %td.balance #{account.balance}
-        %td.date #{account.created_at.to_formatted_s(:short)}
-        %td.actions
-          = link_to 'Show', account, :class => 'btn btn-sm btn-info'
-          -#= link_to 'Edit', edit_account_path(account), :class => 'btn btn-sm btn-warning'
-          = link_to 'Destroy', account, :method => :delete, :data => { :confirm => 'Are you sure?' }, :class => 'btn btn-sm btn-danger'
-
-= link_to 'New Account', new_account_path, :class => 'btn btn-primary'
 %div
-%h3 Invitations
--if @invites
-  %table
+-unless @invites.to_a.empty?
+  %h3 Invitations
+  %table.table-responsive
     %thead
       %tr
         %th From user_id:
@@ -35,5 +43,25 @@
       %tr
         %td= invite.user_from_id
         %td= invite.account.iban
-        %td= link_to 'Submit', account_invite_path(invite.account_id, invite.id, invite: { status: true }), method: :patch, class: 'btn btn-sm btn-info'
-        %td= link_to 'Reject', account_invite_path(invite.account_id, invite.id, invite: { status: false }), method: :patch, class: 'btn btn-sm btn-danger'
+        %td= link_to 'Submit', account_invite_confirm_path(invite.account_id, invite.id), method: :patch, class: 'btn btn-sm btn-outline-success'
+        %td= link_to 'Reject', account_invite_reject_path(invite.account_id, invite.id), method: :patch, class: 'btn btn-sm btn-outline-danger'
+%div
+
+-unless @exceeding_request.to_a.empty?
+  %h3 Exceeding requests
+  %table
+    %thead
+      %tr
+        %th Account
+        %th User
+        %th Amount
+        %th Actions
+    %tbody
+    - @exceeding_request.each do |request|
+      %tr
+        %td= request.account.iban
+        %td= request.user.name
+        %td= request.amount
+        %td
+          = link_to 'Accept invite', account_exceeding_request_path(request.account.id, request.id, exceeding_request: { status: true }), method: :patch, class: 'btn btn-sm btn-outline-primary'
+          = link_to 'Reject', account_exceeding_request_path(request.account.id, request.id, exceeding_request: { status: false }), method: :patch, class: 'btn btn-sm btn-outline-danger'

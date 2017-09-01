@@ -10,8 +10,132 @@
  * files in this directory. Styles in this file should be added after the last require_* statement.
  * It is generally better to create a new file per style scope.
  *
- *= require_tree .
  *= require_self
+ *= require bootstrap.min
+ *= require nucleo-icons
+ *= require jquery-ui.min
+ *= require jquery-ui.theme.min
+ *= require accounts
  */
 
-@import "bootstrap";
+
+@import "paper-kit/variables";
+@import "paper-kit/mixins";
+
+@import "paper-kit/typography";
+
+// Core CSS
+@import "paper-kit/misc";
+@import "paper-kit/buttons";
+@import "paper-kit/inputs";
+@import "paper-kit/progress-bars";
+@import "paper-kit/sliders";
+@import "paper-kit/alerts";
+@import "paper-kit/labels";
+@import "paper-kit/tooltips-and-popovers";
+@import "paper-kit/sections";
+@import "paper-kit/checkbox-radio";
+@import "paper-kit/navbars";
+@import "paper-kit/images";
+@import "paper-kit/cards";
+@import "paper-kit/footers";
+
+
+// Bootstrap Switch
+@import "paper-kit/bootstrap-switch";
+
+// Fancy Stuff
+@import "paper-kit/dropdown";
+//
+// icons
+@import "paper-kit/icons";
+//
+@import "paper-kit/tabs-navs-pagination";
+@import "paper-kit/collapse";
+@import "paper-kit/carousel";
+@import "paper-kit/modal";
+//
+@import "paper-kit/responsive";
+@import "paper-kit/plugins/datetimepicker";
+@import "paper-kit/social-buttons";
+@import "paper-kit/examples";
+
+
+body {
+    display: flex;
+    flex-direction: column;
+    .container {
+        flex: 1 auto;
+    }
+}
+
+/* Nav */
+
+
+
+h5.name_user {
+  line-height: 56px;
+  margin: 0 15px 0 0;
+}
+
+.navbar-right {
+  p.txt_logout {
+    display: none;
+  }
+  a.logout:hover {
+    p.txt_logout {
+      display: block;
+      margin: 0;
+      color: #fff;
+    }
+  }
+}
+
+/* Form Sign Up */
+input#user_password{
+  margin-bottom: 2px;
+}
+.input-field em#length_pass{
+  color: rgba(0, 0, 0, 0.15);
+}
+.form_auth{
+  margin: auto;
+  .actions{
+    margin-top: 15px;
+  }
+}
+
+.row.content{
+  margin-top: 20px;
+}
+.table-responsive td,
+.table-responsive th{
+  text-align: left;
+  padding-right: 40px;
+  padding-bottom: 8px;
+}
+#date_from, #date_to{
+  width: 100%;
+}
+table,
+.form_block form {
+  width: 100%;
+}
+.hidden-div{
+  display: none;
+}
+.hidden-list{
+  display: flex;
+  flex-direction: column;
+}
+button.btn.btn-outline-success.btn-round p{
+  margin-bottom: 0;
+}
+
+.btn {
+  margin-bottom: 10px;
+}
+.statistics-list 
+  .nav-tabs-navigation, .tab-content{
+  width: 100%;
+}

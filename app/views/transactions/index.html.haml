@@ -1,19 +1,33 @@
-%h1 Listing transactions
+%h3 Transactions
+-if @transactions
+	%table
+		%thead
+			%tr
+				%th User:
+				%th From:
+				%th To:
+				%th Summ:
+				%th Created:
+		%tbody
+		- @transactions.each do |t|
+			%tr
+				%td= t.user.email
+				%td= t.account.iban
+				%td= t.remote_account_iban
+				%td= t.summ
+				%td= t.created_at.to_formatted_s(:short)
 
-%table.table-responsive
-  %thead
-    %tr
-      %th
-      %th
-      %th
+.col-md-12
+	.col.s8.input-field
 
-  %tbody
-    - @transactions.each do |transaction|
-      %tr
-        %td= link_to 'Show', account_transactions
-        %td= link_to 'Edit', edit_account_transaction(@transaction)
-        %td= link_to 'Destroy', account_transaction, :method => :delete, :data => { :confirm => 'Are you sure?' }
-
-%br
-
-= link_to 'New Transaction', accounts_paths
+		= text_field_tag :datepicker, nil, class: "datepicker"
+	.col.s2.input-field
+		= label_tag :title, 'Month'
+		= text_field_tag :month
+	.col.s2.input-field
+		= label_tag :title, 'Day'
+		= text_field_tag :day
+	.col.s12.input-field
+		= label_tag :title, 'Amount'
+		= text_field_tag :summ
+	= submit_tag 'Send'

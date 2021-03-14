@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170802163422) do
+ActiveRecord::Schema.define(version: 20170809092603) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -29,10 +29,19 @@ ActiveRecord::Schema.define(version: 20170802163422) do
   end
 
   create_table "accounts", force: :cascade do |t|
-    t.decimal "iban", precision: 16
     t.float "balance"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.string "iban"
+  end
+
+  create_table "exceeding_requests", force: :cascade do |t|
+    t.decimal "amount", precision: 10, scale: 2
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.bigint "account_user_id"
+    t.boolean "status"
+    t.index ["account_user_id"], name: "index_exceeding_requests_on_account_user_id"
   end
 
   create_table "invites", force: :cascade do |t|
@@ -45,8 +54,17 @@ ActiveRecord::Schema.define(version: 20170802163422) do
     t.index ["account_id"], name: "index_invites_on_account_id"
   end
 
+  create_table "limits", force: :cascade do |t|
+    t.integer "remainder", default: 50
+    t.boolean "movable", default: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
   create_table "roles", force: :cascade do |t|
     t.string "name"
+    t.bigint "limit_id"
+    t.index ["limit_id"], name: "index_roles_on_limit_id"
   end
 
   create_table "rules", force: :cascade do |t|
@@ -60,8 +78,8 @@ ActiveRecord::Schema.define(version: 20170802163422) do
     t.bigint "account_id"
     t.string "remote_account_id"
     t.float "summ"
-    t.boolean "status_from"
-    t.boolean "status_to"
+    t.boolean "status_from", default: true
+    t.boolean "status_to", default: false
     t.datetime "checkout_from"
     t.datetime "checkout_to"
     t.datetime "created_at", null: false
@@ -84,6 +102,9 @@ ActiveRecord::Schema.define(version: 20170802163422) do
     t.datetime "last_sign_in_at"
     t.inet "current_sign_in_ip"
     t.inet "last_sign_in_ip"
+    t.string "confirmation_token"
+    t.datetime "confirmed_at"
+    t.datetime "confirmation_sent_at"
     t.integer "failed_attempts", default: 0, null: false
     t.string "unlock_token"
     t.datetime "locked_at"
@@ -93,4 +114,6 @@ ActiveRecord::Schema.define(version: 20170802163422) do
 
   add_foreign_key "account_users", "roles"
   add_foreign_key "account_users", "rules"
+  add_foreign_key "exceeding_requests", "account_users"
+  add_foreign_key "roles", "limits"
 end

@@ -1,6 +1,8 @@
+# frozen_string_literal: true
+
 class RulesController < ApplicationController
   before_action :set_rule, only: %i[edit update]
-  before_action :set_account, only: :index
+  before_action :set_account, only: %i[index create]
 
   attr_reader :rule, :rules, :account
 
@@ -14,7 +16,7 @@ class RulesController < ApplicationController
 
   def create
     @rule = Rule.new(rule_params)
-
+    rule.account_user = AccountUser.find_by(account_id: account.id, user_id: current_user.id)
     if rule.save
       redirect_to :account_rules
     else

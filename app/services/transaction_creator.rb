@@ -1,54 +1,33 @@
+# frozen_string_literal: true
+
 class TransactionCreator
-  # interface
-  # def self.create_transaction(params, user)
-  #   transaction_creator = new(params, user)
-  #   transaction_creator.create_transaction
-  #   transaction_creator.account
-  # end
+  attr_reader :params, :user, :account, :account_user, :role
 
-  attr_reader :params, :user, :account
+  include TransactionService
 
-  def initialize(params, user)
-    @params = params
-    @user = user
+  def initialize(args)
+    @params = args[:params]
+    @user = args[:user]
+    @account_user ||= AccountUser.find_by(user_id: user.id, account_id: account_from.id)
   end
 
   def create_transaction
     ActiveRecord::Base.transaction do
-      create_transaction_object
-      update_account_from
-      update_account_to
+      validator = TransactionValidator.new(self)
+      if validator.valid?
+        create_transaction_object
+        transact
+      end
     end
 
     @account = account_from
   end
 
-  private
-
-  # implementation
-
-  def create_transaction_object
-    Transaction.create(remote_account_id: params[:account],
-                       summ: summ,
-                       status_from: true,
-                       status_to: false,
-                       user: user,
-                       account: account_from)
+  def check_creds
+    # expired = params[:account_to].valid_thru
+    # params[:day] != expired.strftime('%d') && params[:month] != expired.strftime('%m')
+    true
   end
-
-  def update_account_from
-    account_from.balance -= summ
-    account_from.save!
-  end
-
-  def update_account_to
-    account_to.balance += summ
-    account_to.save!
-  end
-
-  # def user
-  #   @user ||= User.find(current_user.id)
-  # end
 
   def account_from
     @account_from ||= Account.find(params[:account_id])
@@ -58,7 +37,30 @@ class TransactionCreator
     @account_to ||= Account.find_by(iban: params[:account])
   end
 
+  def remainder
+    @remainder ||= account_user.limit.remainder if role.eql? 'co-user'
+  end
+
+  def role
+    @role ||= account_user.role.name
+  end
+
   def summ
     params[:summ].to_f
   end
+
+  private
+
+  def create_transaction_object
+    Transaction.create(remote_account_id: params[:account],
+    summ: summ,
+    status_from: true,
+    status_to: false,
+    user: user,
+    account: account_from)
+  end
+
+  # def role
+  #   @role ||= account_user.role.name
+  # end
 end

@@ -1,8 +1,14 @@
-=notice
+%p#notice= notice
+= link_to accounts_url, :class => "waves-effect waves-light link_back" do
+  %i.material-icons keyboard_arrow_left
+  Back to Accounts Page
 
 =form_for :invite do |f|
   =f.text_field :email, placeholder: 'Enter email'
   =f.submit 'Make invite'
+
+/ %h1 Add rules to new co-user
+/ =render 'rules/new_form'
 
 %ul
   -@invites.each do |invite|

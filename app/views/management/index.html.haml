@@ -1,0 +1,27 @@
+%p#notice= notice
+- role = @account_users[:role]
+%h1 #{role}
+= link_to account_url(@account), class: "waves-effect waves-light link_back" do
+	%i.material-icons keyboard_arrow_left
+	Back to Accounts Management
+%h3 Account users
+-if @account_users[:account_users]
+	%table
+		%thead
+			%tr
+				%th Email:
+				%th Role type:
+				%th Remainder:
+		%tbody
+		- @account_users[:account_users].each do |t|
+			%tr
+				%td= t.user.email
+				%td= t.role.name
+				%td= t.limit.remainder
+				%td= link_to 'Destroy', account_management_path(@account, t), method: :delete, class: 'btn btn-sm btn-danger'
+				-if role.eql? 'owner'
+					%td= link_to 'Manage', account_co_user_path(@account, t.user), class: 'btn btn-sm btn-danger'
+
+-if role.eql? 'owner'
+	%div
+	= link_to 'Invite co-user', account_invites_path(@account)

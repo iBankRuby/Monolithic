@@ -29,6 +29,18 @@ RSpec.describe AccountsController, type: :controller do
     end
   end
 
+  describe 'GET index' do
+    it 'has a 200 status code' do
+      get :index, params: {id: account.id }
+      expect(response).to have_http_status :ok
+    end
+
+    it 'render index template' do
+      get :index, params: {id: account.id }
+      expect(response).to render_template :index
+    end
+  end
+
   describe 'GET show' do
     it 'has a 200 status code' do
       get :show, params: { id: account.id }

@@ -12,15 +12,23 @@ gem 'dotenv'
 gem 'forgery'
 gem 'hamlit'
 gem 'hamlit-rails'
+gem 'ibandit', '~> 0.11.5'
 gem 'jbuilder', '~> 2.5'
+gem 'jquery-rails'
+gem 'jquery-turbolinks'
+gem 'materialize-sass'
 gem 'pg'
 gem 'puma', '~> 3.7'
 gem 'rails', '~> 5.1.2'
+gem 'rails_12factor', group: :production
 gem 'sass-rails', '~> 5.0'
-gem 'sendgrid-actionmailer'
 gem 'turbolinks', '~> 5'
 gem 'uglifier', '>= 1.3.0'
+gem 'materialize-sass'
 
+group :assets do
+  gem 'coffee-rails'
+end
 group :development do
   gem 'better_errors'
   gem 'binding_of_caller'
